@@ -14,48 +14,63 @@ import {
   Eye,
   EyeOff,
   Gem,
+  HandCoins,
   Home,
   Landmark,
   LayoutGrid,
+  LogOut,
   Minus,
   MoreHorizontal,
   Plus,
   RefreshCw,
-  Settings,
   ShieldCheck,
-  Sparkles,
   Trash2,
   WalletCards,
   X,
 } from 'lucide-react'
+import { fetchMe, logoutAccount } from './api/auth'
+import { createAssetRecord, deleteAssetRecord, fetchAssets, updateAssetRecord } from './api/assets'
+import { fetchPrice } from './api/prices'
+import AuthScreen from './AuthScreen'
+import { useMarketPrices } from './hooks/useMarketPrices'
 
 const STORAGE_KEY = 'bolkese-assets-v2'
+const MANUAL_CODES = new Set(['TRY'])
+const CODE_MIGRATE = {
+  XAU: 'ALTIN',
+  USD: 'USDTRY',
+  EUR: 'EURTRY',
+  GA: 'ALTIN',
+}
 
 const PRESETS = [
   {
     key: 'gold',
     name: 'Gram Altın',
-    code: 'XAU',
+    code: 'ALTIN',
     unit: 'gram',
-    price: 6245.4,
+    price: 0,
+    ask: 0,
     icon: 'gold',
     color: '#D69A29',
   },
   {
     key: 'usd',
     name: 'Amerikan Doları',
-    code: 'USD',
+    code: 'USDTRY',
     unit: 'adet',
-    price: 44.18,
+    price: 0,
+    ask: 0,
     icon: 'usd',
     color: '#159478',
   },
   {
     key: 'eur',
     name: 'Euro',
-    code: 'EUR',
+    code: 'EURTRY',
     unit: 'adet',
-    price: 51.93,
+    price: 0,
+    ask: 0,
     icon: 'eur',
     color: '#3867D6',
   },
@@ -65,6 +80,7 @@ const PRESETS = [
     code: 'TRY',
     unit: 'TL',
     price: 1,
+    ask: 1,
     icon: 'cash',
     color: '#D6575D',
   },
@@ -74,15 +90,16 @@ const PRESETS = [
     code: 'VAR',
     unit: 'adet',
     price: 0,
+    ask: 0,
     icon: 'other',
     color: '#7C5CC4',
   },
 ]
 
-const MARKET_ITEMS = [
-  { name: 'Gram Altın', code: 'GA', price: 6245.4, change: 1.18, icon: 'gold' },
-  { name: 'Dolar', code: 'USD', price: 44.18, change: 0.21, icon: 'usd' },
-  { name: 'Euro', code: 'EUR', price: 51.93, change: -0.34, icon: 'eur' },
+const MARKET_WATCHLIST = [
+  { name: 'Gram Altın', code: 'ALTIN', icon: 'gold' },
+  { name: 'Dolar', code: 'USDTRY', icon: 'usd' },
+  { name: 'Euro', code: 'EURTRY', icon: 'eur' },
 ]
 
 const iconMap = {
@@ -106,11 +123,66 @@ function formatNumber(value) {
   return new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 4 }).format(value)
 }
 
-function timeNow() {
+function timeNow(date = new Date()) {
   return new Intl.DateTimeFormat('tr-TR', {
     hour: '2-digit',
     minute: '2-digit',
-  }).format(new Date())
+  }).format(date)
+}
+
+function migrateAssets(assets) {
+  return assets.map((asset) => {
+    const code = CODE_MIGRATE[asset.code] || asset.code
+    const price = code === 'TRY' ? 1 : Number(asset.price) || 0
+    return {
+      ...asset,
+      code,
+      price,
+      ask: Number(asset.ask) || price,
+    }
+  })
+}
+
+function loadStoredAssets() {
+  try {
+    return migrateAssets(JSON.parse(localStorage.getItem(STORAGE_KEY)) || [])
+  } catch {
+    return []
+  }
+}
+
+function initials(name) {
+  const parts = String(name || '').trim().split(/\s+/).filter(Boolean)
+  if (!parts.length) return '?'
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase()
+  return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase()
+}
+
+async function migrateLocalAssets() {
+  const stored = loadStoredAssets()
+  if (!stored.length) return []
+
+  const created = []
+  for (const asset of stored) {
+    const { asset: row } = await createAssetRecord({
+      name: asset.name,
+      code: asset.code,
+      unit: asset.unit,
+      amount: asset.amount,
+      icon: asset.icon,
+      color: asset.color,
+      key: asset.key,
+      price: asset.price,
+      ask: asset.ask,
+    })
+    created.push(row)
+  }
+  localStorage.removeItem(STORAGE_KEY)
+  return created
+}
+
+function isManualCode(code) {
+  return MANUAL_CODES.has(code)
 }
 
 function IconBadge({ icon, color, size = 'normal' }) {
@@ -154,33 +226,108 @@ function Modal({ children, onClose, labelledBy }) {
   )
 }
 
+function PricePair({ bid, ask, hidden, change }) {
+  const hasChange = typeof change === 'number' && change !== 0
+  const positive = (change || 0) >= 0
+
+  return (
+    <div className="price-pair">
+      <span>Alış: {formatTRY(bid, hidden)}</span>
+      <span>Satış: {formatTRY(ask, hidden)}</span>
+      {hasChange && (
+        <span className={positive ? 'change-up' : 'change-down'}>
+          {positive ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
+          %{Math.abs(change).toFixed(2)}
+        </span>
+      )}
+    </div>
+  )
+}
+
 function AddAssetModal({ onClose, onCreate }) {
   const [selectedKey, setSelectedKey] = useState('gold')
   const selected = PRESETS.find((item) => item.key === selectedKey)
   const [form, setForm] = useState({ ...selected })
+  const [live, setLive] = useState(false)
+  const [lookup, setLookup] = useState('')
 
   const choosePreset = (preset) => {
     setSelectedKey(preset.key)
     setForm({ ...preset })
+    setLive(false)
+    setLookup('')
   }
 
   const updateField = (field, value) => {
     setForm((current) => ({ ...current, [field]: value }))
   }
 
+  useEffect(() => {
+    const code = form.code.trim()
+    if (!code || isManualCode(code.toUpperCase())) {
+      setLive(false)
+      setLookup('')
+      return undefined
+    }
+
+    let cancelled = false
+    const requestId = window.setTimeout(async () => {
+      setLookup('loading')
+      try {
+        const quote = await fetchPrice(code)
+        if (cancelled) return
+        if (!quote) {
+          setLive(false)
+          setLookup('missing')
+          return
+        }
+        setForm((current) => ({
+          ...current,
+          price: quote.bid,
+          ask: quote.ask,
+        }))
+        setLive(true)
+        setLookup('live')
+      } catch {
+        if (cancelled) return
+        setLive(false)
+        setLookup('error')
+      }
+    }, 350)
+
+    return () => {
+      cancelled = true
+      window.clearTimeout(requestId)
+    }
+  }, [form.code])
+
   const handleSubmit = (event) => {
     event.preventDefault()
     if (!form.name.trim() || !form.code.trim()) return
+    const code = form.code.trim().toUpperCase()
     onCreate({
       ...form,
       id: crypto.randomUUID(),
       name: form.name.trim(),
-      code: form.code.trim().toUpperCase(),
+      code,
       amount: 0,
-      price: Number(form.price) || 0,
+      price: code === 'TRY' ? 1 : Number(form.price) || 0,
+      ask: code === 'TRY' ? 1 : Number(form.ask) || Number(form.price) || 0,
       change: 0,
     })
   }
+
+  const locked = live || isManualCode(form.code.trim().toUpperCase())
+  const note = (() => {
+    if (isManualCode(form.code.trim().toUpperCase())) {
+      return 'Türk lirası için fiyat her zaman 1 ₺ olarak kalır.'
+    }
+    if (lookup === 'loading') return 'Bu kod için fiyat sorgulanıyor…'
+    if (lookup === 'live') return 'Bu kod için fiyat altinapi’den geliyor.'
+    if (lookup === 'missing') return 'Bu kod API’de yok. Alış fiyatını elle girebilirsiniz.'
+    if (lookup === 'error') return 'Fiyat alınamadı. Alış fiyatını elle girebilirsiniz.'
+    return 'Kod girildiğinde alış ve satış fiyatı otomatik doldurulur.'
+  })()
 
   return (
     <Modal onClose={onClose} labelledBy="add-asset-title">
@@ -228,8 +375,8 @@ function AddAssetModal({ onClose, onCreate }) {
             <input
               value={form.code}
               onChange={(event) => updateField('code', event.target.value)}
-              placeholder="XAU"
-              maxLength={6}
+              placeholder="ALTIN"
+              maxLength={32}
               required
             />
           </label>
@@ -242,7 +389,9 @@ function AddAssetModal({ onClose, onCreate }) {
               required
             />
           </label>
-          <label>
+        </div>
+        <div className="price-fields">
+          <label className="price-field">
             <span>Güncel alış fiyatı</span>
             <div className="input-with-suffix">
               <input
@@ -250,17 +399,33 @@ function AddAssetModal({ onClose, onCreate }) {
                 min="0"
                 step="0.01"
                 value={form.price}
+                readOnly={locked}
                 onChange={(event) => updateField('price', event.target.value)}
                 aria-label="Güncel alış fiyatı Türk lirası"
               />
               <span>₺</span>
             </div>
           </label>
+          <label className="price-field">
+            <span>Güncel satış fiyatı</span>
+            <div className="input-with-suffix">
+              <input
+                type="number"
+                min="0"
+                step="0.01"
+                value={form.ask}
+                readOnly={locked}
+                onChange={(event) => updateField('ask', event.target.value)}
+                aria-label="Güncel satış fiyatı Türk lirası"
+              />
+              <span>₺</span>
+            </div>
+          </label>
         </div>
 
-        <div className="api-note">
+        <div className={`api-note ${lookup === 'error' ? 'api-note--warn' : ''}`}>
           <RefreshCw size={17} />
-          <span>API bağlandığında alış fiyatı bu alanda otomatik güncellenecek.</span>
+          <span>{note}</span>
         </div>
 
         <div className="modal-actions">
@@ -277,12 +442,20 @@ function AddAssetModal({ onClose, onCreate }) {
   )
 }
 
-function UpdateAssetModal({ asset, onClose, onSave, onDelete }) {
+function UpdateAssetModal({ asset, live, onClose, onSave, onDelete }) {
   const [amount, setAmount] = useState(asset.amount)
   const [price, setPrice] = useState(asset.price)
+  const [ask, setAsk] = useState(asset.ask ?? asset.price)
+
+  useEffect(() => {
+    if (!live) return
+    setPrice(asset.price)
+    setAsk(asset.ask ?? asset.price)
+  }, [live, asset.price, asset.ask])
 
   const step = asset.unit === 'gram' ? 1 : asset.unit === 'TL' ? 100 : 1
-  const total = Math.max(0, Number(amount) || 0) * (Number(price) || 0)
+  const bid = live ? asset.price : Number(price) || 0
+  const total = Math.max(0, Number(amount) || 0) * bid
 
   return (
     <Modal onClose={onClose} labelledBy="update-asset-title">
@@ -338,19 +511,48 @@ function UpdateAssetModal({ asset, onClose, onSave, onDelete }) {
         </div>
       </div>
 
-      <label className="price-field">
-        <span>Güncel alış fiyatı</span>
-        <div className="input-with-suffix">
-          <input
-            type="number"
-            min="0"
-            step="0.01"
-            value={price}
-            onChange={(event) => setPrice(event.target.value)}
-          />
-          <span>₺</span>
+      <div className="price-fields">
+        <label className="price-field">
+          <span>Güncel alış fiyatı</span>
+          <div className="input-with-suffix">
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              value={live ? asset.price : price}
+              readOnly={live}
+              onChange={(event) => setPrice(event.target.value)}
+            />
+            <span>₺</span>
+          </div>
+        </label>
+        <label className="price-field">
+          <span>Güncel satış fiyatı</span>
+          <div className="input-with-suffix">
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              value={live ? (asset.ask ?? asset.price) : ask}
+              readOnly={live}
+              onChange={(event) => setAsk(event.target.value)}
+              aria-label="Güncel satış fiyatı Türk lirası"
+            />
+            <span>₺</span>
+          </div>
+        </label>
+      </div>
+
+      {live && (
+        <div className="api-note">
+          <RefreshCw size={17} />
+          <span>
+            {isManualCode(asset.code)
+              ? 'Türk lirası için fiyat her zaman 1 ₺ olarak kalır.'
+              : 'Alış ve satış fiyatı canlı güncellenir. Yalnızca miktarı değiştirin.'}
+          </span>
         </div>
-      </label>
+      )}
 
       <div className="calculated-total">
         <span>Güncel toplam değer</span>
@@ -365,7 +567,12 @@ function UpdateAssetModal({ asset, onClose, onSave, onDelete }) {
         <button
           type="button"
           className="button button--primary"
-          onClick={() => onSave(asset.id, Number(amount) || 0, Number(price) || 0)}
+          onClick={() => onSave(
+            asset.id,
+            Number(amount) || 0,
+            Number(live ? asset.price : price) || 0,
+            Number(live ? asset.ask : ask) || 0,
+          )}
         >
           Değişiklikleri kaydet
         </button>
@@ -396,7 +603,6 @@ function EmptyState({ onAdd }) {
 function AssetCard({ asset, hidden, onOpen }) {
   const Icon = iconMap[asset.icon] || Gem
   const total = asset.amount * asset.price
-  const positive = asset.change >= 0
 
   return (
     <button className="asset-card" onClick={() => onOpen(asset)}>
@@ -412,35 +618,92 @@ function AssetCard({ asset, hidden, onOpen }) {
       </div>
       <div className="asset-total">{formatTRY(total, hidden)}</div>
       <div className="asset-meta">
-        <span>Alış: {formatTRY(asset.price, hidden)}</span>
-        {asset.change !== 0 && (
-          <span className={positive ? 'change-up' : 'change-down'}>
-            {positive ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
-            %{Math.abs(asset.change).toFixed(2)}
-          </span>
-        )}
+        <PricePair bid={asset.price} ask={asset.ask ?? asset.price} hidden={hidden} change={asset.change} />
       </div>
     </button>
   )
 }
 
 function App() {
-  const [assets, setAssets] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []
-    } catch {
-      return []
-    }
-  })
-  const [modal, setModal] = useState(null)
-  const [hidden, setHidden] = useState(false)
-  const [lastUpdated, setLastUpdated] = useState(() => timeNow())
-  const [toast, setToast] = useState('')
-  const [activeNav, setActiveNav] = useState('home')
+  const [user, setUser] = useState(null)
+  const [authReady, setAuthReady] = useState(false)
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(assets))
-  }, [assets])
+    fetchMe()
+      .then((result) => setUser(result.user))
+      .catch(() => setUser(null))
+      .finally(() => setAuthReady(true))
+  }, [])
+
+  if (!authReady) {
+    return <div className="boot-screen">BolKese yükleniyor…</div>
+  }
+
+  if (!user) {
+    return <AuthScreen onAuth={setUser} />
+  }
+
+  return (
+    <Portfolio
+      user={user}
+      onLogout={() => setUser(null)}
+    />
+  )
+}
+
+function Portfolio({ user, onLogout }) {
+  const [assets, setAssets] = useState([])
+  const [modal, setModal] = useState(null)
+  const [hidden, setHidden] = useState(false)
+  const [toast, setToast] = useState('')
+  const [activeNav, setActiveNav] = useState('home')
+  const { quotes, loading, error, stale, updatedAt, refresh } = useMarketPrices()
+
+  useEffect(() => {
+    let cancelled = false
+
+    fetchAssets()
+      .then(async ({ assets: rows }) => {
+        if (cancelled) return
+        if (!rows.length) {
+          try {
+            const migrated = await migrateLocalAssets()
+            if (!cancelled && migrated.length) {
+              setAssets(migrated)
+              setToast('Bu cihazdaki kategoriler hesabınıza taşındı.')
+              return
+            }
+          } catch {
+            // keep empty list if migration fails
+          }
+        }
+        if (!cancelled) setAssets(migrateAssets(rows))
+      })
+      .catch((err) => {
+        if (!cancelled) setToast(err.message || 'Kategoriler alınamadı.')
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [user.id])
+
+  useEffect(() => {
+    if (!quotes.size) return
+    setAssets((current) => current.map((asset) => {
+      if (isManualCode(asset.code)) {
+        return { ...asset, price: 1, ask: 1 }
+      }
+      const quote = quotes.get(asset.code)
+      if (!quote) return asset
+      return {
+        ...asset,
+        price: quote.bid,
+        ask: quote.ask,
+        change: quote.change == null ? 0 : Number(quote.change.toFixed(2)),
+      }
+    }))
+  }, [quotes])
 
   useEffect(() => {
     if (!toast) return undefined
@@ -453,49 +716,107 @@ function App() {
     [assets],
   )
 
-  const dailyChange = useMemo(
-    () => assets.reduce((sum, asset) => sum + asset.amount * asset.price * (asset.change / 100), 0),
+  const recordedChange = useMemo(
+    () => assets.reduce((sum, asset) => sum + asset.amount * asset.price * ((asset.change || 0) / 100), 0),
     [assets],
   )
 
-  const createAsset = (asset) => {
-    setAssets((current) => [...current, asset])
-    setModal({ type: 'update', asset })
-    setToast('Kategori oluşturuldu. Şimdi miktarınızı girebilirsiniz.')
+  const createAsset = async (asset) => {
+    try {
+      const { asset: created } = await createAssetRecord({
+        name: asset.name,
+        code: asset.code,
+        unit: asset.unit,
+        amount: 0,
+        icon: asset.icon,
+        color: asset.color,
+        key: asset.key,
+        price: asset.price,
+        ask: asset.ask,
+      })
+      setAssets((current) => [...current, created])
+      setModal({ type: 'update', asset: created })
+      setToast('Kategori oluşturuldu. Şimdi miktarınızı girebilirsiniz.')
+    } catch (err) {
+      setToast(err.message || 'Kategori oluşturulamadı.')
+    }
   }
 
-  const saveAsset = (id, amount, price) => {
-    setAssets((current) => current.map((asset) => (
-      asset.id === id ? { ...asset, amount, price } : asset
-    )))
-    setModal(null)
-    setToast('Varlık miktarınız güncellendi.')
-  }
-
-  const deleteAsset = (id) => {
-    setAssets((current) => current.filter((asset) => asset.id !== id))
-    setModal(null)
-    setToast('Kategori kaldırıldı.')
-  }
-
-  const refreshPrices = () => {
-    setAssets((current) => current.map((asset) => {
-      if (asset.code === 'TRY') return asset
-      const change = Number(((Math.random() - 0.36) * 1.4).toFixed(2))
-      return {
-        ...asset,
-        price: Number((asset.price * (1 + change / 100)).toFixed(2)),
-        change,
+  const saveAsset = async (id, amount, price, ask) => {
+    try {
+      const current = assets.find((asset) => asset.id === id)
+      const payload = { amount }
+      if (current && !isManualCode(current.code) && !quotes.has(current.code)) {
+        payload.price = price
+        payload.ask = ask
       }
-    }))
-    setLastUpdated(timeNow())
-    setToast(assets.length ? 'Demo piyasa fiyatları yenilendi.' : 'Henüz yenilenecek bir kategori yok.')
+      const { asset: saved } = await updateAssetRecord(id, payload)
+      setAssets((list) => list.map((asset) => {
+        if (asset.id !== saved.id) return asset
+        return {
+          ...saved,
+          price: quotes.has(saved.code) ? asset.price : saved.price,
+          ask: quotes.has(saved.code) ? asset.ask : saved.ask,
+          change: asset.change,
+        }
+      }))
+      setModal(null)
+      setToast('Varlık miktarınız güncellendi.')
+    } catch (err) {
+      setToast(err.message || 'Kategori güncellenemedi.')
+    }
+  }
+
+  const deleteAsset = async (id) => {
+    try {
+      await deleteAssetRecord(id)
+      setAssets((current) => current.filter((asset) => asset.id !== id))
+      setModal(null)
+      setToast('Kategori kaldırıldı.')
+    } catch (err) {
+      setToast(err.message || 'Kategori silinemedi.')
+    }
+  }
+
+  const refreshPrices = async () => {
+    const result = await refresh()
+    if (result.ok) {
+      setToast('Piyasa fiyatları yenilendi.')
+      return
+    }
+    setToast(result.message || 'Fiyatlar alınamadı.')
+  }
+
+  const handleLogout = async () => {
+    try {
+      await logoutAccount()
+    } catch {
+      // cookie may already be gone
+    }
+    onLogout()
   }
 
   const handleNav = (item) => {
+    if (item === 'settings') {
+      handleLogout()
+      return
+    }
     setActiveNav(item)
     if (item !== 'home') setToast('Bu bölüm tasarımın sonraki ekranı için hazır.')
   }
+
+  const lastUpdatedLabel = updatedAt ? timeNow(updatedAt) : '—'
+  const syncClass = error ? 'sync-status sync-status--error' : stale ? 'sync-status sync-status--stale' : 'sync-status'
+  const syncText = error
+    ? error
+    : stale
+      ? `Veri gecikmeli · ${lastUpdatedLabel}`
+      : loading && !updatedAt
+        ? 'Fiyatlar yükleniyor…'
+        : `Son güncelleme ${lastUpdatedLabel}`
+  const editingAsset = modal?.type === 'update'
+    ? assets.find((asset) => asset.id === modal.asset.id) || modal.asset
+    : null
 
   return (
     <div className="app-shell">
@@ -526,20 +847,22 @@ function App() {
             <ShieldCheck size={20} />
             <div>
               <strong>Verileriniz güvende</strong>
-              <span>Bu cihazda saklanır</span>
+              <span>Hesabınızda saklanır</span>
             </div>
           </div>
-          <button className="settings-link" onClick={() => handleNav('settings')}>
-            <Settings size={18} />
-            Ayarlar
+          <button className="settings-link" onClick={handleLogout}>
+            <LogOut size={18} />
+            Çıkış yap
           </button>
           <div className="profile">
-            <span className="avatar">İY</span>
+            <span className="avatar">{initials(user.name)}</span>
             <div>
-              <strong>İsmail Yasar</strong>
-              <span>Kişisel portföy</span>
+              <strong>{user.name}</strong>
+              <span>{user.email}</span>
             </div>
-            <MoreHorizontal size={18} />
+            <button className="profile-logout" onClick={handleLogout} aria-label="Çıkış yap">
+              <LogOut size={18} />
+            </button>
           </div>
         </div>
       </aside>
@@ -574,11 +897,11 @@ function App() {
             <div className="balance-change">
               {assets.length > 0 ? (
                 <>
-                  <span className={dailyChange >= 0 ? 'balance-pill' : 'balance-pill balance-pill--down'}>
-                    {dailyChange >= 0 ? <ArrowUpRight size={15} /> : <ArrowDownRight size={15} />}
-                    {formatTRY(Math.abs(dailyChange), hidden)}
+                  <span className={recordedChange >= 0 ? 'balance-pill' : 'balance-pill balance-pill--down'}>
+                    {recordedChange >= 0 ? <ArrowUpRight size={15} /> : <ArrowDownRight size={15} />}
+                    {formatTRY(Math.abs(recordedChange), hidden)}
                   </span>
-                  <span>dünden bugüne</span>
+                  <span>son kayda göre</span>
                 </>
               ) : (
                 <span>İlk kategorinizi eklediğinizde portföyünüz burada görünecek.</span>
@@ -592,9 +915,9 @@ function App() {
                 <i key={index} style={{ height: `${height}%` }} />
               ))}
             </div>
-            <div className="sync-status">
+            <div className={syncClass}>
               <span className="live-dot" />
-              Son güncelleme {lastUpdated}
+              {syncText}
             </div>
           </div>
         </section>
@@ -606,7 +929,7 @@ function App() {
                 <h2>Varlıklarım</h2>
                 <span>{assets.length ? `${assets.length} kategori takip ediliyor` : 'Henüz kategori bulunmuyor'}</span>
               </div>
-              <button className="refresh-button" onClick={refreshPrices}>
+              <button className="refresh-button" onClick={refreshPrices} disabled={loading}>
                 <RefreshCw size={16} />
                 Fiyatları yenile
               </button>
@@ -637,15 +960,17 @@ function App() {
             <div className="section-heading">
               <div>
                 <h2>Piyasa özeti</h2>
-                <span>Demo alış fiyatları</span>
+                <span>Canlı alış / satış</span>
               </div>
-              <Sparkles size={18} className="spark-icon" />
+              <HandCoins size={18} className="spark-icon" />
             </div>
 
             <div className="market-list">
-              {MARKET_ITEMS.map((item) => {
-                const positive = item.change >= 0
+              {MARKET_WATCHLIST.map((item) => {
+                const quote = quotes.get(item.code)
                 const preset = PRESETS.find((presetItem) => presetItem.icon === item.icon)
+                const change = quote?.change
+                const positive = (change || 0) >= 0
                 return (
                   <div className="market-row" key={item.code}>
                     <IconBadge icon={item.icon} color={preset.color} size="small" />
@@ -654,10 +979,19 @@ function App() {
                       <span>{item.code}</span>
                     </div>
                     <div className="market-price">
-                      <strong>{formatTRY(item.price)}</strong>
-                      <span className={positive ? 'change-up' : 'change-down'}>
-                        {positive ? '+' : ''}{item.change.toFixed(2)}%
-                      </span>
+                      {quote ? (
+                        <>
+                          <strong>{formatTRY(quote.bid)}</strong>
+                          <span>Satış {formatTRY(quote.ask)}</span>
+                          {typeof change === 'number' && (
+                            <span className={positive ? 'change-up' : 'change-down'}>
+                              {positive ? '+' : ''}{change.toFixed(2)}%
+                            </span>
+                          )}
+                        </>
+                      ) : (
+                        <strong>{loading ? 'Yükleniyor…' : error ? 'Alınamadı' : '—'}</strong>
+                      )}
                     </div>
                   </div>
                 )
@@ -671,7 +1005,19 @@ function App() {
 
             <div className="market-note">
               <Landmark size={18} />
-              <p><strong>Canlı veri bağlantısı</strong><br />API eklendiğinde alış fiyatları otomatik olarak burada güncellenecek.</p>
+              <p>
+                <strong>
+                  {error ? 'Fiyat bağlantısı' : stale ? 'Gecikmeli veri' : loading && !updatedAt ? 'Fiyatlar yükleniyor' : 'Canlı veri bağlantısı'}
+                </strong>
+                <br />
+                {error
+                  ? error
+                  : stale
+                    ? 'Kaynak gecikmeli. Gösterilen alış ve satış son alınan değerlerdir.'
+                    : loading && !updatedAt
+                      ? 'Piyasa fiyatları altinapi’den alınıyor.'
+                      : 'Alış ve satış fiyatları altinapi üzerinden güncellenir.'}
+              </p>
             </div>
           </aside>
         </div>
@@ -690,17 +1036,18 @@ function App() {
         <button className={activeNav === 'market' ? 'active' : ''} onClick={() => handleNav('market')}>
           <ChartNoAxesCombined size={21} /><span>Piyasa</span>
         </button>
-        <button className={activeNav === 'settings' ? 'active' : ''} onClick={() => handleNav('settings')}>
-          <Settings size={21} /><span>Ayarlar</span>
+        <button onClick={handleLogout}>
+          <LogOut size={21} /><span>Çıkış</span>
         </button>
       </nav>
 
       {modal?.type === 'add' && (
         <AddAssetModal onClose={() => setModal(null)} onCreate={createAsset} />
       )}
-      {modal?.type === 'update' && (
+      {editingAsset && (
         <UpdateAssetModal
-          asset={assets.find((asset) => asset.id === modal.asset.id) || modal.asset}
+          asset={editingAsset}
+          live={quotes.has(editingAsset.code) || isManualCode(editingAsset.code)}
           onClose={() => setModal(null)}
           onSave={saveAsset}
           onDelete={deleteAsset}

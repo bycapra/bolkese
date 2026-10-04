@@ -1,7 +1,6 @@
 node_modules
-dist
-.DS_Store
-*.local
+data
 .env
 .env.*
 !.env.example
+.DS_Store
