@@ -37,6 +37,8 @@ async function parseError(response) {
 function toQuote(item, stale = false) {
   return {
     symbol: item.symbol,
+    category: item.category || '',
+    description: item.description || '',
     bid: Number(item.bid) || 0,
     ask: Number(item.ask) || 0,
     timestamp: item.timestamp,

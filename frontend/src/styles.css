@@ -958,6 +958,76 @@ input:focus-visible {
   color: #285b52;
 }
 
+.markets-page {
+  margin-top: 31px;
+  padding: 22px 24px 28px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+.markets-empty {
+  margin: 18px 0 8px;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.markets-group {
+  margin-top: 22px;
+}
+
+.markets-group h3 {
+  margin: 0 0 8px;
+  padding: 9px 12px;
+  color: var(--accent-dark);
+  background: var(--accent-soft);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.markets-table {
+  display: grid;
+}
+
+.markets-head,
+.markets-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(88px, 0.7fr) minmax(88px, 0.7fr);
+  gap: 12px;
+  align-items: center;
+  padding: 12px 4px;
+  border-bottom: 1px solid #edf2f1;
+}
+
+.markets-head {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.markets-head span:nth-child(2),
+.markets-head span:nth-child(3),
+.markets-bid,
+.markets-ask {
+  text-align: right;
+}
+
+.markets-bid,
+.markets-ask {
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.markets-page .market-note {
+  margin-top: 12px;
+}
+
 .modal-layer {
   position: fixed;
   inset: 0;
@@ -1491,6 +1561,20 @@ input:focus-visible {
 
   .price-fields {
     grid-template-columns: 1fr;
+  }
+
+  .markets-page {
+    padding: 18px 16px 96px;
+  }
+
+  .markets-group h3 {
+    padding: 8px 10px;
+  }
+
+  .markets-head,
+  .markets-row {
+    grid-template-columns: minmax(0, 1fr) 76px 76px;
+    gap: 8px;
   }
 
   .market-panel {

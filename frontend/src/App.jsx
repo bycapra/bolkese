@@ -33,6 +33,7 @@ import { createAssetRecord, deleteAssetRecord, fetchAssets, updateAssetRecord } 
 import { fetchPrice } from './api/prices'
 import AuthScreen from './AuthScreen'
 import { useMarketPrices } from './hooks/useMarketPrices'
+import MarketsPage from './MarketsPage'
 
 const STORAGE_KEY = 'bolkese-assets-v2'
 const MANUAL_CODES = new Set(['TRY'])
@@ -802,6 +803,10 @@ function Portfolio({ user, onLogout }) {
       return
     }
     setActiveNav(item)
+    if (item === 'market') {
+      refresh({ silent: true })
+      return
+    }
     if (item !== 'home') setToast('Bu bölüm tasarımın sonraki ekranı için hazır.')
   }
 
@@ -870,8 +875,8 @@ function Portfolio({ user, onLogout }) {
       <main className="main-area">
         <header className="topbar">
           <div>
-            <p className="date-label">PORTFÖYÜM</p>
-            <h1>Genel Bakış</h1>
+            <p className="date-label">{activeNav === 'market' ? 'PİYASA' : 'PORTFÖYÜM'}</p>
+            <h1>{activeNav === 'market' ? 'Piyasalar' : 'Genel Bakış'}</h1>
           </div>
           <div className="topbar-actions">
             <button className="icon-button notification-button" aria-label="Bildirimler" onClick={() => setToast('Yeni bildiriminiz bulunmuyor.')}>
@@ -885,6 +890,16 @@ function Portfolio({ user, onLogout }) {
           </div>
         </header>
 
+        {activeNav === 'market' ? (
+          <MarketsPage
+            quotes={quotes}
+            loading={loading}
+            error={error}
+            stale={stale}
+            onRefresh={refreshPrices}
+          />
+        ) : (
+          <>
         <section className="balance-card" aria-label="Portföy özeti">
           <div className="balance-content">
             <div className="balance-label">
@@ -1021,6 +1036,8 @@ function Portfolio({ user, onLogout }) {
             </div>
           </aside>
         </div>
+          </>
+        )}
       </main>
 
       <nav className="mobile-nav" aria-label="Mobil menü">
