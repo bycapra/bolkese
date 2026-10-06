@@ -34,6 +34,7 @@ import { fetchPrice } from './api/prices'
 import AuthScreen from './AuthScreen'
 import { useMarketPrices } from './hooks/useMarketPrices'
 import MarketsPage from './MarketsPage'
+import { labelFor } from './data/symbolLabels'
 
 const STORAGE_KEY = 'bolkese-assets-v2'
 const MANUAL_CODES = new Set(['TRY'])
@@ -186,6 +187,27 @@ function isManualCode(code) {
   return MANUAL_CODES.has(code)
 }
 
+const GOLD_CATEGORIES = new Set(['MADEN', 'GRAM ALTIN', 'SARRAFIYE'])
+const GRAM_CATEGORIES = new Set(['GRAM ALTIN', 'MADEN'])
+
+function assetDraftFromQuote(quote) {
+  const code = String(quote?.symbol || '').trim().toUpperCase()
+  const preset = PRESETS.find((item) => item.code === code)
+  const goldPreset = PRESETS.find((item) => item.key === 'gold')
+  const fallback = PRESETS.find((item) => item.key === 'other')
+  const gold = GOLD_CATEGORIES.has(quote?.category)
+  return {
+    key: preset ? preset.key : 'other',
+    name: labelFor(quote),
+    code,
+    unit: preset ? preset.unit : (GRAM_CATEGORIES.has(quote?.category) ? 'gram' : 'adet'),
+    price: Number(quote?.bid) || 0,
+    ask: Number(quote?.ask) || Number(quote?.bid) || 0,
+    icon: preset ? preset.icon : (gold ? goldPreset.icon : fallback.icon),
+    color: preset ? preset.color : (gold ? goldPreset.color : fallback.color),
+  }
+}
+
 function IconBadge({ icon, color, size = 'normal' }) {
   const Icon = iconMap[icon] || Gem
   return (
@@ -245,10 +267,10 @@ function PricePair({ bid, ask, hidden, change }) {
   )
 }
 
-function AddAssetModal({ onClose, onCreate }) {
-  const [selectedKey, setSelectedKey] = useState('gold')
+function AddAssetModal({ onClose, onCreate, initial }) {
+  const [selectedKey, setSelectedKey] = useState(initial?.key || 'gold')
   const selected = PRESETS.find((item) => item.key === selectedKey)
-  const [form, setForm] = useState({ ...selected })
+  const [form, setForm] = useState(initial ? { ...initial } : { ...selected })
   const [live, setLive] = useState(false)
   const [lookup, setLookup] = useState('')
 
@@ -897,6 +919,7 @@ function Portfolio({ user, onLogout }) {
             error={error}
             stale={stale}
             onRefresh={refreshPrices}
+            onAdd={(quote) => setModal({ type: 'add', initial: assetDraftFromQuote(quote) })}
           />
         ) : (
           <>
@@ -1059,7 +1082,11 @@ function Portfolio({ user, onLogout }) {
       </nav>
 
       {modal?.type === 'add' && (
-        <AddAssetModal onClose={() => setModal(null)} onCreate={createAsset} />
+        <AddAssetModal
+          onClose={() => setModal(null)}
+          onCreate={createAsset}
+          initial={modal.initial}
+        />
       )}
       {editingAsset && (
         <UpdateAssetModal

@@ -1,4 +1,5 @@
-import { Landmark, RefreshCw } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { Landmark, RefreshCw, Search } from 'lucide-react'
 import { groupQuotes, labelFor } from './data/symbolLabels'
 
 function formatPrice(value) {
@@ -8,9 +9,29 @@ function formatPrice(value) {
   }).format(value)
 }
 
-export default function MarketsPage({ quotes, loading, error, stale, onRefresh }) {
-  const groups = groupQuotes(quotes)
-  const count = quotes.size
+function matchesQuery(quote, needle) {
+  if (!needle) return true
+  const symbol = String(quote.symbol || '').toLocaleLowerCase('tr')
+  const name = labelFor(quote).toLocaleLowerCase('tr')
+  return symbol.includes(needle) || name.includes(needle)
+}
+
+export default function MarketsPage({ quotes, loading, error, stale, onRefresh, onAdd }) {
+  const [query, setQuery] = useState('')
+  const needle = query.trim().toLocaleLowerCase('tr')
+  const filtered = useMemo(() => {
+    if (!needle) return quotes
+    const next = new Map()
+    for (const [symbol, quote] of quotes) {
+      if (matchesQuery(quote, needle)) next.set(symbol, quote)
+    }
+    return next
+  }, [quotes, needle])
+
+  const groups = groupQuotes(filtered)
+  const total = quotes.size
+  const count = filtered.size
+  const searching = Boolean(needle)
 
   return (
     <section className="markets-page" aria-label="Piyasalar">
@@ -18,11 +39,11 @@ export default function MarketsPage({ quotes, loading, error, stale, onRefresh }
         <div>
           <h2>Tüm piyasalar</h2>
           <span>
-            {loading && !count
+            {loading && !total
               ? 'Fiyatlar yükleniyor…'
-              : error && !count
+              : error && !total
                 ? error
-                : `${count} sembol · canlı alış / satış`}
+                : `${count} sembol · satıra tıklayarak kategori ekleyin`}
           </span>
         </div>
         <button className="refresh-button" onClick={onRefresh} disabled={loading}>
@@ -30,6 +51,22 @@ export default function MarketsPage({ quotes, loading, error, stale, onRefresh }
           Fiyatları yenile
         </button>
       </div>
+
+      {total > 0 && (
+        <label className="markets-search">
+          <span className="markets-search-label">Piyasalarda ara</span>
+          <span className="markets-search-field">
+            <Search size={17} aria-hidden="true" />
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Ad veya kod"
+              aria-label="Piyasalarda ara"
+            />
+          </span>
+        </label>
+      )}
 
       {error && (
         <div className="market-note">
@@ -42,8 +79,12 @@ export default function MarketsPage({ quotes, loading, error, stale, onRefresh }
         </div>
       )}
 
-      {!error && !count && loading && (
+      {!error && !total && loading && (
         <p className="markets-empty">Piyasa fiyatları altinapi’den alınıyor.</p>
+      )}
+
+      {searching && total > 0 && count === 0 && (
+        <p className="markets-empty">Sonuç bulunamadı.</p>
       )}
 
       {groups.map((group) => (
@@ -56,14 +97,20 @@ export default function MarketsPage({ quotes, loading, error, stale, onRefresh }
               <span>Satış</span>
             </div>
             {group.rows.map((quote) => (
-              <div className="markets-row" role="row" key={quote.symbol}>
+              <button
+                type="button"
+                className="markets-row"
+                key={quote.symbol}
+                onClick={() => onAdd(quote)}
+                aria-label={`${labelFor(quote)} kategorisini ekle`}
+              >
                 <div className="market-name">
                   <strong>{labelFor(quote)}</strong>
                   <span>{quote.symbol}</span>
                 </div>
                 <span className="markets-bid">{formatPrice(quote.bid)}</span>
                 <span className="markets-ask">{formatPrice(quote.ask)}</span>
-              </div>
+              </button>
             ))}
           </div>
         </div>
