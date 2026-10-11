@@ -3,6 +3,7 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import authRoutes from './routes/auth.js'
 import assetRoutes from './routes/assets.js'
+import movementRoutes from './routes/movements.js'
 
 const app = express()
 const port = Number(process.env.PORT) || 4000
@@ -16,6 +17,7 @@ app.get('/api/health', (_req, res) => {
 
 app.use('/api/auth', authRoutes)
 app.use('/api/assets', assetRoutes)
+app.use('/api/movements', movementRoutes)
 
 app.use((error, _req, res, _next) => {
   if (error instanceof SyntaxError && error.status === 400) {

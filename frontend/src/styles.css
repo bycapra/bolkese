@@ -130,6 +130,29 @@ input:focus-visible {
   border-color: var(--accent);
 }
 
+.auth-card .auth-remember {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+}
+
+.auth-card .auth-remember input {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.auth-card .auth-remember span {
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
 .auth-card .button {
   width: 100%;
   justify-content: center;
@@ -1088,6 +1111,159 @@ button.markets-row {
   margin-top: 12px;
 }
 
+.reports-page {
+  margin-top: 31px;
+  padding: 22px 24px 28px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+.reports-filters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 4px 0 18px;
+}
+
+.reports-filters label {
+  display: grid;
+  gap: 6px;
+}
+
+.reports-filters span {
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.reports-filters input,
+.reports-filters select {
+  width: 100%;
+  height: 45px;
+  padding: 0 13px;
+  color: var(--ink);
+  background: #fbfcfc;
+  border: 1px solid #dbe5e3;
+  border-radius: 10px;
+  font-size: 0.86rem;
+}
+
+.reports-filters input:focus,
+.reports-filters select:focus {
+  background: white;
+  border-color: var(--accent);
+}
+
+.reports-table {
+  overflow-x: auto;
+}
+
+.reports-head,
+.reports-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.9fr) minmax(0, 1.3fr) minmax(72px, 0.6fr) minmax(80px, 0.6fr) minmax(110px, 0.8fr) minmax(90px, 0.7fr);
+  gap: 12px;
+  align-items: center;
+  min-width: 720px;
+  padding: 12px 4px;
+  border-bottom: 1px solid #edf2f1;
+}
+
+.reports-head {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.reports-row {
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.assets-page {
+  margin-top: 31px;
+  padding: 22px 24px 28px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+.assets-page .markets-search {
+  margin-bottom: 10px;
+}
+
+.assets-table {
+  display: grid;
+}
+
+.assets-head,
+.assets-row,
+.assets-add-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(110px, 0.7fr) minmax(110px, 0.7fr);
+  gap: 12px;
+  align-items: center;
+  padding: 12px 4px;
+  border-bottom: 1px solid #edf2f1;
+}
+
+.assets-head {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.assets-head span:nth-child(2),
+.assets-head span:nth-child(3),
+.assets-row span:nth-child(2),
+.assets-row-value {
+  text-align: right;
+}
+
+button.assets-row,
+button.assets-add-row {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.assets-row:hover,
+.assets-row:focus-visible,
+.assets-add-row:hover,
+.assets-add-row:focus-visible {
+  background: var(--accent-soft);
+}
+
+.assets-row:focus-visible,
+.assets-add-row:focus-visible {
+  outline-offset: -2px;
+}
+
+.assets-row-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.assets-row-value {
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.assets-add-row {
+  color: var(--accent-dark);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
 .modal-layer {
   position: fixed;
   inset: 0;
@@ -1521,6 +1697,10 @@ button.markets-row {
 }
 
 @media (max-width: 640px) {
+  .reports-filters {
+    grid-template-columns: 1fr;
+  }
+
   body {
     background: #f6f9f8;
   }
@@ -1623,8 +1803,21 @@ button.markets-row {
     grid-template-columns: 1fr;
   }
 
-  .markets-page {
+  .markets-page,
+  .reports-page,
+  .assets-page {
     padding: 18px 16px 96px;
+  }
+
+  .assets-head,
+  .assets-row,
+  .assets-add-row {
+    grid-template-columns: minmax(0, 1.4fr) minmax(88px, 0.7fr) minmax(88px, 0.7fr);
+    gap: 8px;
+  }
+
+  .reports-filters {
+    grid-template-columns: 1fr 1fr;
   }
 
   .markets-group h3 {
@@ -1667,7 +1860,7 @@ button.markets-row {
     z-index: 40;
     height: 78px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     align-items: center;
     padding: 8px 10px max(8px, env(safe-area-inset-bottom));
     background: rgba(255,255,255,0.96);

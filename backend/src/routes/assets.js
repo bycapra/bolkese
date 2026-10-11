@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import { Router } from 'express'
 import db from '../db.js'
+import { logAmountChange } from '../logMovement.js'
 import { requireAuth } from '../middleware/requireAuth.js'
 
 const router = Router()
@@ -73,13 +74,26 @@ router.post('/', (req, res) => {
     updated_at: now,
   }
 
-  db.prepare(`
-    INSERT INTO assets (
-      id, user_id, name, code, unit, amount, icon, color, preset_key, price, ask, created_at, updated_at
-    ) VALUES (
-      @id, @user_id, @name, @code, @unit, @amount, @icon, @color, @preset_key, @price, @ask, @created_at, @updated_at
-    )
-  `).run(row)
+  const createAsset = db.transaction((record) => {
+    db.prepare(`
+      INSERT INTO assets (
+        id, user_id, name, code, unit, amount, icon, color, preset_key, price, ask, created_at, updated_at
+      ) VALUES (
+        @id, @user_id, @name, @code, @unit, @amount, @icon, @color, @preset_key, @price, @ask, @created_at, @updated_at
+      )
+    `).run(record)
+    logAmountChange(db, {
+      userId: record.user_id,
+      assetId: record.id,
+      name: record.name,
+      code: record.code,
+      unit: record.unit,
+      previousAmount: 0,
+      nextAmount: record.amount,
+      createdAt: record.created_at,
+    })
+  })
+  createAsset(row)
 
   res.status(201).json({ asset: toAsset(row) })
 })
@@ -111,11 +125,24 @@ router.patch('/:id', (req, res) => {
   }
 
   const updatedAt = new Date().toISOString()
-  db.prepare(`
-    UPDATE assets
-    SET amount = ?, price = ?, ask = ?, updated_at = ?
-    WHERE id = ? AND user_id = ?
-  `).run(amount, price, ask, updatedAt, existing.id, req.user.id)
+  const updateAsset = db.transaction(() => {
+    db.prepare(`
+      UPDATE assets
+      SET amount = ?, price = ?, ask = ?, updated_at = ?
+      WHERE id = ? AND user_id = ?
+    `).run(amount, price, ask, updatedAt, existing.id, req.user.id)
+    logAmountChange(db, {
+      userId: existing.user_id,
+      assetId: existing.id,
+      name: existing.name,
+      code: existing.code,
+      unit: existing.unit,
+      previousAmount: existing.amount,
+      nextAmount: amount,
+      createdAt: updatedAt,
+    })
+  })
+  updateAsset()
 
   res.json({
     asset: toAsset({ ...existing, amount, price, ask, updated_at: updatedAt }),

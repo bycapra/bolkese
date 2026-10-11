@@ -26,3 +26,20 @@ CREATE TABLE IF NOT EXISTS assets (
 );
 
 CREATE INDEX IF NOT EXISTS idx_assets_user ON assets(user_id);
+
+CREATE TABLE IF NOT EXISTS movements (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  asset_id TEXT,
+  name TEXT NOT NULL,
+  code TEXT NOT NULL,
+  unit TEXT NOT NULL,
+  direction TEXT NOT NULL,
+  quantity REAL NOT NULL,
+  balance REAL NOT NULL,
+  created_at TEXT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (asset_id) REFERENCES assets(id) ON DELETE SET NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_movements_user_created ON movements(user_id, created_at);

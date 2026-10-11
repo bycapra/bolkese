@@ -9,6 +9,7 @@ import {
   Check,
   ChevronRight,
   CircleDollarSign,
+  ClipboardList,
   Coins,
   Euro,
   Eye,
@@ -34,6 +35,8 @@ import { fetchPrice } from './api/prices'
 import AuthScreen from './AuthScreen'
 import { useMarketPrices } from './hooks/useMarketPrices'
 import MarketsPage from './MarketsPage'
+import ReportsPage from './ReportsPage'
+import AssetsPage from './AssetsPage'
 import { labelFor } from './data/symbolLabels'
 
 const STORAGE_KEY = 'bolkese-assets-v2'
@@ -676,6 +679,7 @@ function App() {
 
 function Portfolio({ user, onLogout }) {
   const [assets, setAssets] = useState([])
+  const [assetsReady, setAssetsReady] = useState(false)
   const [modal, setModal] = useState(null)
   const [hidden, setHidden] = useState(false)
   const [toast, setToast] = useState('')
@@ -683,6 +687,12 @@ function Portfolio({ user, onLogout }) {
   const { quotes, loading, error, stale, updatedAt, refresh } = useMarketPrices()
 
   useEffect(() => {
+    setAssetsReady(false)
+  }, [user.id])
+
+  useEffect(() => {
+    if (assetsReady) return undefined
+
     let cancelled = false
 
     fetchAssets()
@@ -705,11 +715,14 @@ function Portfolio({ user, onLogout }) {
       .catch((err) => {
         if (!cancelled) setToast(err.message || 'Kategoriler alınamadı.')
       })
+      .finally(() => {
+        if (!cancelled) setAssetsReady(true)
+      })
 
     return () => {
       cancelled = true
     }
-  }, [user.id])
+  }, [user.id, assetsReady])
 
   useEffect(() => {
     if (!quotes.size) return
@@ -829,6 +842,7 @@ function Portfolio({ user, onLogout }) {
       refresh({ silent: true })
       return
     }
+    if (item === 'reports' || item === 'assets') return
     if (item !== 'home') setToast('Bu bölüm tasarımın sonraki ekranı için hazır.')
   }
 
@@ -867,6 +881,10 @@ function Portfolio({ user, onLogout }) {
             <ChartNoAxesCombined size={19} />
             <span>Piyasalar</span>
           </button>
+          <button className={activeNav === 'reports' ? 'active' : ''} onClick={() => handleNav('reports')}>
+            <ClipboardList size={19} />
+            <span>Raporlar</span>
+          </button>
         </nav>
 
         <div className="sidebar-foot">
@@ -897,8 +915,8 @@ function Portfolio({ user, onLogout }) {
       <main className="main-area">
         <header className="topbar">
           <div>
-            <p className="date-label">{activeNav === 'market' ? 'PİYASA' : 'PORTFÖYÜM'}</p>
-            <h1>{activeNav === 'market' ? 'Piyasalar' : 'Genel Bakış'}</h1>
+            <p className="date-label">{activeNav === 'market' ? 'PİYASA' : activeNav === 'reports' ? 'RAPOR' : activeNav === 'assets' ? 'VARLIKLAR' : 'PORTFÖYÜM'}</p>
+            <h1>{activeNav === 'market' ? 'Piyasalar' : activeNav === 'reports' ? 'Raporlar' : activeNav === 'assets' ? 'Varlıklarım' : 'Genel Bakış'}</h1>
           </div>
           <div className="topbar-actions">
             <button className="icon-button notification-button" aria-label="Bildirimler" onClick={() => setToast('Yeni bildiriminiz bulunmuyor.')}>
@@ -920,6 +938,19 @@ function Portfolio({ user, onLogout }) {
             stale={stale}
             onRefresh={refreshPrices}
             onAdd={(quote) => setModal({ type: 'add', initial: assetDraftFromQuote(quote) })}
+          />
+        ) : activeNav === 'reports' ? (
+          <ReportsPage assets={assets} />
+        ) : activeNav === 'assets' ? (
+          <AssetsPage
+            assets={assets}
+            ready={assetsReady || assets.length > 0}
+            hidden={hidden}
+            onToggleHidden={() => setHidden((value) => !value)}
+            onOpen={(asset) => setModal({ type: 'update', asset })}
+            onAdd={() => setModal({ type: 'add' })}
+            IconBadge={IconBadge}
+            empty={<EmptyState onAdd={() => setModal({ type: 'add' })} />}
           />
         ) : (
           <>
@@ -1075,6 +1106,9 @@ function Portfolio({ user, onLogout }) {
         </button>
         <button className={activeNav === 'market' ? 'active' : ''} onClick={() => handleNav('market')}>
           <ChartNoAxesCombined size={21} /><span>Piyasa</span>
+        </button>
+        <button className={activeNav === 'reports' ? 'active' : ''} onClick={() => handleNav('reports')}>
+          <ClipboardList size={21} /><span>Rapor</span>
         </button>
         <button onClick={handleLogout}>
           <LogOut size={21} /><span>Çıkış</span>

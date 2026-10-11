@@ -59,6 +59,7 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
   const email = String(req.body?.email || '').trim().toLowerCase()
   const password = String(req.body?.password || '')
+  const remember = req.body?.remember === true
   const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email)
 
   if (!user || !bcrypt.compareSync(password, user.password_hash)) {
@@ -66,7 +67,7 @@ router.post('/login', (req, res) => {
     return
   }
 
-  setAuthCookie(res, signToken(user.id))
+  setAuthCookie(res, signToken(user.id), { remember })
   res.json({ user: publicUser(user) })
 })
 

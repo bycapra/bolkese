@@ -5,6 +5,7 @@ import { loginAccount, registerAccount } from './api/auth'
 export default function AuthScreen({ onAuth }) {
   const [mode, setMode] = useState('login')
   const [form, setForm] = useState({ name: '', email: '', password: '' })
+  const [remember, setRemember] = useState(false)
   const [error, setError] = useState('')
   const [pending, setPending] = useState(false)
   const isRegister = mode === 'register'
@@ -20,7 +21,7 @@ export default function AuthScreen({ onAuth }) {
     try {
       const payload = isRegister
         ? { name: form.name.trim(), email: form.email.trim(), password: form.password }
-        : { email: form.email.trim(), password: form.password }
+        : { email: form.email.trim(), password: form.password, remember }
       const result = isRegister ? await registerAccount(payload) : await loginAccount(payload)
       onAuth(result.user)
     } catch (err) {
@@ -76,6 +77,17 @@ export default function AuthScreen({ onAuth }) {
               required
             />
           </label>
+
+          {!isRegister && (
+            <label className="auth-remember">
+              <input
+                type="checkbox"
+                checked={remember}
+                onChange={(event) => setRemember(event.target.checked)}
+              />
+              <span>Beni hatırla</span>
+            </label>
+          )}
 
           {error && <p className="auth-error" role="alert">{error}</p>}
 

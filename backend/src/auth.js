@@ -17,13 +17,14 @@ export function readToken(token) {
   return jwt.verify(token, secret())
 }
 
-export function setAuthCookie(res, token) {
-  res.cookie(COOKIE_NAME, token, {
+export function setAuthCookie(res, token, { remember = true } = {}) {
+  const options = {
     httpOnly: true,
     sameSite: 'lax',
     path: '/',
-    maxAge: WEEK_MS,
-  })
+  }
+  if (remember) options.maxAge = WEEK_MS
+  res.cookie(COOKIE_NAME, token, options)
 }
 
 export function clearAuthCookie(res) {
