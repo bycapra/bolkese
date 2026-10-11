@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ClipboardList } from 'lucide-react'
+import { Download } from 'lucide-react'
 import { fetchMovements } from './api/movements'
+import { downloadCsv, toCsv } from './exportCsv'
 
 function formatQuantity(value) {
   return new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 4 }).format(value)
@@ -23,6 +24,29 @@ function endOfDay(date) {
 
 function orphanKey(movement) {
   return `${movement.name}\t${movement.code}`
+}
+
+function exportFileName(date = new Date()) {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `bolkese-miktar-hareketleri-${year}-${month}-${day}.csv`
+}
+
+function exportMovements(rows) {
+  const csv = toCsv(
+    ['Tarih', 'Kategori', 'Kod', 'Birim', 'Yön', 'Miktar', 'Bakiye'],
+    rows.map((movement) => [
+      formatDateTime(movement.createdAt),
+      movement.name,
+      movement.code,
+      movement.unit,
+      movement.direction === 'in' ? 'Ekleme' : 'Çıkarma',
+      formatQuantity(movement.quantity),
+      formatQuantity(movement.balance),
+    ]),
+  )
+  downloadCsv(exportFileName(), csv)
 }
 
 export default function ReportsPage({ assets }) {
@@ -103,7 +127,16 @@ export default function ReportsPage({ assets }) {
                 : `${rows.length} kayıt`}
           </span>
         </div>
-        <ClipboardList size={18} className="spark-icon" />
+        <button
+          type="button"
+          className="refresh-button"
+          onClick={() => exportMovements(rows)}
+          disabled={loading || rows.length === 0}
+          aria-label="Excel olarak indir"
+        >
+          <Download size={16} />
+          Excel olarak indir
+        </button>
       </div>
 
       <div className="reports-filters">
