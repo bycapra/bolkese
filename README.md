@@ -2,7 +2,19 @@
 
 Altın, döviz ve nakit takibi. Arayüz Vite + React, API Express + SQLite, canlı fiyatlar [altinapi](https://altinapi.com/docs/).
 
-## Çalıştırma
+## Docker
+
+Tek komutla nginx (arayüz) ve Express (API + fiyat proxy) ayağa kalkar. Tarayıcı `http://localhost:8080` adresine gider.
+
+```bash
+cp .env.example .env
+# JWT_SECRET ve ALTINAPI_KEY değerlerini doldur
+docker compose up --build
+```
+
+`ALTINAPI_KEY` yalnızca backend konteynerine geçer; tarayıcı paketine ve frontend imajına yazılmaz. SQLite `bolkese-data` volume’unda durur. Bu, yerel Vite geliştirmenin yerine geçmez.
+
+## Çalıştırma (geliştirme)
 
 İki sunucu gerekir. Ayrı terminallerde:
 

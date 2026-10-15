@@ -23,13 +23,19 @@ Kesin bağımlılık sürümleri için ilgili `package-lock.json` dosyasını ok
 | `frontend/src/styles.css` | Tasarım değişkenleri, bileşen stilleri, responsive ve hareket kuralları |
 | `frontend/src/api/client.js` | Ortak JSON istekleri, cookie gönderimi, `ApiError` |
 | `frontend/src/api/auth.js`, `frontend/src/api/assets.js` | Auth ve varlık API çağrıları |
+| `frontend/src/api/lookups.js` | Birim ve sembol lookup listesi |
 | `frontend/src/api/prices.js` | Piyasa istekleri, quote dönüşümü, `PriceRequestError` |
 | `frontend/src/hooks/useMarketPrices.js` | Fiyat yenileme, snapshot, değişim ve görünürlük takibi |
 | `frontend/vite.config.js` | React eklentisi, geliştirme/preview proxy'leri |
+| `frontend/nginx.conf`, `frontend/Dockerfile` | Docker arayüz imajı; nginx `/api/` isteklerini backend'e iletir |
 | `backend/src/index.js` | Express kurulumu, health endpoint'i, route bağlama, hata middleware'i |
+| `backend/src/altinProxy.js` | Docker/doğrudan API için `GET /api/altin` → altinapi; anahtar sunucuda kalır |
+| `backend/Dockerfile`, `docker-compose.yml` | nginx + Express paketleme; geliştirme hâlâ iki yerel sunucu |
 | `backend/src/auth.js` | JWT imzalama/doğrulama, cookie oluşturma/silme |
 | `backend/src/middleware/requireAuth.js` | Cookie/token doğrulama, DB'den kullanıcı yükleme, `req.user` |
 | `backend/src/routes/auth.js`, `backend/src/routes/assets.js` | İstek doğrulama, auth ve kullanıcıya bağlı CRUD |
+| `backend/src/routes/lookups.js` | `units` / `symbols` okuma |
+| `backend/src/seedLookups.js` | Açılışta birim ve 66 altinapi sembolü + TRY doldurma |
 | `backend/src/db.js`, `backend/src/schema.sql` | SQLite bağlantısı, başlangıç şeması ve indeks |
 
 ## 3. Entity'ler ve veri sözleşmeleri
@@ -59,6 +65,24 @@ Bir kullanıcı birden fazla varlığa sahiptir. `user_id` üzerinde `idx_assets
 
 API nesnesi `{ id, name, code, unit, amount, icon, color, key, price, ask, change }` biçimindedir. `preset_key`, API'de `key` olur; `user_id` ve zaman damgaları dışarı verilmez. Backend `change: 0` döndürür; piyasa değişimi frontend'de hesaplanır, DB sütunu değildir.
 
+Yeni oluşturmada `code` `symbols` tablosunda, `unit` `units` tablosunda olmalıdır. Mevcut kayıtlara FK yoktur; eski `VAR` / `TL` satırları durur.
+
+### Unit / `units`
+
+| Alan | SQLite tanımı |
+| --- | --- |
+| `value` | `TEXT PRIMARY KEY`; `adet`, `kilo`, `gram` |
+| `label` | `TEXT NOT NULL`; Adet, Kilo, Gram |
+
+### Symbol / `symbols`
+
+| Alan | SQLite tanımı |
+| --- | --- |
+| `code` | `TEXT PRIMARY KEY`; altinapi sembolü veya `TRY` |
+| `description`, `category` | `TEXT NOT NULL` |
+
+Uygulama açılışında `seedLookups` `INSERT OR REPLACE` ile 3 birim, 66 altinapi sembolü ve `TRY` yazar. Canlı altinapi’den sembol listesi çekilmez.
+
 ### Kalıcı olmayan nesneler
 
 - **Quote:** `{ symbol, bid, ask, timestamp, stale }`; hook `change` ekler. Sembole göre `Map` içinde tutulur, SQLite tablosu değildir.
@@ -69,7 +93,7 @@ API nesnesi `{ id, name, code, unit, amount, icon, color, key, price, ask, chang
 - `TRY` için `price` ve `ask` her zaman `1` olmalıdır; backend oluşturma/güncellemede bunu uygular.
 - `price` alış/bid, `ask` satış fiyatıdır. Varlık değeri `amount * price`, portföy toplamı bu değerlerin toplamıdır.
 - Miktar negatif olamaz. Mevcut backend `Math.max(0, Number(value) || 0)` kullanır; bunu kapsamlı sayısal doğrulama olarak yorumlama.
-- Oluşturmada kod trim edilir ve büyük harfe çevrilir; ad, kod ve birim zorunludur. Hazır kodlar `ALTIN`, `USDTRY`, `EURTRY`, `TRY`, `VAR`'dır.
+- Oluşturmada kod trim edilir ve büyük harfe çevrilir; ad, kod ve birim zorunludur. Yeni kayıtta kod `symbols`, birim `units` listesinde olmalıdır. Serbest `VAR` kodu artık oluşturulmaz.
 - Frontend eski kod eşleştirmeleri: `XAU`/`GA` → `ALTIN`, `USD` → `USDTRY`, `EUR` → `EURTRY`. Bunlar DB şema migration'ı değildir.
 - Canlı fiyat bulunan veya TRY olan varlıkların fiyat alanları arayüzde kilitlenir. Canlı fiyat bulunamadığında uygun akışlarda manuel alış/satış girilebilir. Bu UI kilidini backend yetkilendirmesi gibi değerlendirme.
 - `change`, hook açılırken okunan yerel bid snapshot'ına göre yüzde farktır. Snapshot boşsa ilk başarılı sonuç karşılaştırma tabanı olur; bu taban hook boyunca sabit kalır. Her başarılı yenileme sonraki açılış için snapshot yazar.
@@ -85,8 +109,9 @@ API nesnesi `{ id, name, code, unit, amount, icon, color, key, price, ask, chang
 | `POST /api/auth/login` | `{ email, password }` → `{ user }` ve oturum cookie'si |
 | `POST /api/auth/logout` | Cookie silinir, `{ ok: true }` |
 | `GET /api/auth/me` | `requireAuth` ile `{ user }` |
+| `GET /api/lookups` | `requireAuth` ile `{ units, symbols }` |
 | `GET /api/assets` | Kullanıcının kayıtları, oluşturulma sırasıyla `{ assets }` |
-| `POST /api/assets` | Yeni kayıt → 201, `{ asset }`; sahiplik `req.user.id` üzerinden atanır |
+| `POST /api/assets` | Yeni kayıt → 201, `{ asset }`; sahiplik `req.user.id` üzerinden atanır; geçersiz kod/birim 400 |
 | `PATCH /api/assets/:id` | `amount`, `price`, `ask` güncelleme → `{ asset }` |
 | `DELETE /api/assets/:id` | Silme → `{ ok: true }` |
 
@@ -95,16 +120,17 @@ API nesnesi `{ id, name, code, unit, amount, icon, color, key, price, ask, chang
 - SQL sorgularında parametre bağlama kullan; kullanıcı girdisini SQL metnine birleştirme. Güncelleme/silmede `id` ve `user_id` koşullarını koru.
 - JWT'nin `sub` alanı kullanıcı ID'sidir; token ömrü 7 gündür. `bolkese_token` cookie'si HttpOnly, SameSite=Lax, path=/ ve 7 günlük maxAge ile oluşturulur. Ortak frontend istemcisi `credentials: 'include'` kullanır.
 - Uygulamanın tanımlı hata yanıtları `{ error: string }` biçimindedir; HTTP durumlarını ve Türkçe mesajları istemciyle uyumlu tut.
-- `JWT_SECRET` ve `ALTINAPI_KEY` değerlerini kaynak koda, tarayıcı paketine, loglara veya belgelere yazma. JWT'yi localStorage'a taşıma. `.env` dosyaları, backend `data` dizini ve bağımlılıklar ilgili `.gitignore` dosyalarında dışlanır; örnek ortam dosyaları izlenir.
+- `JWT_SECRET` ve `ALTINAPI_KEY` değerlerini kaynak koda, tarayıcı paketine, Docker imaj katmanına, loglara veya belgelere yazma. JWT'yi localStorage'a taşıma. `.env` dosyaları, backend `data` dizini ve bağımlılıklar ilgili `.gitignore` dosyalarında dışlanır; örnek ortam dosyaları izlenir. Compose kök `.env` üzerinden `JWT_SECRET` ve `ALTINAPI_KEY` okur.
 - Mevcut cookie ayarlarında `secure` yoktur; ayrıca rate limiting ve özel CSRF token mekanizması uygulanmış değildir. Bu eksikleri uygulanmış güvenlik özellikleri gibi belgelememe dikkat et; ilgili güvenlik görevlerinde ayrıca değerlendir.
 
 ## 6. Piyasa entegrasyonu ve veri kalıcılığı
 
 - `frontend/src/api/prices.js`, toplu `/api/altin/prices` ve tekil `/api/altin/prices/:symbol` çağrılarını yapar. Tekil sorguda 404, `null` olur; 401/403/429/503 için ayrı hata mesajları vardır.
 - Vite, `/api/altin` yolunu `https://altinapi.com/api/v1` altına yönlendirir; `ALTINAPI_KEY` proxy tarafında `X-API-Key` başlığına eklenir. Anahtarı `VITE_` değişkeniyle tarayıcıya açma.
+- Docker'da Vite yoktur; nginx tüm `/api/` isteklerini Express'e verir. Express `GET /api/altin` yolunu aynı altinapi adresine iletir. Yerel geliştirmede Vite `/api/altin` eşleşmesini önce tutmaya devam eder.
 - Diğer `/api` çağrıları `http://localhost:4000` adresine gider. Daha özel `/api/altin` eşleşmesini önce tut. Backend portu değişirse sabit proxy hedefini de değerlendir.
 - `useMarketPrices` ilk yüklemede ve 45 saniyelik aralıklarla yeniler. `visibilitychange` gizlenmede zamanlayıcıyı durdurur, görünür olunca yenileyip başlatır. Effect cleanup, hata, yükleniyor, gecikmeli veri ve manuel yenileme davranışlarını koru.
-- Canlı fiyatlar React state'ini günceller; her fiyat yenilemesi SQLite'a yazılmaz. Vite dev/preview proxy ayarları üretim dağıtımının sağlandığı anlamına gelmez.
+- Canlı fiyatlar React state'ini günceller; her fiyat yenilemesi SQLite'a yazılmaz. Vite dev/preview proxy ayarları üretim dağıtımının sağlandığı anlamına gelmez; paketleme `docker compose` (nginx + Express) iledir.
 - DB dosyası `backend/data/bolkese.sqlite` altında oluşturulur; WAL ve foreign key desteği açıktır. `schema.sql` başlangıçta çalıştırılır. `CREATE TABLE IF NOT EXISTS` mevcut tabloları dönüştürmez; şema değişikliği için veriyi koruyan açık migration adımları gerekir. Veritabanını silerek çözüm üretme.
 - `bolkese-assets-v2`, eski localStorage varlıklarını hesaba aktarmak içindir. Sunucudan boş liste gelirse kayıtlar sırayla oluşturulur; yerel anahtar tüm aktarım tamamlanınca silinir. İşlem atomik veya idempotent değildir; kısmi başarısızlık/yeniden denemede mükerrer kayıt riski vardır.
 - `bolkese-quotes-snapshot-v1` yalnızca fiyat karşılaştırma snapshot'ıdır. Kullanıcıya ait varlıkların ana kalıcılık kaynağı SQLite'tır.
@@ -130,9 +156,10 @@ Komutları belirtilen paket dizininde çalıştır; iki geliştirme sunucusu iç
 | `frontend` | `npm ci` | Kilit dosyasına göre bağımlılık kurulumu |
 | `frontend` | `npm run dev` | Vite geliştirme sunucusu |
 | `frontend` | `npm run build` | Üretim derlemesi |
-| `frontend` | `npm run preview` | Derlenen frontend'i yerel görüntüleme |
+| `frontend` | `npm run preview` | Derlenen frontend'i yerel görüntüleme (Docker dağıtımı değildir) |
+| kök | `docker compose up --build` | nginx `:8080` + Express; SQLite named volume |
 
-`backend/.env`: `JWT_SECRET` zorunludur, `PORT` varsayılanı 4000'dir. `frontend/.env`: `ALTINAPI_KEY` fiyat proxy'si içindir. Geliştirme adresleri API için `http://localhost:4000`, frontend için varsayılan `http://localhost:5173`'tür.
+`backend/.env`: `JWT_SECRET` zorunludur, `PORT` varsayılanı 4000'dir. `frontend/.env`: `ALTINAPI_KEY` yerel Vite fiyat proxy'si içindir. Docker'da aynı anahtar kök `.env` ile backend konteynerine gider. Geliştirme adresleri API için `http://localhost:4000`, frontend için varsayılan `http://localhost:5173`'tür; Compose arayüzü `http://localhost:8080`'dir.
 
 Mevcut kilit dosyalarında Vite 8.3.1 ve React eklentisi Node `^20.19.0 || >=22.12.0`; better-sqlite3 12.11.1 ise `20.x || 22.x || 23.x || 24.x || 25.x || 26.x` ister. İki koşulu birlikte sağlayan bir sürüm kullan; bağımlılıklar değiştiğinde engine alanlarını yeniden doğrula. Bu, makinede kurulu Node sürümünün doğrulandığı anlamına gelmez.
 

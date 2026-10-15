@@ -31,6 +31,7 @@ import {
 } from 'lucide-react'
 import { fetchMe, logoutAccount } from './api/auth'
 import { createAssetRecord, deleteAssetRecord, fetchAssets, updateAssetRecord } from './api/assets'
+import { fetchLookups } from './api/lookups'
 import { fetchPrice } from './api/prices'
 import AuthScreen from './AuthScreen'
 import { useMarketPrices } from './hooks/useMarketPrices'
@@ -83,7 +84,7 @@ const PRESETS = [
     key: 'try',
     name: 'Türk Lirası',
     code: 'TRY',
-    unit: 'TL',
+    unit: 'adet',
     price: 1,
     ask: 1,
     icon: 'cash',
@@ -92,7 +93,7 @@ const PRESETS = [
   {
     key: 'other',
     name: 'Diğer Varlık',
-    code: 'VAR',
+    code: '',
     unit: 'adet',
     price: 0,
     ask: 0,
@@ -190,6 +191,27 @@ function isManualCode(code) {
   return MANUAL_CODES.has(code)
 }
 
+function amountStep(unit) {
+  const value = String(unit || '').toLocaleLowerCase('tr')
+  if (value === 'tl') return 100
+  return 1
+}
+
+function groupSymbols(symbols) {
+  const groups = []
+  const index = new Map()
+  for (const symbol of symbols) {
+    const category = symbol.category || 'Diğer'
+    if (!index.has(category)) {
+      const items = []
+      index.set(category, items)
+      groups.push({ category, items })
+    }
+    index.get(category).push(symbol)
+  }
+  return groups
+}
+
 const GOLD_CATEGORIES = new Set(['MADEN', 'GRAM ALTIN', 'SARRAFIYE'])
 const GRAM_CATEGORIES = new Set(['GRAM ALTIN', 'MADEN'])
 
@@ -276,6 +298,8 @@ function AddAssetModal({ onClose, onCreate, initial }) {
   const [form, setForm] = useState(initial ? { ...initial } : { ...selected })
   const [live, setLive] = useState(false)
   const [lookup, setLookup] = useState('')
+  const [lookups, setLookups] = useState({ units: [], symbols: [] })
+  const [lookupsReady, setLookupsReady] = useState(false)
 
   const choosePreset = (preset) => {
     setSelectedKey(preset.key)
@@ -287,6 +311,29 @@ function AddAssetModal({ onClose, onCreate, initial }) {
   const updateField = (field, value) => {
     setForm((current) => ({ ...current, [field]: value }))
   }
+
+  useEffect(() => {
+    let cancelled = false
+    fetchLookups()
+      .then((data) => {
+        if (cancelled) return
+        setLookups({
+          units: data.units || [],
+          symbols: data.symbols || [],
+        })
+      })
+      .catch(() => {
+        if (!cancelled) setLookups({ units: [], symbols: [] })
+      })
+      .finally(() => {
+        if (!cancelled) setLookupsReady(true)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const symbolGroups = useMemo(() => groupSymbols(lookups.symbols), [lookups.symbols])
 
   useEffect(() => {
     const code = form.code.trim()
@@ -329,7 +376,7 @@ function AddAssetModal({ onClose, onCreate, initial }) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (!form.name.trim() || !form.code.trim()) return
+    if (!form.name.trim() || !form.code.trim() || !form.unit.trim()) return
     const code = form.code.trim().toUpperCase()
     onCreate({
       ...form,
@@ -352,7 +399,7 @@ function AddAssetModal({ onClose, onCreate, initial }) {
     if (lookup === 'live') return 'Bu kod için fiyat altinapi’den geliyor.'
     if (lookup === 'missing') return 'Bu kod API’de yok. Alış fiyatını elle girebilirsiniz.'
     if (lookup === 'error') return 'Fiyat alınamadı. Alış fiyatını elle girebilirsiniz.'
-    return 'Kod girildiğinde alış ve satış fiyatı otomatik doldurulur.'
+    return 'Kod seçildiğinde alış ve satış fiyatı otomatik doldurulur.'
   })()
 
   return (
@@ -398,22 +445,41 @@ function AddAssetModal({ onClose, onCreate, initial }) {
           </label>
           <label>
             <span>Kod</span>
-            <input
+            <select
               value={form.code}
               onChange={(event) => updateField('code', event.target.value)}
-              placeholder="ALTIN"
-              maxLength={32}
+              disabled={!lookupsReady}
               required
-            />
+              aria-label="Kod"
+            >
+              <option value="">Kod seçin</option>
+              {symbolGroups.map((group) => (
+                <optgroup key={group.category} label={group.category}>
+                  {group.items.map((symbol) => (
+                    <option key={symbol.code} value={symbol.code}>
+                      {symbol.code} — {symbol.description}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
           </label>
           <label>
             <span>Birim</span>
-            <input
+            <select
               value={form.unit}
               onChange={(event) => updateField('unit', event.target.value)}
-              placeholder="gram"
+              disabled={!lookupsReady}
               required
-            />
+              aria-label="Birim"
+            >
+              <option value="">Birim seçin</option>
+              {lookups.units.map((unit) => (
+                <option key={unit.value} value={unit.value}>
+                  {unit.label}
+                </option>
+              ))}
+            </select>
           </label>
         </div>
         <div className="price-fields">
@@ -479,7 +545,7 @@ function UpdateAssetModal({ asset, live, onClose, onSave, onDelete }) {
     setAsk(asset.ask ?? asset.price)
   }, [live, asset.price, asset.ask])
 
-  const step = asset.unit === 'gram' ? 1 : asset.unit === 'TL' ? 100 : 1
+  const step = amountStep(asset.unit)
   const bid = live ? asset.price : Number(price) || 0
   const total = Math.max(0, Number(amount) || 0) * bid
 

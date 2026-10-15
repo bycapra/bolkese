@@ -43,3 +43,14 @@ CREATE TABLE IF NOT EXISTS movements (
 );
 
 CREATE INDEX IF NOT EXISTS idx_movements_user_created ON movements(user_id, created_at);
+
+CREATE TABLE IF NOT EXISTS units (
+  value TEXT PRIMARY KEY,
+  label TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS symbols (
+  code TEXT PRIMARY KEY,
+  description TEXT NOT NULL,
+  category TEXT NOT NULL
+);

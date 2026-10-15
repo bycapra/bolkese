@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowRight, WalletCards } from 'lucide-react'
+import { ArrowRight, Eye, EyeOff, WalletCards } from 'lucide-react'
 import { loginAccount, registerAccount } from './api/auth'
 
 export default function AuthScreen({ onAuth }) {
@@ -8,6 +8,7 @@ export default function AuthScreen({ onAuth }) {
   const [remember, setRemember] = useState(false)
   const [error, setError] = useState('')
   const [pending, setPending] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const isRegister = mode === 'register'
 
   const updateField = (field, value) => {
@@ -68,14 +69,25 @@ export default function AuthScreen({ onAuth }) {
           </label>
           <label>
             <span>Şifre</span>
-            <input
-              type="password"
-              value={form.password}
-              onChange={(event) => updateField('password', event.target.value)}
-              autoComplete={isRegister ? 'new-password' : 'current-password'}
-              minLength={8}
-              required
-            />
+            <div className="auth-password">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={form.password}
+                onChange={(event) => updateField('password', event.target.value)}
+                autoComplete={isRegister ? 'new-password' : 'current-password'}
+                minLength={8}
+                required
+              />
+              <button
+                type="button"
+                className="auth-password-toggle"
+                onClick={() => setShowPassword((value) => !value)}
+                aria-label={showPassword ? 'Şifreyi gizle' : 'Şifreyi göster'}
+                aria-pressed={showPassword}
+              >
+                {showPassword ? <Eye size={17} /> : <EyeOff size={17} />}
+              </button>
+            </div>
           </label>
 
           {!isRegister && (
@@ -103,6 +115,7 @@ export default function AuthScreen({ onAuth }) {
           onClick={() => {
             setMode(isRegister ? 'login' : 'register')
             setError('')
+            setShowPassword(false)
           }}
         >
           {isRegister ? 'Zaten hesabınız var mı? Giriş yapın' : 'Hesabınız yok mu? Kayıt olun'}

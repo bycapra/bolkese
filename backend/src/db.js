@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import Database from 'better-sqlite3'
+import { seedLookups } from './seedLookups.js'
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const dataDir = path.join(rootDir, 'data')
@@ -13,5 +14,6 @@ const db = new Database(path.join(dataDir, 'bolkese.sqlite'))
 db.pragma('journal_mode = WAL')
 db.pragma('foreign_keys = ON')
 db.exec(fs.readFileSync(schemaPath, 'utf8'))
+seedLookups(db)
 
 export default db

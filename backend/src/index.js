@@ -1,8 +1,10 @@
 import 'dotenv/config'
 import express from 'express'
 import cookieParser from 'cookie-parser'
+import altinProxy from './altinProxy.js'
 import authRoutes from './routes/auth.js'
 import assetRoutes from './routes/assets.js'
+import lookupRoutes from './routes/lookups.js'
 import movementRoutes from './routes/movements.js'
 
 const app = express()
@@ -15,8 +17,10 @@ app.get('/api/health', (_req, res) => {
   res.json({ ok: true })
 })
 
+app.use('/api/altin', altinProxy)
 app.use('/api/auth', authRoutes)
 app.use('/api/assets', assetRoutes)
+app.use('/api/lookups', lookupRoutes)
 app.use('/api/movements', movementRoutes)
 
 app.use((error, _req, res, _next) => {

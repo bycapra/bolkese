@@ -130,6 +130,28 @@ input:focus-visible {
   border-color: var(--accent);
 }
 
+.auth-password {
+  position: relative;
+}
+
+.auth-password input {
+  padding-right: 44px;
+}
+
+.auth-password-toggle {
+  position: absolute;
+  top: 0;
+  right: 2px;
+  width: 41px;
+  height: 45px;
+  display: grid;
+  place-items: center;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 0;
+  border-radius: 10px;
+}
+
 .auth-card .auth-remember {
   width: fit-content;
   display: inline-flex;
@@ -1366,6 +1388,7 @@ button.assets-add-row {
 }
 
 .form-grid input,
+.form-grid select,
 .price-field input {
   width: 100%;
   height: 45px;
@@ -1378,6 +1401,7 @@ button.assets-add-row {
 }
 
 .form-grid input:focus,
+.form-grid select:focus,
 .price-field input:focus {
   background: white;
   border-color: var(--accent);

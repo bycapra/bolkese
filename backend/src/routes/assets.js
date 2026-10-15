@@ -56,6 +56,17 @@ router.post('/', (req, res) => {
     return
   }
 
+  const knownCode = db.prepare('SELECT 1 FROM symbols WHERE code = ?').get(code)
+  if (!knownCode) {
+    res.status(400).json({ error: 'Geçersiz kod.' })
+    return
+  }
+  const knownUnit = db.prepare('SELECT 1 FROM units WHERE value = ?').get(unit)
+  if (!knownUnit) {
+    res.status(400).json({ error: 'Geçersiz birim.' })
+    return
+  }
+
   const { price, ask } = pricesFor(code, req.body?.price, req.body?.ask)
   const now = new Date().toISOString()
   const row = {
