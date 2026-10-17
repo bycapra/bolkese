@@ -39,6 +39,8 @@ import MarketsPage from './MarketsPage'
 import ReportsPage from './ReportsPage'
 import AssetsPage from './AssetsPage'
 import { labelFor } from './data/symbolLabels'
+import { buildAllocation } from './allocation'
+import AllocationPanel from './AllocationPanel'
 
 const STORAGE_KEY = 'bolkese-assets-v2'
 const MANUAL_CODES = new Set(['TRY'])
@@ -750,6 +752,7 @@ function Portfolio({ user, onLogout }) {
   const [hidden, setHidden] = useState(false)
   const [toast, setToast] = useState('')
   const [activeNav, setActiveNav] = useState('home')
+  const [symbols, setSymbols] = useState([])
   const { quotes, loading, error, stale, updatedAt, refresh } = useMarketPrices()
 
   useEffect(() => {
@@ -791,6 +794,20 @@ function Portfolio({ user, onLogout }) {
   }, [user.id, assetsReady])
 
   useEffect(() => {
+    let cancelled = false
+    fetchLookups()
+      .then((data) => {
+        if (!cancelled) setSymbols(data.symbols || [])
+      })
+      .catch(() => {
+        if (!cancelled) setSymbols([])
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  useEffect(() => {
     if (!quotes.size) return
     setAssets((current) => current.map((asset) => {
       if (isManualCode(asset.code)) {
@@ -821,6 +838,11 @@ function Portfolio({ user, onLogout }) {
   const recordedChange = useMemo(
     () => assets.reduce((sum, asset) => sum + asset.amount * asset.price * ((asset.change || 0) / 100), 0),
     [assets],
+  )
+
+  const allocation = useMemo(
+    () => buildAllocation(assets, symbols, quotes),
+    [assets, symbols, quotes],
   )
 
   const createAsset = async (asset) => {
@@ -1056,6 +1078,8 @@ function Portfolio({ user, onLogout }) {
             </div>
           </div>
         </section>
+
+        <AllocationPanel allocation={allocation} hidden={hidden} formatTRY={formatTRY} />
 
         <div className="content-grid">
           <section className="assets-section">
