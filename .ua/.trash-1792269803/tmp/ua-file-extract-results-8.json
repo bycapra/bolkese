@@ -1,0 +1,267 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [
+    "frontend/nginx.conf",
+    "frontend/src/styles.css"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 5,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 1,
+      "failed": 0,
+      "skipped": 4
+    }
+  },
+  "results": [
+    {
+      "path": "backend/.env.example",
+      "language": "config",
+      "fileCategory": "config",
+      "totalLines": 2,
+      "nonEmptyLines": 2,
+      "definitions": [
+        {
+          "name": "PORT",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 1,
+          "endLine": 1
+        },
+        {
+          "name": "JWT_SECRET",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 2,
+          "endLine": 2
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 2
+      }
+    },
+    {
+      "path": "backend/package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 18,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "type",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "backend/src/schema.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 56,
+      "nonEmptyLines": 49,
+      "definitions": [
+        {
+          "name": "users",
+          "kind": "table",
+          "fields": [
+            "id",
+            "email",
+            "password_hash",
+            "name",
+            "created_at"
+          ],
+          "startLine": 3,
+          "endLine": 9
+        },
+        {
+          "name": "assets",
+          "kind": "table",
+          "fields": [
+            "id",
+            "user_id",
+            "name",
+            "code",
+            "unit",
+            "amount",
+            "icon",
+            "color",
+            "preset_key",
+            "price",
+            "ask",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 11,
+          "endLine": 26
+        },
+        {
+          "name": "movements",
+          "kind": "table",
+          "fields": [
+            "id",
+            "user_id",
+            "asset_id",
+            "name",
+            "code",
+            "unit",
+            "direction",
+            "quantity",
+            "balance",
+            "created_at"
+          ],
+          "startLine": 30,
+          "endLine": 43
+        },
+        {
+          "name": "units",
+          "kind": "table",
+          "fields": [
+            "value",
+            "label"
+          ],
+          "startLine": 47,
+          "endLine": 50
+        },
+        {
+          "name": "symbols",
+          "kind": "table",
+          "fields": [
+            "code",
+            "description",
+            "category"
+          ],
+          "startLine": 52,
+          "endLine": 56
+        },
+        {
+          "name": "idx_assets_user",
+          "kind": "index",
+          "fields": [],
+          "startLine": 28,
+          "endLine": 28
+        },
+        {
+          "name": "idx_movements_user_created",
+          "kind": "index",
+          "fields": [],
+          "startLine": 45,
+          "endLine": 45
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 7
+      }
+    },
+    {
+      "path": "frontend/.openai/hosting.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 6,
+      "nonEmptyLines": 6,
+      "sections": [
+        {
+          "heading": "project_id",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "static",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "frontend/vite.config.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "altinProxy",
+          "startLine": 4,
+          "endLine": 17,
+          "params": [
+            "apiKey"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "altinProxy",
+          "callee": "path.replace",
+          "lineNumber": 9
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "proxy.on",
+          "lineNumber": 11
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "proxyReq.setHeader",
+          "lineNumber": 12
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

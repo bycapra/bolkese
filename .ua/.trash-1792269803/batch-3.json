@@ -1,0 +1,439 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/ReportsPage.jsx",
+      "type": "file",
+      "name": "ReportsPage.jsx",
+      "filePath": "frontend/src/ReportsPage.jsx",
+      "summary": "Reports view that lists quantity movements with date, category, and direction filters, including CSV export and orphaned-asset rows.",
+      "tags": ["component", "reports", "csv-export", "filtering"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/ReportsPage.jsx:exportMovements",
+      "type": "function",
+      "name": "exportMovements",
+      "filePath": "frontend/src/ReportsPage.jsx",
+      "lineRange": [36, 50],
+      "summary": "Builds a Turkish-header CSV of movement rows and triggers a dated file download.",
+      "tags": ["csv-export", "serialization", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/ReportsPage.jsx:ReportsPage",
+      "type": "function",
+      "name": "ReportsPage",
+      "filePath": "frontend/src/ReportsPage.jsx",
+      "lineRange": [52, 231],
+      "summary": "Default-exported React page that fetches movements, applies filters, and renders a filterable movement table with export.",
+      "tags": ["component", "event-handler", "filtering", "api-client"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/api/assets.js",
+      "type": "file",
+      "name": "assets.js",
+      "filePath": "frontend/src/api/assets.js",
+      "summary": "Thin API wrappers for listing, creating, updating, and deleting the signed-in user's asset records.",
+      "tags": ["api-client", "service", "crud"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/assets.js:fetchAssets",
+      "type": "function",
+      "name": "fetchAssets",
+      "filePath": "frontend/src/api/assets.js",
+      "lineRange": [3, 5],
+      "summary": "GET /api/assets and returns the authenticated user's asset list.",
+      "tags": ["api-client", "crud", "exported"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/assets.js:createAssetRecord",
+      "type": "function",
+      "name": "createAssetRecord",
+      "filePath": "frontend/src/api/assets.js",
+      "lineRange": [7, 12],
+      "summary": "POST /api/assets with a JSON payload to create a new asset record.",
+      "tags": ["api-client", "crud", "exported"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/assets.js:updateAssetRecord",
+      "type": "function",
+      "name": "updateAssetRecord",
+      "filePath": "frontend/src/api/assets.js",
+      "lineRange": [14, 19],
+      "summary": "PATCH /api/assets/:id with a JSON payload to update amount or prices.",
+      "tags": ["api-client", "crud", "exported"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/assets.js:deleteAssetRecord",
+      "type": "function",
+      "name": "deleteAssetRecord",
+      "filePath": "frontend/src/api/assets.js",
+      "lineRange": [21, 23],
+      "summary": "DELETE /api/assets/:id to remove an owned asset record.",
+      "tags": ["api-client", "crud", "exported"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/api/client.js",
+      "type": "file",
+      "name": "client.js",
+      "filePath": "frontend/src/api/client.js",
+      "summary": "Shared JSON fetch helper that sends cookies, parses error bodies, and throws ApiError on non-OK responses.",
+      "tags": ["api-client", "utility", "error-handling"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:frontend/src/api/client.js:ApiError",
+      "type": "class",
+      "name": "ApiError",
+      "filePath": "frontend/src/api/client.js",
+      "lineRange": [1, 7],
+      "summary": "Error subclass that carries the HTTP status and a Turkish or server-provided message.",
+      "tags": ["error-handling", "type-definition", "exported"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/client.js:request",
+      "type": "function",
+      "name": "request",
+      "filePath": "frontend/src/api/client.js",
+      "lineRange": [9, 34],
+      "summary": "Performs a credentials-included JSON request and returns the parsed body or throws ApiError.",
+      "tags": ["api-client", "utility", "exported"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/api/lookups.js",
+      "type": "file",
+      "name": "lookups.js",
+      "filePath": "frontend/src/api/lookups.js",
+      "summary": "Fetches authenticated unit and symbol lookup lists from GET /api/lookups.",
+      "tags": ["api-client", "lookups", "service"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/lookups.js:fetchLookups",
+      "type": "function",
+      "name": "fetchLookups",
+      "filePath": "frontend/src/api/lookups.js",
+      "lineRange": [3, 5],
+      "summary": "GET /api/lookups via the shared request helper.",
+      "tags": ["api-client", "lookups", "exported"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/api/movements.js",
+      "type": "file",
+      "name": "movements.js",
+      "filePath": "frontend/src/api/movements.js",
+      "summary": "Builds optional query params and fetches quantity movement history from GET /api/movements.",
+      "tags": ["api-client", "service", "filtering"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/movements.js:fetchMovements",
+      "type": "function",
+      "name": "fetchMovements",
+      "filePath": "frontend/src/api/movements.js",
+      "lineRange": [3, 11],
+      "summary": "GET /api/movements with optional from, to, assetId, and direction query filters.",
+      "tags": ["api-client", "filtering", "exported"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/exportCsv.js",
+      "type": "file",
+      "name": "exportCsv.js",
+      "filePath": "frontend/src/exportCsv.js",
+      "summary": "Semicolon-delimited CSV helpers that escape fields and download a UTF-8 BOM file in the browser.",
+      "tags": ["utility", "csv-export", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/exportCsv.js:toCsv",
+      "type": "function",
+      "name": "toCsv",
+      "filePath": "frontend/src/exportCsv.js",
+      "lineRange": [9, 15],
+      "summary": "Joins headers and records into a semicolon-delimited CSV string with escaped fields.",
+      "tags": ["utility", "serialization", "exported"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/exportCsv.js:downloadCsv",
+      "type": "function",
+      "name": "downloadCsv",
+      "filePath": "frontend/src/exportCsv.js",
+      "lineRange": [17, 27],
+      "summary": "Creates a Blob URL and clicks a temporary anchor to download a UTF-8 BOM CSV file.",
+      "tags": ["utility", "csv-export", "exported"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/ReportsPage.jsx",
+      "target": "file:frontend/src/api/movements.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/ReportsPage.jsx",
+      "target": "file:frontend/src/exportCsv.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "file:frontend/src/api/client.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/lookups.js",
+      "target": "file:frontend/src/api/client.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/movements.js",
+      "target": "file:frontend/src/api/client.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/ReportsPage.jsx",
+      "target": "function:frontend/src/ReportsPage.jsx:exportMovements",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/ReportsPage.jsx",
+      "target": "function:frontend/src/ReportsPage.jsx:ReportsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/ReportsPage.jsx",
+      "target": "function:frontend/src/ReportsPage.jsx:ReportsPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:fetchAssets",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:createAssetRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:updateAssetRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:deleteAssetRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:fetchAssets",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:createAssetRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:updateAssetRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:deleteAssetRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.js",
+      "target": "class:frontend/src/api/client.js:ApiError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/api/client.js",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/api/client.js",
+      "target": "class:frontend/src/api/client.js:ApiError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.js",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/lookups.js",
+      "target": "function:frontend/src/api/lookups.js:fetchLookups",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/api/lookups.js",
+      "target": "function:frontend/src/api/lookups.js:fetchLookups",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/movements.js",
+      "target": "function:frontend/src/api/movements.js:fetchMovements",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/api/movements.js",
+      "target": "function:frontend/src/api/movements.js:fetchMovements",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/exportCsv.js",
+      "target": "function:frontend/src/exportCsv.js:toCsv",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/exportCsv.js",
+      "target": "function:frontend/src/exportCsv.js:downloadCsv",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/exportCsv.js",
+      "target": "function:frontend/src/exportCsv.js:toCsv",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/exportCsv.js",
+      "target": "function:frontend/src/exportCsv.js:downloadCsv",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/ReportsPage.jsx:exportMovements",
+      "target": "function:frontend/src/exportCsv.js:toCsv",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/ReportsPage.jsx:exportMovements",
+      "target": "function:frontend/src/exportCsv.js:downloadCsv",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/ReportsPage.jsx:ReportsPage",
+      "target": "function:frontend/src/api/movements.js:fetchMovements",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/assets.js:fetchAssets",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/assets.js:createAssetRecord",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/assets.js:updateAssetRecord",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/assets.js:deleteAssetRecord",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/lookups.js:fetchLookups",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/movements.js:fetchMovements",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

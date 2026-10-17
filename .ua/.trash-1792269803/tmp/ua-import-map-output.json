@@ -1,0 +1,112 @@
+{
+  "scriptCompleted": true,
+  "stats": {
+    "filesScanned": 45,
+    "filesWithImports": 17,
+    "totalEdges": 39
+  },
+  "failures": [],
+  "importMap": {
+    ".env.example": [],
+    "AGENTS.md": [],
+    "README.md": [],
+    "backend/.dockerignore": [],
+    "backend/.env.example": [],
+    "backend/Dockerfile": [],
+    "backend/package.json": [],
+    "backend/src/altinProxy.js": [],
+    "backend/src/auth.js": [],
+    "backend/src/db.js": [
+      "backend/src/seedLookups.js"
+    ],
+    "backend/src/index.js": [
+      "backend/src/altinProxy.js",
+      "backend/src/routes/assets.js",
+      "backend/src/routes/auth.js",
+      "backend/src/routes/lookups.js",
+      "backend/src/routes/movements.js"
+    ],
+    "backend/src/logMovement.js": [],
+    "backend/src/middleware/requireAuth.js": [
+      "backend/src/auth.js",
+      "backend/src/db.js"
+    ],
+    "backend/src/routes/assets.js": [
+      "backend/src/db.js",
+      "backend/src/logMovement.js",
+      "backend/src/middleware/requireAuth.js"
+    ],
+    "backend/src/routes/auth.js": [
+      "backend/src/auth.js",
+      "backend/src/db.js",
+      "backend/src/middleware/requireAuth.js"
+    ],
+    "backend/src/routes/lookups.js": [
+      "backend/src/db.js",
+      "backend/src/middleware/requireAuth.js"
+    ],
+    "backend/src/routes/movements.js": [
+      "backend/src/db.js",
+      "backend/src/middleware/requireAuth.js"
+    ],
+    "backend/src/schema.sql": [],
+    "backend/src/seedLookups.js": [],
+    "docker-compose.yml": [],
+    "frontend/.dockerignore": [],
+    "frontend/.env.example": [],
+    "frontend/.openai/hosting.json": [],
+    "frontend/Dockerfile": [],
+    "frontend/index.html": [],
+    "frontend/nginx.conf": [],
+    "frontend/package.json": [],
+    "frontend/src/App.jsx": [
+      "frontend/src/AssetsPage.jsx",
+      "frontend/src/AuthScreen.jsx",
+      "frontend/src/MarketsPage.jsx",
+      "frontend/src/ReportsPage.jsx",
+      "frontend/src/api/assets.js",
+      "frontend/src/api/auth.js",
+      "frontend/src/api/lookups.js",
+      "frontend/src/api/prices.js",
+      "frontend/src/data/symbolLabels.js",
+      "frontend/src/hooks/useMarketPrices.js"
+    ],
+    "frontend/src/AssetsPage.jsx": [],
+    "frontend/src/AuthScreen.jsx": [
+      "frontend/src/api/auth.js"
+    ],
+    "frontend/src/MarketsPage.jsx": [
+      "frontend/src/data/symbolLabels.js"
+    ],
+    "frontend/src/ReportsPage.jsx": [
+      "frontend/src/api/movements.js",
+      "frontend/src/exportCsv.js"
+    ],
+    "frontend/src/api/assets.js": [
+      "frontend/src/api/client.js"
+    ],
+    "frontend/src/api/auth.js": [
+      "frontend/src/api/client.js"
+    ],
+    "frontend/src/api/client.js": [],
+    "frontend/src/api/lookups.js": [
+      "frontend/src/api/client.js"
+    ],
+    "frontend/src/api/movements.js": [
+      "frontend/src/api/client.js"
+    ],
+    "frontend/src/api/prices.js": [],
+    "frontend/src/data/symbolLabels.js": [],
+    "frontend/src/exportCsv.js": [],
+    "frontend/src/hooks/useMarketPrices.js": [
+      "frontend/src/api/prices.js"
+    ],
+    "frontend/src/main.jsx": [
+      "frontend/src/App.jsx",
+      "frontend/src/styles.css"
+    ],
+    "frontend/src/styles.css": [],
+    "frontend/vite.config.js": [],
+    "skills.md": []
+  }
+}

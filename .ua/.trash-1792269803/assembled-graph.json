@@ -1,0 +1,3422 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "bolkese",
+    "languages": [
+      "css",
+      "dockerfile",
+      "html",
+      "javascript",
+      "json",
+      "markdown",
+      "sql",
+      "yaml"
+    ],
+    "frameworks": [
+      "React",
+      "Vite",
+      "Express",
+      "Docker",
+      "Docker Compose"
+    ],
+    "description": "Turkish gold, FX, and cash portfolio tracker with a React/Vite UI, Express/SQLite API, and live altinapi prices.",
+    "analyzedAt": "2026-10-17T20:43:05.033Z",
+    "gitCommitHash": "a7a1ed31e1e48cdf425e48b41514c62fde4421e1"
+  },
+  "nodes": [
+    {
+      "id": "file:backend/src/altinProxy.js",
+      "type": "file",
+      "name": "altinProxy.js",
+      "filePath": "backend/src/altinProxy.js",
+      "summary": "Express handler that proxies GET /api/altin to altinapi, attaching the server-side API key and forwarding the upstream body.",
+      "tags": [
+        "api-handler",
+        "proxy",
+        "prices",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/altinProxy.js:altinProxy",
+      "type": "function",
+      "name": "altinProxy",
+      "filePath": "backend/src/altinProxy.js",
+      "lineRange": [
+        3,
+        33
+      ],
+      "summary": "Forwards allowed GET requests to altinapi with X-API-Key, then relays status, content type, and body or returns Turkish error JSON.",
+      "tags": [
+        "api-handler",
+        "proxy",
+        "http",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/auth.js",
+      "type": "file",
+      "name": "auth.js",
+      "filePath": "backend/src/auth.js",
+      "summary": "JWT helpers that sign and verify session tokens and set or clear the HttpOnly bolkese_token cookie.",
+      "tags": [
+        "authentication",
+        "security",
+        "utility",
+        "cookies"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/auth.js:signToken",
+      "type": "function",
+      "name": "signToken",
+      "filePath": "backend/src/auth.js",
+      "lineRange": [
+        12,
+        14
+      ],
+      "summary": "Signs a seven-day JWT whose subject is the user id.",
+      "tags": [
+        "authentication",
+        "jwt",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/auth.js:readToken",
+      "type": "function",
+      "name": "readToken",
+      "filePath": "backend/src/auth.js",
+      "lineRange": [
+        16,
+        18
+      ],
+      "summary": "Verifies a JWT and returns its payload using the server JWT secret.",
+      "tags": [
+        "authentication",
+        "jwt",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/auth.js:setAuthCookie",
+      "type": "function",
+      "name": "setAuthCookie",
+      "filePath": "backend/src/auth.js",
+      "lineRange": [
+        20,
+        28
+      ],
+      "summary": "Writes the HttpOnly SameSite=Lax session cookie with a seven-day max age.",
+      "tags": [
+        "authentication",
+        "cookies",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/auth.js:clearAuthCookie",
+      "type": "function",
+      "name": "clearAuthCookie",
+      "filePath": "backend/src/auth.js",
+      "lineRange": [
+        30,
+        32
+      ],
+      "summary": "Clears the session cookie on logout.",
+      "tags": [
+        "authentication",
+        "cookies",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/db.js",
+      "type": "file",
+      "name": "db.js",
+      "filePath": "backend/src/db.js",
+      "summary": "Opens the SQLite database under backend/data, enables WAL and foreign keys, applies schema.sql, then seeds lookup rows.",
+      "tags": [
+        "database",
+        "singleton",
+        "entry-point",
+        "sqlite"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/index.js",
+      "type": "file",
+      "name": "index.js",
+      "filePath": "backend/src/index.js",
+      "summary": "Express entry point that enables JSON and cookies, mounts health, altin proxy, and auth/asset/lookup/movement routers, then starts the server.",
+      "tags": [
+        "entry-point",
+        "api-handler",
+        "express",
+        "routing"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/logMovement.js",
+      "type": "file",
+      "name": "logMovement.js",
+      "filePath": "backend/src/logMovement.js",
+      "summary": "Inserts a movement row when an asset amount changes so buy and sell history can be listed later.",
+      "tags": [
+        "data-model",
+        "audit",
+        "utility",
+        "database"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/logMovement.js:logAmountChange",
+      "type": "function",
+      "name": "logAmountChange",
+      "filePath": "backend/src/logMovement.js",
+      "lineRange": [
+        11,
+        36
+      ],
+      "summary": "Writes a movement with direction, quantity, and unit value when the new amount differs from the previous amount.",
+      "tags": [
+        "data-model",
+        "audit",
+        "database",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/middleware/requireAuth.js",
+      "type": "file",
+      "name": "requireAuth.js",
+      "filePath": "backend/src/middleware/requireAuth.js",
+      "summary": "Auth middleware that reads the session cookie, verifies the JWT, loads the user from SQLite, and attaches req.user.",
+      "tags": [
+        "middleware",
+        "authentication",
+        "security",
+        "api-handler"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/middleware/requireAuth.js:requireAuth",
+      "type": "function",
+      "name": "requireAuth",
+      "filePath": "backend/src/middleware/requireAuth.js",
+      "lineRange": [
+        4,
+        27
+      ],
+      "summary": "Rejects missing or invalid tokens with 401, otherwise loads the user row and continues the request.",
+      "tags": [
+        "middleware",
+        "authentication",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/routes/assets.js",
+      "type": "file",
+      "name": "assets.js",
+      "filePath": "backend/src/routes/assets.js",
+      "summary": "Authenticated CRUD for the current user's assets, including symbol/unit checks, TRY price locking, and movement logging on amount changes.",
+      "tags": [
+        "api-handler",
+        "crud",
+        "validation",
+        "data-model"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/routes/assets.js:toAsset",
+      "type": "function",
+      "name": "toAsset",
+      "filePath": "backend/src/routes/assets.js",
+      "lineRange": [
+        12,
+        26
+      ],
+      "summary": "Maps a database asset row to the public API shape, renaming preset_key to key and forcing change to 0.",
+      "tags": [
+        "serialization",
+        "data-model",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/src/routes/assets.js:GET-/api/assets",
+      "type": "endpoint",
+      "name": "GET /api/assets",
+      "filePath": "backend/src/routes/assets.js",
+      "summary": "Lists the authenticated user's assets in creation order.",
+      "tags": [
+        "api-handler",
+        "crud",
+        "assets",
+        "read"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/src/routes/assets.js:POST-/api/assets",
+      "type": "endpoint",
+      "name": "POST /api/assets",
+      "filePath": "backend/src/routes/assets.js",
+      "summary": "Creates an asset owned by the current user after validating name, code, and unit against lookup tables.",
+      "tags": [
+        "api-handler",
+        "crud",
+        "assets",
+        "validation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "endpoint:backend/src/routes/assets.js:PATCH-/api/assets/:id",
+      "type": "endpoint",
+      "name": "PATCH /api/assets/:id",
+      "filePath": "backend/src/routes/assets.js",
+      "summary": "Updates amount, bid, and ask for an owned asset and logs a movement when quantity changes.",
+      "tags": [
+        "api-handler",
+        "crud",
+        "assets",
+        "validation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "endpoint:backend/src/routes/assets.js:DELETE-/api/assets/:id",
+      "type": "endpoint",
+      "name": "DELETE /api/assets/:id",
+      "filePath": "backend/src/routes/assets.js",
+      "summary": "Deletes an owned asset or returns 404/403 when the row is missing or belongs to another user.",
+      "tags": [
+        "api-handler",
+        "crud",
+        "assets",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/routes/auth.js",
+      "type": "file",
+      "name": "auth.js",
+      "filePath": "backend/src/routes/auth.js",
+      "summary": "Register, login, logout, and current-user routes that hash passwords, issue cookies, and return public user objects.",
+      "tags": [
+        "api-handler",
+        "authentication",
+        "validation",
+        "security"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "endpoint:backend/src/routes/auth.js:POST-/api/auth/register",
+      "type": "endpoint",
+      "name": "POST /api/auth/register",
+      "filePath": "backend/src/routes/auth.js",
+      "summary": "Creates a user after email, name, and password checks, then sets the session cookie.",
+      "tags": [
+        "api-handler",
+        "authentication",
+        "validation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "endpoint:backend/src/routes/auth.js:POST-/api/auth/login",
+      "type": "endpoint",
+      "name": "POST /api/auth/login",
+      "filePath": "backend/src/routes/auth.js",
+      "summary": "Authenticates email and password with bcrypt and sets the session cookie.",
+      "tags": [
+        "api-handler",
+        "authentication",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/src/routes/auth.js:POST-/api/auth/logout",
+      "type": "endpoint",
+      "name": "POST /api/auth/logout",
+      "filePath": "backend/src/routes/auth.js",
+      "summary": "Clears the session cookie and returns a success payload.",
+      "tags": [
+        "api-handler",
+        "authentication",
+        "cookies"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/src/routes/auth.js:GET-/api/auth/me",
+      "type": "endpoint",
+      "name": "GET /api/auth/me",
+      "filePath": "backend/src/routes/auth.js",
+      "summary": "Returns the public user object for the authenticated session.",
+      "tags": [
+        "api-handler",
+        "authentication",
+        "read"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/routes/lookups.js",
+      "type": "file",
+      "name": "lookups.js",
+      "filePath": "backend/src/routes/lookups.js",
+      "summary": "Authenticated lookup route that returns unit and symbol catalogs used when creating assets.",
+      "tags": [
+        "api-handler",
+        "lookups",
+        "read",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/src/routes/lookups.js:GET-/api/lookups",
+      "type": "endpoint",
+      "name": "GET /api/lookups",
+      "filePath": "backend/src/routes/lookups.js",
+      "summary": "Returns units and symbols from the seeded lookup tables.",
+      "tags": [
+        "api-handler",
+        "lookups",
+        "read"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/routes/movements.js",
+      "type": "file",
+      "name": "movements.js",
+      "filePath": "backend/src/routes/movements.js",
+      "summary": "Authenticated listing of the current user's asset movements with optional date, asset, and direction filters.",
+      "tags": [
+        "api-handler",
+        "audit",
+        "read",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/routes/movements.js:toMovement",
+      "type": "function",
+      "name": "toMovement",
+      "filePath": "backend/src/routes/movements.js",
+      "lineRange": [
+        8,
+        20
+      ],
+      "summary": "Maps a joined movement row to the public movement payload used by reports.",
+      "tags": [
+        "serialization",
+        "data-model",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/src/routes/movements.js:GET-/api/movements",
+      "type": "endpoint",
+      "name": "GET /api/movements",
+      "filePath": "backend/src/routes/movements.js",
+      "summary": "Lists owned movements newest first, filtered by optional from, to, assetId, and direction query params.",
+      "tags": [
+        "api-handler",
+        "audit",
+        "read"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/seedLookups.js",
+      "type": "file",
+      "name": "seedLookups.js",
+      "filePath": "backend/src/seedLookups.js",
+      "summary": "Startup seeder that INSERT OR REPLACE units, sixty-six altinapi symbols, and TRY into lookup tables.",
+      "tags": [
+        "database",
+        "seed",
+        "lookups",
+        "data-model"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/seedLookups.js:seedLookups",
+      "type": "function",
+      "name": "seedLookups",
+      "filePath": "backend/src/seedLookups.js",
+      "lineRange": [
+        77,
+        90
+      ],
+      "summary": "Runs a transaction that upserts the static unit and symbol catalogs into SQLite.",
+      "tags": [
+        "database",
+        "seed",
+        "lookups"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/App.jsx",
+      "type": "file",
+      "name": "App.jsx",
+      "filePath": "frontend/src/App.jsx",
+      "summary": "Main React shell: session bootstrap, portfolio layout, asset/market/report views, and add/update modals with live prices.",
+      "tags": [
+        "entry-point",
+        "component",
+        "portfolio",
+        "session"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/App.jsx:migrateAssets",
+      "type": "function",
+      "name": "migrateAssets",
+      "filePath": "frontend/src/App.jsx",
+      "lineRange": [
+        139,
+        150
+      ],
+      "summary": "Normalizes stored asset codes (XAU/GA, USD, EUR) and numeric amount/price/ask fields.",
+      "tags": [
+        "migration",
+        "data-model",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.jsx:migrateLocalAssets",
+      "type": "function",
+      "name": "migrateLocalAssets",
+      "filePath": "frontend/src/App.jsx",
+      "lineRange": [
+        167,
+        188
+      ],
+      "summary": "Uploads leftover localStorage assets to the API when the server list is empty, then clears the local key.",
+      "tags": [
+        "migration",
+        "api-handler",
+        "local-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.jsx:groupSymbols",
+      "type": "function",
+      "name": "groupSymbols",
+      "filePath": "frontend/src/App.jsx",
+      "lineRange": [
+        200,
+        213
+      ],
+      "summary": "Groups lookup symbols by category for the add-asset picker.",
+      "tags": [
+        "lookups",
+        "utility",
+        "component"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.jsx:assetDraftFromQuote",
+      "type": "function",
+      "name": "assetDraftFromQuote",
+      "filePath": "frontend/src/App.jsx",
+      "lineRange": [
+        218,
+        234
+      ],
+      "summary": "Builds an add-asset draft from a market quote using preset icon/color when available.",
+      "tags": [
+        "factory",
+        "markets",
+        "component"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.jsx:IconBadge",
+      "type": "function",
+      "name": "IconBadge",
+      "filePath": "frontend/src/App.jsx",
+      "lineRange": [
+        236,
+        247
+      ],
+      "summary": "Renders a colored Lucide icon badge used on asset cards and pickers.",
+      "tags": [
+        "component",
+        "ui",
+        "icon"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.jsx:Modal",
+      "type": "function",
+      "name": "Modal",
+      "filePath": "frontend/src/App.jsx",
+      "lineRange": [
+        249,
+        275
+      ],
+      "summary": "Accessible dialog shell with overlay click and Escape to close, locking body scroll while open.",
+      "tags": [
+        "component",
+        "modal",
+        "accessibility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.jsx:PricePair",
+      "type": "function",
+      "name": "PricePair",
+      "filePath": "frontend/src/App.jsx",
+      "lineRange": [
+        277,
+        293
+      ],
+      "summary": "Shows bid and ask as alış/satış with optional live-lock styling.",
+      "tags": [
+        "component",
+        "prices",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.jsx:AddAssetModal",
+      "type": "function",
+      "name": "AddAssetModal",
+      "filePath": "frontend/src/App.jsx",
+      "lineRange": [
+        295,
+        535
+      ],
+      "summary": "Modal to create an asset from presets or lookup code/unit selects, submitting amount and prices.",
+      "tags": [
+        "component",
+        "modal",
+        "form",
+        "validation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/App.jsx:UpdateAssetModal",
+      "type": "function",
+      "name": "UpdateAssetModal",
+      "filePath": "frontend/src/App.jsx",
+      "lineRange": [
+        537,
+        674
+      ],
+      "summary": "Modal to change amount and, when live quotes are missing, manual bid/ask for an existing asset.",
+      "tags": [
+        "component",
+        "modal",
+        "form",
+        "assets"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/App.jsx:EmptyState",
+      "type": "function",
+      "name": "EmptyState",
+      "filePath": "frontend/src/App.jsx",
+      "lineRange": [
+        676,
+        693
+      ],
+      "summary": "Empty portfolio prompt that offers adding the first asset.",
+      "tags": [
+        "component",
+        "ui",
+        "empty-state"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.jsx:AssetCard",
+      "type": "function",
+      "name": "AssetCard",
+      "filePath": "frontend/src/App.jsx",
+      "lineRange": [
+        695,
+        717
+      ],
+      "summary": "Compact asset row showing amount, value, and change with update/delete actions.",
+      "tags": [
+        "component",
+        "assets",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.jsx:App",
+      "type": "function",
+      "name": "App",
+      "filePath": "frontend/src/App.jsx",
+      "lineRange": [
+        719,
+        744
+      ],
+      "summary": "Root component that restores the session via GET /api/auth/me then shows AuthScreen or Portfolio.",
+      "tags": [
+        "entry-point",
+        "component",
+        "session"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.jsx:Portfolio",
+      "type": "function",
+      "name": "Portfolio",
+      "filePath": "frontend/src/App.jsx",
+      "lineRange": [
+        746,
+        1209
+      ],
+      "summary": "Authenticated workspace: loads assets and lookups, refreshes live prices, and switches Varlıklarım/Piyasalar/Raporlar views.",
+      "tags": [
+        "component",
+        "portfolio",
+        "state",
+        "prices"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/AssetsPage.jsx",
+      "type": "file",
+      "name": "AssetsPage.jsx",
+      "filePath": "frontend/src/AssetsPage.jsx",
+      "summary": "Owned-assets list with search, totals, and per-row amount update or delete.",
+      "tags": [
+        "component",
+        "assets",
+        "crud"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/AssetsPage.jsx:AssetsPage",
+      "type": "function",
+      "name": "AssetsPage",
+      "filePath": "frontend/src/AssetsPage.jsx",
+      "lineRange": [
+        24,
+        128
+      ],
+      "summary": "Filters holdings by name/code and renders cards with formatted TRY values.",
+      "tags": [
+        "component",
+        "assets",
+        "search"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/AuthScreen.jsx",
+      "type": "file",
+      "name": "AuthScreen.jsx",
+      "filePath": "frontend/src/AuthScreen.jsx",
+      "summary": "Login and register form with remember-me and password visibility toggle.",
+      "tags": [
+        "component",
+        "authentication",
+        "form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/AuthScreen.jsx:AuthScreen",
+      "type": "function",
+      "name": "AuthScreen",
+      "filePath": "frontend/src/AuthScreen.jsx",
+      "lineRange": [
+        5,
+        126
+      ],
+      "summary": "Submits register or login and reports API errors in Turkish.",
+      "tags": [
+        "component",
+        "authentication",
+        "form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/MarketsPage.jsx",
+      "type": "file",
+      "name": "MarketsPage.jsx",
+      "filePath": "frontend/src/MarketsPage.jsx",
+      "summary": "Grouped live quotes with search and add-from-row into the portfolio.",
+      "tags": [
+        "component",
+        "markets",
+        "prices"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/MarketsPage.jsx:MarketsPage",
+      "type": "function",
+      "name": "MarketsPage",
+      "filePath": "frontend/src/MarketsPage.jsx",
+      "lineRange": [
+        19,
+        120
+      ],
+      "summary": "Groups quotes by category and lets the user add a watched symbol as an asset.",
+      "tags": [
+        "component",
+        "markets",
+        "search"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/api/auth.js",
+      "type": "file",
+      "name": "auth.js",
+      "filePath": "frontend/src/api/auth.js",
+      "summary": "Cookie-authenticated register, login, logout, and session restore helpers.",
+      "tags": [
+        "api-handler",
+        "authentication",
+        "client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/auth.js:registerAccount",
+      "type": "function",
+      "name": "registerAccount",
+      "filePath": "frontend/src/api/auth.js",
+      "lineRange": [
+        3,
+        8
+      ],
+      "summary": "POSTs name, email, and password to create an account and session cookie.",
+      "tags": [
+        "api-handler",
+        "authentication",
+        "client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/auth.js:loginAccount",
+      "type": "function",
+      "name": "loginAccount",
+      "filePath": "frontend/src/api/auth.js",
+      "lineRange": [
+        10,
+        15
+      ],
+      "summary": "POSTs credentials and remember flag to start a session.",
+      "tags": [
+        "api-handler",
+        "authentication",
+        "client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/auth.js:logoutAccount",
+      "type": "function",
+      "name": "logoutAccount",
+      "filePath": "frontend/src/api/auth.js",
+      "lineRange": [
+        17,
+        19
+      ],
+      "summary": "POSTs logout so the server clears the session cookie.",
+      "tags": [
+        "api-handler",
+        "authentication",
+        "client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/auth.js:fetchMe",
+      "type": "function",
+      "name": "fetchMe",
+      "filePath": "frontend/src/api/auth.js",
+      "lineRange": [
+        21,
+        23
+      ],
+      "summary": "GETs the current user from the session cookie.",
+      "tags": [
+        "api-handler",
+        "authentication",
+        "session"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/api/prices.js",
+      "type": "file",
+      "name": "prices.js",
+      "filePath": "frontend/src/api/prices.js",
+      "summary": "Fetches bulk and single altinapi quotes through /api/altin and maps bid/ask payloads.",
+      "tags": [
+        "api-handler",
+        "prices",
+        "client"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:frontend/src/api/prices.js:PriceRequestError",
+      "type": "class",
+      "name": "PriceRequestError",
+      "filePath": "frontend/src/api/prices.js",
+      "lineRange": [
+        3,
+        9
+      ],
+      "summary": "Error type carrying HTTP status for price request failures.",
+      "tags": [
+        "error",
+        "prices",
+        "client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/prices.js:messageForStatus",
+      "type": "function",
+      "name": "messageForStatus",
+      "filePath": "frontend/src/api/prices.js",
+      "lineRange": [
+        11,
+        24
+      ],
+      "summary": "Maps 401/403/429/503 to Turkish user-facing price error messages.",
+      "tags": [
+        "error",
+        "prices",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/prices.js:parseError",
+      "type": "function",
+      "name": "parseError",
+      "filePath": "frontend/src/api/prices.js",
+      "lineRange": [
+        26,
+        35
+      ],
+      "summary": "Turns a failed price response into a PriceRequestError.",
+      "tags": [
+        "error",
+        "prices",
+        "client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/prices.js:toQuote",
+      "type": "function",
+      "name": "toQuote",
+      "filePath": "frontend/src/api/prices.js",
+      "lineRange": [
+        37,
+        47
+      ],
+      "summary": "Normalizes an API row into symbol, bid, ask, timestamp, and stale flags.",
+      "tags": [
+        "serialization",
+        "prices",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/prices.js:fetchPrices",
+      "type": "function",
+      "name": "fetchPrices",
+      "filePath": "frontend/src/api/prices.js",
+      "lineRange": [
+        49,
+        59
+      ],
+      "summary": "Loads a batch of quotes from /api/altin/prices.",
+      "tags": [
+        "api-handler",
+        "prices",
+        "client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/prices.js:fetchPrice",
+      "type": "function",
+      "name": "fetchPrice",
+      "filePath": "frontend/src/api/prices.js",
+      "lineRange": [
+        61,
+        71
+      ],
+      "summary": "Loads one symbol quote or returns null on 404.",
+      "tags": [
+        "api-handler",
+        "prices",
+        "client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/data/symbolLabels.js",
+      "type": "file",
+      "name": "symbolLabels.js",
+      "filePath": "frontend/src/data/symbolLabels.js",
+      "summary": "Category order, titles, and helpers that label and group market quotes for the Piyasalar view.",
+      "tags": [
+        "data-model",
+        "markets",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/data/symbolLabels.js:labelFor",
+      "type": "function",
+      "name": "labelFor",
+      "filePath": "frontend/src/data/symbolLabels.js",
+      "lineRange": [
+        80,
+        83
+      ],
+      "summary": "Returns the display label for a market symbol code.",
+      "tags": [
+        "utility",
+        "markets",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/data/symbolLabels.js:categoryTitle",
+      "type": "function",
+      "name": "categoryTitle",
+      "filePath": "frontend/src/data/symbolLabels.js",
+      "lineRange": [
+        85,
+        87
+      ],
+      "summary": "Returns the Turkish title for a quote category key.",
+      "tags": [
+        "utility",
+        "markets",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/data/symbolLabels.js:groupQuotes",
+      "type": "function",
+      "name": "groupQuotes",
+      "filePath": "frontend/src/data/symbolLabels.js",
+      "lineRange": [
+        89,
+        111
+      ],
+      "summary": "Buckets quotes into the canonical category order for the markets list.",
+      "tags": [
+        "utility",
+        "markets",
+        "grouping"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/hooks/useMarketPrices.js",
+      "type": "file",
+      "name": "useMarketPrices.js",
+      "filePath": "frontend/src/hooks/useMarketPrices.js",
+      "summary": "Hook that refreshes quotes on an interval, tracks visibility, and computes percent change vs a local snapshot.",
+      "tags": [
+        "hook",
+        "prices",
+        "polling"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/hooks/useMarketPrices.js:useMarketPrices",
+      "type": "function",
+      "name": "useMarketPrices",
+      "filePath": "frontend/src/hooks/useMarketPrices.js",
+      "lineRange": [
+        15,
+        91
+      ],
+      "summary": "Fetches prices every 45s while visible and stores a bid snapshot for change percentages.",
+      "tags": [
+        "hook",
+        "prices",
+        "polling"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/main.jsx",
+      "type": "file",
+      "name": "main.jsx",
+      "filePath": "frontend/src/main.jsx",
+      "summary": "Vite/React bootstrap that mounts App in StrictMode and loads global CSS.",
+      "tags": [
+        "entry-point",
+        "bootstrap",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/ReportsPage.jsx",
+      "type": "file",
+      "name": "ReportsPage.jsx",
+      "filePath": "frontend/src/ReportsPage.jsx",
+      "summary": "Reports view that lists quantity movements with date, category, and direction filters, including CSV export and orphaned-asset rows.",
+      "tags": [
+        "component",
+        "reports",
+        "csv-export",
+        "filtering"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/ReportsPage.jsx:exportMovements",
+      "type": "function",
+      "name": "exportMovements",
+      "filePath": "frontend/src/ReportsPage.jsx",
+      "lineRange": [
+        36,
+        50
+      ],
+      "summary": "Builds a Turkish-header CSV of movement rows and triggers a dated file download.",
+      "tags": [
+        "csv-export",
+        "serialization",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/ReportsPage.jsx:ReportsPage",
+      "type": "function",
+      "name": "ReportsPage",
+      "filePath": "frontend/src/ReportsPage.jsx",
+      "lineRange": [
+        52,
+        231
+      ],
+      "summary": "Default-exported React page that fetches movements, applies filters, and renders a filterable movement table with export.",
+      "tags": [
+        "component",
+        "event-handler",
+        "filtering",
+        "api-client"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/api/assets.js",
+      "type": "file",
+      "name": "assets.js",
+      "filePath": "frontend/src/api/assets.js",
+      "summary": "Thin API wrappers for listing, creating, updating, and deleting the signed-in user's asset records.",
+      "tags": [
+        "api-client",
+        "service",
+        "crud"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/assets.js:fetchAssets",
+      "type": "function",
+      "name": "fetchAssets",
+      "filePath": "frontend/src/api/assets.js",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "GET /api/assets and returns the authenticated user's asset list.",
+      "tags": [
+        "api-client",
+        "crud",
+        "exported"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/assets.js:createAssetRecord",
+      "type": "function",
+      "name": "createAssetRecord",
+      "filePath": "frontend/src/api/assets.js",
+      "lineRange": [
+        7,
+        12
+      ],
+      "summary": "POST /api/assets with a JSON payload to create a new asset record.",
+      "tags": [
+        "api-client",
+        "crud",
+        "exported"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/assets.js:updateAssetRecord",
+      "type": "function",
+      "name": "updateAssetRecord",
+      "filePath": "frontend/src/api/assets.js",
+      "lineRange": [
+        14,
+        19
+      ],
+      "summary": "PATCH /api/assets/:id with a JSON payload to update amount or prices.",
+      "tags": [
+        "api-client",
+        "crud",
+        "exported"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/assets.js:deleteAssetRecord",
+      "type": "function",
+      "name": "deleteAssetRecord",
+      "filePath": "frontend/src/api/assets.js",
+      "lineRange": [
+        21,
+        23
+      ],
+      "summary": "DELETE /api/assets/:id to remove an owned asset record.",
+      "tags": [
+        "api-client",
+        "crud",
+        "exported"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/api/client.js",
+      "type": "file",
+      "name": "client.js",
+      "filePath": "frontend/src/api/client.js",
+      "summary": "Shared JSON fetch helper that sends cookies, parses error bodies, and throws ApiError on non-OK responses.",
+      "tags": [
+        "api-client",
+        "utility",
+        "error-handling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:frontend/src/api/client.js:ApiError",
+      "type": "class",
+      "name": "ApiError",
+      "filePath": "frontend/src/api/client.js",
+      "lineRange": [
+        1,
+        7
+      ],
+      "summary": "Error subclass that carries the HTTP status and a Turkish or server-provided message.",
+      "tags": [
+        "error-handling",
+        "type-definition",
+        "exported"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/client.js:request",
+      "type": "function",
+      "name": "request",
+      "filePath": "frontend/src/api/client.js",
+      "lineRange": [
+        9,
+        34
+      ],
+      "summary": "Performs a credentials-included JSON request and returns the parsed body or throws ApiError.",
+      "tags": [
+        "api-client",
+        "utility",
+        "exported"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/api/lookups.js",
+      "type": "file",
+      "name": "lookups.js",
+      "filePath": "frontend/src/api/lookups.js",
+      "summary": "Fetches authenticated unit and symbol lookup lists from GET /api/lookups.",
+      "tags": [
+        "api-client",
+        "lookups",
+        "service"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/lookups.js:fetchLookups",
+      "type": "function",
+      "name": "fetchLookups",
+      "filePath": "frontend/src/api/lookups.js",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "GET /api/lookups via the shared request helper.",
+      "tags": [
+        "api-client",
+        "lookups",
+        "exported"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/api/movements.js",
+      "type": "file",
+      "name": "movements.js",
+      "filePath": "frontend/src/api/movements.js",
+      "summary": "Builds optional query params and fetches quantity movement history from GET /api/movements.",
+      "tags": [
+        "api-client",
+        "service",
+        "filtering"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/movements.js:fetchMovements",
+      "type": "function",
+      "name": "fetchMovements",
+      "filePath": "frontend/src/api/movements.js",
+      "lineRange": [
+        3,
+        11
+      ],
+      "summary": "GET /api/movements with optional from, to, assetId, and direction query filters.",
+      "tags": [
+        "api-client",
+        "filtering",
+        "exported"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/exportCsv.js",
+      "type": "file",
+      "name": "exportCsv.js",
+      "filePath": "frontend/src/exportCsv.js",
+      "summary": "Semicolon-delimited CSV helpers that escape fields and download a UTF-8 BOM file in the browser.",
+      "tags": [
+        "utility",
+        "csv-export",
+        "serialization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/exportCsv.js:toCsv",
+      "type": "function",
+      "name": "toCsv",
+      "filePath": "frontend/src/exportCsv.js",
+      "lineRange": [
+        9,
+        15
+      ],
+      "summary": "Joins headers and records into a semicolon-delimited CSV string with escaped fields.",
+      "tags": [
+        "utility",
+        "serialization",
+        "exported"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/exportCsv.js:downloadCsv",
+      "type": "function",
+      "name": "downloadCsv",
+      "filePath": "frontend/src/exportCsv.js",
+      "lineRange": [
+        17,
+        27
+      ],
+      "summary": "Creates a Blob URL and clicks a temporary anchor to download a UTF-8 BOM CSV file.",
+      "tags": [
+        "utility",
+        "csv-export",
+        "exported"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/.dockerignore",
+      "type": "file",
+      "name": ".dockerignore",
+      "filePath": "backend/.dockerignore",
+      "summary": "Excludes node_modules, SQLite data, and env files from the backend image context while keeping .env.example.",
+      "tags": [
+        "infrastructure",
+        "containerization",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:backend/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "backend/Dockerfile",
+      "summary": "Production Node 22 image that installs native build tools for npm ci, copies backend/src, and runs src/index.js on port 4000.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "deployment"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Installs python3/make/g++ only for better-sqlite3 compile, then purges them before the runtime user switch."
+    },
+    {
+      "id": "service:backend/Dockerfile:node",
+      "type": "service",
+      "name": "node",
+      "filePath": "backend/Dockerfile",
+      "summary": "Single-stage node:22-bookworm-slim service exposing port 4000 as the Express backend container.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "runtime"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:frontend/.dockerignore",
+      "type": "config",
+      "name": ".dockerignore",
+      "filePath": "frontend/.dockerignore",
+      "summary": "Excludes node_modules, dist, and environment files from the frontend Docker build context while keeping .env.example.",
+      "tags": [
+        "dockerignore",
+        "containerization",
+        "infrastructure",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:frontend/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "frontend/Dockerfile",
+      "summary": "Multi-stage frontend image that builds the Vite React app with Node 22 and serves the static dist plus nginx.conf on port 80.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "deployment",
+        "nginx",
+        "frontend"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Two-stage Dockerfile: Node bookworm-slim compiles assets, then nginx:1.27-alpine serves them."
+    },
+    {
+      "id": "service:frontend/Dockerfile:build",
+      "type": "service",
+      "name": "build",
+      "filePath": "frontend/Dockerfile",
+      "summary": "Build stage that installs npm dependencies and runs npm run build to produce the frontend dist output.",
+      "tags": [
+        "containerization",
+        "build-stage",
+        "frontend",
+        "npm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:frontend/Dockerfile:nginx",
+      "type": "service",
+      "name": "nginx",
+      "filePath": "frontend/Dockerfile",
+      "summary": "Runtime stage that copies nginx routing config and static dist files, then exposes HTTP port 80.",
+      "tags": [
+        "containerization",
+        "nginx",
+        "static-site",
+        "deployment"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": ".env.example",
+      "summary": "Root example environment file listing JWT_SECRET and ALTINAPI_KEY for Docker Compose and backend runtime secrets.",
+      "tags": [
+        "configuration",
+        "environment",
+        "secrets",
+        "docker"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "AGENTS.md",
+      "summary": "Agent working guide covering BolKese architecture, entities, API contracts, market integration, UI rules, and how to run and verify changes.",
+      "tags": [
+        "documentation",
+        "architecture",
+        "agents",
+        "conventions"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Project getting-started guide for Docker Compose and local Vite/Express development, including ports and environment variable setup.",
+      "tags": [
+        "documentation",
+        "entry-point",
+        "overview",
+        "getting-started"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "filePath": "docker-compose.yml",
+      "summary": "Orchestrates the backend Express image and frontend nginx image, injecting secrets, persisting SQLite on a named volume, and publishing the UI on port 8080.",
+      "tags": [
+        "orchestration",
+        "infrastructure",
+        "containerization",
+        "deployment"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:skills.md",
+      "type": "document",
+      "name": "skills.md",
+      "filePath": "skills.md",
+      "summary": "Outdated frontend design notes on components, CSS tokens, layout, and accessibility; several claims (no backend, random prices, localStorage-only assets) no longer match the codebase.",
+      "tags": [
+        "documentation",
+        "design",
+        "frontend",
+        "outdated"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:frontend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "frontend/.env.example",
+      "summary": "Documents the frontend ALTINAPI_KEY placeholder used by the Vite gold-price proxy so the API key stays on the server, not in the browser bundle.",
+      "tags": [
+        "configuration",
+        "environment",
+        "security",
+        "api-key"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "frontend/index.html",
+      "summary": "Turkish HTML shell for BolKese that sets viewport, theme color, and favicon, then mounts the React app from main.jsx into #root.",
+      "tags": [
+        "entry-point",
+        "markup",
+        "spa-shell",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:frontend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "frontend/package.json",
+      "summary": "Frontend npm package that declares ESM, Vite/React scripts, and UI dependencies for the BolKese client.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "frontend",
+        "npm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:backend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "backend/.env.example",
+      "summary": "Documents backend PORT (default 4000) and required JWT_SECRET so local Express can bind and sign session cookies without committing secrets.",
+      "tags": [
+        "configuration",
+        "environment",
+        "security",
+        "backend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:backend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "backend/package.json",
+      "summary": "Backend npm package that starts Express via src/index.js and lists SQLite, auth, and cookie dependencies.",
+      "tags": [
+        "configuration",
+        "backend",
+        "npm",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/schema.sql",
+      "type": "table",
+      "name": "schema.sql",
+      "filePath": "backend/src/schema.sql",
+      "summary": "SQLite bootstrap schema for users, portfolio assets, quantity movements, and lookup units/symbols, applied when the database opens.",
+      "tags": [
+        "database",
+        "schema-definition",
+        "sqlite",
+        "migration"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "CREATE TABLE IF NOT EXISTS with foreign keys; CASCADE on user delete and SET NULL on movement asset delete. Does not migrate existing tables."
+    },
+    {
+      "id": "table:backend/src/schema.sql:users",
+      "type": "table",
+      "name": "users",
+      "filePath": "backend/src/schema.sql",
+      "lineRange": [
+        3,
+        9
+      ],
+      "summary": "Account table storing UUID id, unique email, bcrypt password hash, display name, and created_at.",
+      "tags": [
+        "database",
+        "users",
+        "authentication",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:backend/src/schema.sql:assets",
+      "type": "table",
+      "name": "assets",
+      "filePath": "backend/src/schema.sql",
+      "lineRange": [
+        11,
+        26
+      ],
+      "summary": "Per-user portfolio holdings with code, unit, amount, bid/ask prices, icon/color, and optional preset_key.",
+      "tags": [
+        "database",
+        "portfolio",
+        "data-model",
+        "assets"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:backend/src/schema.sql:movements",
+      "type": "table",
+      "name": "movements",
+      "filePath": "backend/src/schema.sql",
+      "lineRange": [
+        30,
+        43
+      ],
+      "summary": "Quantity movement log per user with direction, quantity, running balance, and optional asset_id.",
+      "tags": [
+        "database",
+        "movements",
+        "data-model",
+        "audit"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:backend/src/schema.sql:units",
+      "type": "table",
+      "name": "units",
+      "filePath": "backend/src/schema.sql",
+      "lineRange": [
+        47,
+        50
+      ],
+      "summary": "Lookup of allowed amount units (value primary key and Turkish label).",
+      "tags": [
+        "database",
+        "lookup",
+        "units",
+        "schema-definition"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:backend/src/schema.sql:symbols",
+      "type": "table",
+      "name": "symbols",
+      "filePath": "backend/src/schema.sql",
+      "lineRange": [
+        52,
+        56
+      ],
+      "summary": "Lookup of market symbol codes with description and category, including altinapi symbols and TRY.",
+      "tags": [
+        "database",
+        "lookup",
+        "symbols",
+        "schema-definition"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:frontend/.openai/hosting.json",
+      "type": "config",
+      "name": "hosting.json",
+      "filePath": "frontend/.openai/hosting.json",
+      "summary": "OpenAI Apps hosting metadata that publishes the frontend static build from the Vite dist directory.",
+      "tags": [
+        "configuration",
+        "deployment",
+        "static-hosting",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/nginx.conf",
+      "type": "file",
+      "name": "nginx.conf",
+      "filePath": "frontend/nginx.conf",
+      "summary": "nginx server that serves the built SPA from /usr/share/nginx/html and reverse-proxies /api/ to the Express backend, forwarding cookies.",
+      "tags": [
+        "nginx",
+        "reverse-proxy",
+        "deployment",
+        "routing"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/styles.css",
+      "type": "file",
+      "name": "styles.css",
+      "filePath": "frontend/src/styles.css",
+      "summary": "Global BolKese stylesheet with design tokens, auth and portfolio components, focus styles, reduced-motion rules, and responsive breakpoints.",
+      "tags": [
+        "markup",
+        "styling",
+        "design-tokens",
+        "responsive",
+        "frontend"
+      ],
+      "complexity": "complex",
+      "languageNotes": "CSS custom properties on :root plus media queries at 1060, 820, and 640 px."
+    },
+    {
+      "id": "file:frontend/vite.config.js",
+      "type": "file",
+      "name": "vite.config.js",
+      "filePath": "frontend/vite.config.js",
+      "summary": "Vite React config that proxies /api/altin to altinapi with X-API-Key and other /api traffic to local Express on port 4000 for both dev and preview.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "proxy",
+        "frontend"
+      ],
+      "complexity": "simple",
+      "languageNotes": "loadEnv reads ALTINAPI_KEY without a VITE_ prefix so the key is not exposed to the client bundle."
+    },
+    {
+      "id": "function:frontend/vite.config.js:altinProxy",
+      "type": "function",
+      "name": "altinProxy",
+      "filePath": "frontend/vite.config.js",
+      "lineRange": [
+        4,
+        17
+      ],
+      "summary": "Builds the Vite proxy map that rewrites /api/altin to altinapi /api/v1 and injects the X-API-Key header.",
+      "tags": [
+        "proxy",
+        "configuration",
+        "security",
+        "utility"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/src/db.js",
+      "target": "file:backend/src/seedLookups.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "file:backend/src/altinProxy.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "file:backend/src/routes/assets.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "file:backend/src/routes/auth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "file:backend/src/routes/lookups.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "file:backend/src/routes/movements.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/middleware/requireAuth.js",
+      "target": "file:backend/src/auth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/middleware/requireAuth.js",
+      "target": "file:backend/src/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "file:backend/src/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "file:backend/src/logMovement.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "file:backend/src/middleware/requireAuth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/auth.js",
+      "target": "file:backend/src/auth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/auth.js",
+      "target": "file:backend/src/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/auth.js",
+      "target": "file:backend/src/middleware/requireAuth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/lookups.js",
+      "target": "file:backend/src/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/lookups.js",
+      "target": "file:backend/src/middleware/requireAuth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/movements.js",
+      "target": "file:backend/src/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/movements.js",
+      "target": "file:backend/src/middleware/requireAuth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/altinProxy.js",
+      "target": "function:backend/src/altinProxy.js:altinProxy",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/altinProxy.js",
+      "target": "function:backend/src/altinProxy.js:altinProxy",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:signToken",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:signToken",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:readToken",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:readToken",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:setAuthCookie",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:setAuthCookie",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:clearAuthCookie",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:clearAuthCookie",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/logMovement.js",
+      "target": "function:backend/src/logMovement.js:logAmountChange",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/logMovement.js",
+      "target": "function:backend/src/logMovement.js:logAmountChange",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/middleware/requireAuth.js",
+      "target": "function:backend/src/middleware/requireAuth.js:requireAuth",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/middleware/requireAuth.js",
+      "target": "function:backend/src/middleware/requireAuth.js:requireAuth",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "function:backend/src/routes/assets.js:toAsset",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/routes/movements.js",
+      "target": "function:backend/src/routes/movements.js:toMovement",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/seedLookups.js",
+      "target": "function:backend/src/seedLookups.js:seedLookups",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/seedLookups.js",
+      "target": "function:backend/src/seedLookups.js:seedLookups",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "endpoint:backend/src/routes/assets.js:GET-/api/assets",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "endpoint:backend/src/routes/assets.js:POST-/api/assets",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "endpoint:backend/src/routes/assets.js:PATCH-/api/assets/:id",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "endpoint:backend/src/routes/assets.js:DELETE-/api/assets/:id",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/routes/auth.js",
+      "target": "endpoint:backend/src/routes/auth.js:POST-/api/auth/register",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/routes/auth.js",
+      "target": "endpoint:backend/src/routes/auth.js:POST-/api/auth/login",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/routes/auth.js",
+      "target": "endpoint:backend/src/routes/auth.js:POST-/api/auth/logout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/routes/auth.js",
+      "target": "endpoint:backend/src/routes/auth.js:GET-/api/auth/me",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/routes/lookups.js",
+      "target": "endpoint:backend/src/routes/lookups.js:GET-/api/lookups",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/routes/movements.js",
+      "target": "endpoint:backend/src/routes/movements.js:GET-/api/movements",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/assets.js:GET-/api/assets",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/assets.js:POST-/api/assets",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/assets.js:PATCH-/api/assets/:id",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/assets.js:DELETE-/api/assets/:id",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/auth.js:POST-/api/auth/register",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/auth.js:POST-/api/auth/login",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/auth.js:POST-/api/auth/logout",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/auth.js:GET-/api/auth/me",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/lookups.js:GET-/api/lookups",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/movements.js:GET-/api/movements",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "function:backend/src/middleware/requireAuth.js:requireAuth",
+      "target": "function:backend/src/auth.js:readToken",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/db.js",
+      "target": "function:backend/src/seedLookups.js:seedLookups",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "file:frontend/src/AssetsPage.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "file:frontend/src/AuthScreen.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "file:frontend/src/MarketsPage.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "file:frontend/src/ReportsPage.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "file:frontend/src/api/assets.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "file:frontend/src/api/auth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "file:frontend/src/api/lookups.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "file:frontend/src/api/prices.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "file:frontend/src/data/symbolLabels.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "file:frontend/src/hooks/useMarketPrices.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/AuthScreen.jsx",
+      "target": "file:frontend/src/api/auth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/MarketsPage.jsx",
+      "target": "file:frontend/src/data/symbolLabels.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/auth.js",
+      "target": "file:frontend/src/api/client.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/hooks/useMarketPrices.js",
+      "target": "file:frontend/src/api/prices.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.jsx",
+      "target": "file:frontend/src/App.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.jsx",
+      "target": "file:frontend/src/styles.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "function:frontend/src/App.jsx:migrateAssets",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "function:frontend/src/App.jsx:migrateLocalAssets",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "function:frontend/src/App.jsx:groupSymbols",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "function:frontend/src/App.jsx:assetDraftFromQuote",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "function:frontend/src/App.jsx:IconBadge",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "function:frontend/src/App.jsx:Modal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "function:frontend/src/App.jsx:PricePair",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "function:frontend/src/App.jsx:AddAssetModal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "function:frontend/src/App.jsx:UpdateAssetModal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "function:frontend/src/App.jsx:EmptyState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "function:frontend/src/App.jsx:AssetCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "function:frontend/src/App.jsx:App",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.jsx",
+      "target": "function:frontend/src/App.jsx:Portfolio",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/AssetsPage.jsx",
+      "target": "function:frontend/src/AssetsPage.jsx:AssetsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/AssetsPage.jsx",
+      "target": "function:frontend/src/AssetsPage.jsx:AssetsPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/AuthScreen.jsx",
+      "target": "function:frontend/src/AuthScreen.jsx:AuthScreen",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/AuthScreen.jsx",
+      "target": "function:frontend/src/AuthScreen.jsx:AuthScreen",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/MarketsPage.jsx",
+      "target": "function:frontend/src/MarketsPage.jsx:MarketsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/MarketsPage.jsx",
+      "target": "function:frontend/src/MarketsPage.jsx:MarketsPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/auth.js",
+      "target": "function:frontend/src/api/auth.js:registerAccount",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/auth.js",
+      "target": "function:frontend/src/api/auth.js:registerAccount",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/auth.js",
+      "target": "function:frontend/src/api/auth.js:loginAccount",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/auth.js",
+      "target": "function:frontend/src/api/auth.js:loginAccount",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/auth.js",
+      "target": "function:frontend/src/api/auth.js:logoutAccount",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/auth.js",
+      "target": "function:frontend/src/api/auth.js:logoutAccount",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/auth.js",
+      "target": "function:frontend/src/api/auth.js:fetchMe",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/auth.js",
+      "target": "function:frontend/src/api/auth.js:fetchMe",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/prices.js",
+      "target": "class:frontend/src/api/prices.js:PriceRequestError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/prices.js",
+      "target": "class:frontend/src/api/prices.js:PriceRequestError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/prices.js",
+      "target": "function:frontend/src/api/prices.js:messageForStatus",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/prices.js",
+      "target": "function:frontend/src/api/prices.js:parseError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/prices.js",
+      "target": "function:frontend/src/api/prices.js:toQuote",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/prices.js",
+      "target": "function:frontend/src/api/prices.js:fetchPrices",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/prices.js",
+      "target": "function:frontend/src/api/prices.js:fetchPrices",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/prices.js",
+      "target": "function:frontend/src/api/prices.js:fetchPrice",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/prices.js",
+      "target": "function:frontend/src/api/prices.js:fetchPrice",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/data/symbolLabels.js",
+      "target": "function:frontend/src/data/symbolLabels.js:labelFor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/data/symbolLabels.js",
+      "target": "function:frontend/src/data/symbolLabels.js:labelFor",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/data/symbolLabels.js",
+      "target": "function:frontend/src/data/symbolLabels.js:categoryTitle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/data/symbolLabels.js",
+      "target": "function:frontend/src/data/symbolLabels.js:categoryTitle",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/data/symbolLabels.js",
+      "target": "function:frontend/src/data/symbolLabels.js:groupQuotes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/data/symbolLabels.js",
+      "target": "function:frontend/src/data/symbolLabels.js:groupQuotes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/hooks/useMarketPrices.js",
+      "target": "function:frontend/src/hooks/useMarketPrices.js:useMarketPrices",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/hooks/useMarketPrices.js",
+      "target": "function:frontend/src/hooks/useMarketPrices.js:useMarketPrices",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.jsx:Portfolio",
+      "target": "function:frontend/src/hooks/useMarketPrices.js:useMarketPrices",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.jsx:App",
+      "target": "function:frontend/src/api/auth.js:fetchMe",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/hooks/useMarketPrices.js:useMarketPrices",
+      "target": "function:frontend/src/api/prices.js:fetchPrices",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/ReportsPage.jsx",
+      "target": "file:frontend/src/api/movements.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/ReportsPage.jsx",
+      "target": "file:frontend/src/exportCsv.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "file:frontend/src/api/client.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/lookups.js",
+      "target": "file:frontend/src/api/client.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/movements.js",
+      "target": "file:frontend/src/api/client.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/ReportsPage.jsx",
+      "target": "function:frontend/src/ReportsPage.jsx:exportMovements",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/ReportsPage.jsx",
+      "target": "function:frontend/src/ReportsPage.jsx:ReportsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/ReportsPage.jsx",
+      "target": "function:frontend/src/ReportsPage.jsx:ReportsPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:fetchAssets",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:createAssetRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:updateAssetRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:deleteAssetRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:fetchAssets",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:createAssetRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:updateAssetRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/assets.js",
+      "target": "function:frontend/src/api/assets.js:deleteAssetRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.js",
+      "target": "class:frontend/src/api/client.js:ApiError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/client.js",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/client.js",
+      "target": "class:frontend/src/api/client.js:ApiError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.js",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/lookups.js",
+      "target": "function:frontend/src/api/lookups.js:fetchLookups",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/lookups.js",
+      "target": "function:frontend/src/api/lookups.js:fetchLookups",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/movements.js",
+      "target": "function:frontend/src/api/movements.js:fetchMovements",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/movements.js",
+      "target": "function:frontend/src/api/movements.js:fetchMovements",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/exportCsv.js",
+      "target": "function:frontend/src/exportCsv.js:toCsv",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/exportCsv.js",
+      "target": "function:frontend/src/exportCsv.js:downloadCsv",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/exportCsv.js",
+      "target": "function:frontend/src/exportCsv.js:toCsv",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/exportCsv.js",
+      "target": "function:frontend/src/exportCsv.js:downloadCsv",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/ReportsPage.jsx:exportMovements",
+      "target": "function:frontend/src/exportCsv.js:toCsv",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/ReportsPage.jsx:exportMovements",
+      "target": "function:frontend/src/exportCsv.js:downloadCsv",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/ReportsPage.jsx:ReportsPage",
+      "target": "function:frontend/src/api/movements.js:fetchMovements",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/assets.js:fetchAssets",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/assets.js:createAssetRecord",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/assets.js:updateAssetRecord",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/assets.js:deleteAssetRecord",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/lookups.js:fetchLookups",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/movements.js:fetchMovements",
+      "target": "function:frontend/src/api/client.js:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/.dockerignore",
+      "target": "service:backend/Dockerfile",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "service:backend/Dockerfile",
+      "target": "service:backend/Dockerfile:node",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "service:backend/Dockerfile",
+      "target": "file:backend/src/index.js",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "config:frontend/.dockerignore",
+      "target": "service:frontend/Dockerfile",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:frontend/.dockerignore",
+      "target": "service:frontend/Dockerfile",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "service:frontend/Dockerfile:build",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "service:frontend/Dockerfile:nginx",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "file:frontend/src/main.jsx",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "file:frontend/nginx.conf",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:.env.example",
+      "target": "service:docker-compose.yml",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:.env.example",
+      "target": "file:backend/src/index.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:frontend/src/main.jsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:backend/src/index.js",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "document:skills.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:frontend/src/main.jsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:backend/src/index.js",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:backend/Dockerfile",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:frontend/Dockerfile",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:backend/Dockerfile",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:frontend/Dockerfile",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:skills.md",
+      "target": "file:frontend/src/App.jsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:frontend/.env.example",
+      "target": "file:frontend/vite.config.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/index.html",
+      "target": "file:frontend/src/main.jsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/index.html",
+      "target": "file:frontend/src/main.jsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:frontend/package.json",
+      "target": "file:frontend/src/main.jsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:frontend/package.json",
+      "target": "file:frontend/vite.config.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:backend/.env.example",
+      "target": "file:backend/src/index.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:backend/.env.example",
+      "target": "file:backend/src/auth.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:backend/package.json",
+      "target": "file:backend/src/index.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/schema.sql",
+      "target": "file:backend/src/db.js",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/schema.sql",
+      "target": "table:backend/src/schema.sql:users",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/schema.sql",
+      "target": "table:backend/src/schema.sql:assets",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/schema.sql",
+      "target": "table:backend/src/schema.sql:movements",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/schema.sql",
+      "target": "table:backend/src/schema.sql:units",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/schema.sql",
+      "target": "table:backend/src/schema.sql:symbols",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "config:frontend/.openai/hosting.json",
+      "target": "file:frontend/vite.config.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/nginx.conf",
+      "target": "file:backend/src/index.js",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/nginx.conf",
+      "target": "file:backend/src/index.js",
+      "type": "serves",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/nginx.conf",
+      "target": "file:frontend/index.html",
+      "type": "serves",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/vite.config.js",
+      "target": "file:frontend/src/main.jsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/vite.config.js",
+      "target": "function:frontend/vite.config.js:altinProxy",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:docs",
+      "name": "Documentation",
+      "description": "Project overview, agent working rules, and legacy design notes.",
+      "nodeIds": [
+        "document:README.md",
+        "document:AGENTS.md",
+        "document:skills.md"
+      ]
+    },
+    {
+      "id": "layer:frontend-ui",
+      "name": "Frontend UI",
+      "description": "React shell, pages, HTML entry, and global styles.",
+      "nodeIds": [
+        "file:frontend/src/main.jsx",
+        "file:frontend/src/App.jsx",
+        "file:frontend/src/AuthScreen.jsx",
+        "file:frontend/src/AssetsPage.jsx",
+        "file:frontend/src/MarketsPage.jsx",
+        "file:frontend/src/ReportsPage.jsx",
+        "file:frontend/index.html",
+        "file:frontend/src/styles.css"
+      ]
+    },
+    {
+      "id": "layer:frontend-client",
+      "name": "Frontend API client",
+      "description": "JSON client, auth/asset/lookup/movement/price calls, CSV export, and live quote hook.",
+      "nodeIds": [
+        "file:frontend/src/api/client.js",
+        "file:frontend/src/api/auth.js",
+        "file:frontend/src/api/assets.js",
+        "file:frontend/src/api/lookups.js",
+        "file:frontend/src/api/movements.js",
+        "file:frontend/src/api/prices.js",
+        "file:frontend/src/exportCsv.js",
+        "file:frontend/src/data/symbolLabels.js",
+        "file:frontend/src/hooks/useMarketPrices.js"
+      ]
+    },
+    {
+      "id": "layer:backend-http",
+      "name": "Backend HTTP API",
+      "description": "Express entry, JWT cookie auth, asset/lookup/movement routes, and altinapi proxy.",
+      "nodeIds": [
+        "file:backend/src/index.js",
+        "file:backend/src/altinProxy.js",
+        "file:backend/src/auth.js",
+        "file:backend/src/middleware/requireAuth.js",
+        "file:backend/src/logMovement.js",
+        "file:backend/src/routes/auth.js",
+        "file:backend/src/routes/assets.js",
+        "file:backend/src/routes/lookups.js",
+        "file:backend/src/routes/movements.js",
+        "endpoint:backend/src/routes/auth.js:POST-/api/auth/register",
+        "endpoint:backend/src/routes/auth.js:POST-/api/auth/login",
+        "endpoint:backend/src/routes/auth.js:POST-/api/auth/logout",
+        "endpoint:backend/src/routes/auth.js:GET-/api/auth/me",
+        "endpoint:backend/src/routes/assets.js:GET-/api/assets",
+        "endpoint:backend/src/routes/assets.js:POST-/api/assets",
+        "endpoint:backend/src/routes/assets.js:PATCH-/api/assets/:id",
+        "endpoint:backend/src/routes/assets.js:DELETE-/api/assets/:id",
+        "endpoint:backend/src/routes/lookups.js:GET-/api/lookups",
+        "endpoint:backend/src/routes/movements.js:GET-/api/movements"
+      ]
+    },
+    {
+      "id": "layer:data",
+      "name": "Data and lookups",
+      "description": "SQLite connection, schema tables, and seeded unit/symbol catalogs.",
+      "nodeIds": [
+        "file:backend/src/db.js",
+        "file:backend/src/seedLookups.js",
+        "file:backend/src/schema.sql",
+        "table:backend/src/schema.sql:users",
+        "table:backend/src/schema.sql:assets",
+        "table:backend/src/schema.sql:movements",
+        "table:backend/src/schema.sql:units",
+        "table:backend/src/schema.sql:symbols"
+      ]
+    },
+    {
+      "id": "layer:infra",
+      "name": "Packaging and infrastructure",
+      "description": "Docker images, compose, nginx routing, Vite proxy, env examples, and package manifests.",
+      "nodeIds": [
+        "service:docker-compose.yml",
+        "service:backend/Dockerfile",
+        "service:backend/Dockerfile:node",
+        "file:backend/.dockerignore",
+        "service:frontend/Dockerfile",
+        "service:frontend/Dockerfile:build",
+        "service:frontend/Dockerfile:nginx",
+        "config:frontend/.dockerignore",
+        "file:frontend/nginx.conf",
+        "file:frontend/vite.config.js",
+        "config:.env.example",
+        "config:backend/.env.example",
+        "config:frontend/.env.example",
+        "config:backend/package.json",
+        "config:frontend/package.json",
+        "config:frontend/.openai/hosting.json"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Project overview",
+      "description": "Start with the README to see how BolKese tracks gold, FX, and cash, and how Docker versus local Vite/Express development works.",
+      "nodeIds": [
+        "document:README.md"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Frontend boot",
+      "description": "main.jsx mounts App under StrictMode. App restores the session cookie then shows AuthScreen or the Portfolio workspace.",
+      "nodeIds": [
+        "file:frontend/src/main.jsx",
+        "file:frontend/src/App.jsx",
+        "file:frontend/src/AuthScreen.jsx"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Session and API client",
+      "description": "The shared request helper sends credentials: include. Auth helpers login and restore the user; requireAuth on the server verifies the HttpOnly JWT cookie.",
+      "nodeIds": [
+        "file:frontend/src/api/client.js",
+        "file:frontend/src/api/auth.js",
+        "file:backend/src/auth.js",
+        "file:backend/src/middleware/requireAuth.js"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Express entry and routes",
+      "description": "backend/src/index.js mounts health, the altinapi proxy, and authenticated asset, lookup, and movement routers.",
+      "nodeIds": [
+        "file:backend/src/index.js",
+        "file:backend/src/routes/auth.js",
+        "file:backend/src/routes/assets.js",
+        "file:backend/src/altinProxy.js"
+      ]
+    },
+    {
+      "order": 5,
+      "title": "SQLite schema and seeds",
+      "description": "schema.sql defines users, assets, movements, units, and symbols. db.js applies it and seedLookups fills units plus 66 altinapi symbols and TRY.",
+      "nodeIds": [
+        "file:backend/src/schema.sql",
+        "file:backend/src/db.js",
+        "file:backend/src/seedLookups.js",
+        "table:backend/src/schema.sql:assets"
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Holdings UI",
+      "description": "AssetsPage lists the current user's holdings. Amount changes go through PATCH /api/assets/:id and logMovement writes a movement row.",
+      "nodeIds": [
+        "file:frontend/src/AssetsPage.jsx",
+        "file:frontend/src/api/assets.js",
+        "file:backend/src/logMovement.js"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Live prices",
+      "description": "useMarketPrices polls /api/altin/prices every 45 seconds. MarketsPage groups quotes; bid is alış and ask is satış. TRY stays locked at 1.",
+      "nodeIds": [
+        "file:frontend/src/hooks/useMarketPrices.js",
+        "file:frontend/src/api/prices.js",
+        "file:frontend/src/MarketsPage.jsx",
+        "file:frontend/src/data/symbolLabels.js"
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Reports and movements",
+      "description": "ReportsPage loads movement history and can export CSV. The backend lists owned movements with optional filters.",
+      "nodeIds": [
+        "file:frontend/src/ReportsPage.jsx",
+        "file:frontend/src/api/movements.js",
+        "file:frontend/src/exportCsv.js",
+        "file:backend/src/routes/movements.js"
+      ]
+    },
+    {
+      "order": 9,
+      "title": "Packaging",
+      "description": "docker-compose runs nginx on 8080 and Express. nginx routes /api/ to the backend; local Vite still proxies /api/altin first.",
+      "nodeIds": [
+        "service:docker-compose.yml",
+        "service:frontend/Dockerfile",
+        "service:backend/Dockerfile",
+        "file:frontend/nginx.conf",
+        "file:frontend/vite.config.js"
+      ]
+    }
+  ]
+}

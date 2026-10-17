@@ -1,0 +1,230 @@
+{
+  "projectRoot": "c:\\Users\\i_yas\\OneDrive\\Masaüstü\\Projects\\bolkese",
+  "files": [
+    {
+      "path": ".env.example",
+      "language": "config",
+      "fileCategory": "config"
+    },
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "backend/.dockerignore",
+      "language": "unknown",
+      "fileCategory": "infra"
+    },
+    {
+      "path": "backend/.env.example",
+      "language": "config",
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/Dockerfile",
+      "language": "dockerfile",
+      "fileCategory": "infra"
+    },
+    {
+      "path": "backend/package.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/src/altinProxy.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/auth.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/db.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/index.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/logMovement.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/middleware/requireAuth.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/routes/assets.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/routes/auth.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/routes/lookups.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/routes/movements.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/schema.sql",
+      "language": "sql",
+      "fileCategory": "data"
+    },
+    {
+      "path": "backend/src/seedLookups.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "fileCategory": "infra"
+    },
+    {
+      "path": "frontend/.dockerignore",
+      "language": "unknown",
+      "fileCategory": "infra"
+    },
+    {
+      "path": "frontend/.env.example",
+      "language": "config",
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/.openai/hosting.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/Dockerfile",
+      "language": "dockerfile",
+      "fileCategory": "infra"
+    },
+    {
+      "path": "frontend/index.html",
+      "language": "html",
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/nginx.conf",
+      "language": "conf",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/package.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/src/App.jsx",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/AssetsPage.jsx",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/AuthScreen.jsx",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/MarketsPage.jsx",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/ReportsPage.jsx",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/api/assets.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/api/auth.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/api/client.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/api/lookups.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/api/movements.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/api/prices.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/data/symbolLabels.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/exportCsv.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/hooks/useMarketPrices.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/main.jsx",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/styles.css",
+      "language": "css",
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/vite.config.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "skills.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    }
+  ]
+}

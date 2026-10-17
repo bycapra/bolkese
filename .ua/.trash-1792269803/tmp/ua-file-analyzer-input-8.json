@@ -1,0 +1,56 @@
+{
+  "projectRoot": "c:\\Users\\i_yas\\OneDrive\\Masaüstü\\Projects\\bolkese",
+  "batchFiles": [
+    {
+      "path": "backend/.env.example",
+      "language": "config",
+      "sizeLines": 2,
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/package.json",
+      "language": "json",
+      "sizeLines": 18,
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/src/schema.sql",
+      "language": "sql",
+      "sizeLines": 56,
+      "fileCategory": "data"
+    },
+    {
+      "path": "frontend/.openai/hosting.json",
+      "language": "json",
+      "sizeLines": 6,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/nginx.conf",
+      "language": "conf",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/styles.css",
+      "language": "css",
+      "sizeLines": 1984,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/vite.config.js",
+      "language": "javascript",
+      "sizeLines": 44,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "backend/.env.example": [],
+    "backend/package.json": [],
+    "backend/src/schema.sql": [],
+    "frontend/.openai/hosting.json": [],
+    "frontend/nginx.conf": [],
+    "frontend/src/styles.css": [],
+    "frontend/vite.config.js": []
+  }
+}

@@ -1,0 +1,613 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 45,
+  "totalBatches": 8,
+  "exportsByPath": {
+    "backend/src/altinProxy.js": [
+      "altinProxy"
+    ],
+    "backend/src/auth.js": [
+      "signToken",
+      "readToken",
+      "setAuthCookie",
+      "clearAuthCookie",
+      "COOKIE_NAME"
+    ],
+    "backend/src/db.js": [],
+    "backend/src/index.js": [],
+    "backend/src/logMovement.js": [
+      "logAmountChange"
+    ],
+    "backend/src/middleware/requireAuth.js": [
+      "requireAuth"
+    ],
+    "backend/src/routes/assets.js": [],
+    "backend/src/routes/auth.js": [],
+    "backend/src/routes/lookups.js": [],
+    "backend/src/routes/movements.js": [],
+    "backend/src/seedLookups.js": [
+      "seedLookups"
+    ],
+    "frontend/nginx.conf": [],
+    "frontend/src/App.jsx": [],
+    "frontend/src/AssetsPage.jsx": [
+      "AssetsPage"
+    ],
+    "frontend/src/AuthScreen.jsx": [
+      "AuthScreen"
+    ],
+    "frontend/src/MarketsPage.jsx": [
+      "MarketsPage"
+    ],
+    "frontend/src/ReportsPage.jsx": [
+      "ReportsPage"
+    ],
+    "frontend/src/api/assets.js": [
+      "fetchAssets",
+      "createAssetRecord",
+      "updateAssetRecord",
+      "deleteAssetRecord"
+    ],
+    "frontend/src/api/auth.js": [
+      "registerAccount",
+      "loginAccount",
+      "logoutAccount",
+      "fetchMe"
+    ],
+    "frontend/src/api/client.js": [
+      "ApiError",
+      "request"
+    ],
+    "frontend/src/api/lookups.js": [
+      "fetchLookups"
+    ],
+    "frontend/src/api/movements.js": [
+      "fetchMovements"
+    ],
+    "frontend/src/api/prices.js": [
+      "PriceRequestError",
+      "fetchPrices",
+      "fetchPrice"
+    ],
+    "frontend/src/data/symbolLabels.js": [
+      "CATEGORY_ORDER",
+      "CATEGORY_TITLES",
+      "labelFor",
+      "categoryTitle",
+      "groupQuotes"
+    ],
+    "frontend/src/exportCsv.js": [
+      "toCsv",
+      "downloadCsv"
+    ],
+    "frontend/src/hooks/useMarketPrices.js": [
+      "useMarketPrices"
+    ],
+    "frontend/src/main.jsx": [],
+    "frontend/vite.config.js": []
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "backend/src/altinProxy.js",
+          "language": "javascript",
+          "sizeLines": 33,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/auth.js",
+          "language": "javascript",
+          "sizeLines": 34,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/db.js",
+          "language": "javascript",
+          "sizeLines": 19,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/index.js",
+          "language": "javascript",
+          "sizeLines": 37,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/logMovement.js",
+          "language": "javascript",
+          "sizeLines": 36,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/middleware/requireAuth.js",
+          "language": "javascript",
+          "sizeLines": 27,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/routes/assets.js",
+          "language": "javascript",
+          "sizeLines": 178,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/routes/auth.js",
+          "language": "javascript",
+          "sizeLines": 83,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/routes/lookups.js",
+          "language": "javascript",
+          "sizeLines": 35,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/routes/movements.js",
+          "language": "javascript",
+          "sizeLines": 57,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/seedLookups.js",
+          "language": "javascript",
+          "sizeLines": 90,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "backend/src/altinProxy.js": [],
+        "backend/src/auth.js": [],
+        "backend/src/db.js": [
+          "backend/src/seedLookups.js"
+        ],
+        "backend/src/index.js": [
+          "backend/src/altinProxy.js",
+          "backend/src/routes/assets.js",
+          "backend/src/routes/auth.js",
+          "backend/src/routes/lookups.js",
+          "backend/src/routes/movements.js"
+        ],
+        "backend/src/logMovement.js": [],
+        "backend/src/middleware/requireAuth.js": [
+          "backend/src/auth.js",
+          "backend/src/db.js"
+        ],
+        "backend/src/routes/assets.js": [
+          "backend/src/db.js",
+          "backend/src/logMovement.js",
+          "backend/src/middleware/requireAuth.js"
+        ],
+        "backend/src/routes/auth.js": [
+          "backend/src/auth.js",
+          "backend/src/db.js",
+          "backend/src/middleware/requireAuth.js"
+        ],
+        "backend/src/routes/lookups.js": [
+          "backend/src/db.js",
+          "backend/src/middleware/requireAuth.js"
+        ],
+        "backend/src/routes/movements.js": [
+          "backend/src/db.js",
+          "backend/src/middleware/requireAuth.js"
+        ],
+        "backend/src/seedLookups.js": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "frontend/src/App.jsx",
+          "language": "javascript",
+          "sizeLines": 1211,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/AssetsPage.jsx",
+          "language": "javascript",
+          "sizeLines": 128,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/AuthScreen.jsx",
+          "language": "javascript",
+          "sizeLines": 126,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/MarketsPage.jsx",
+          "language": "javascript",
+          "sizeLines": 120,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/api/auth.js",
+          "language": "javascript",
+          "sizeLines": 23,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/api/prices.js",
+          "language": "javascript",
+          "sizeLines": 71,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/data/symbolLabels.js",
+          "language": "javascript",
+          "sizeLines": 111,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/hooks/useMarketPrices.js",
+          "language": "javascript",
+          "sizeLines": 91,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/main.jsx",
+          "language": "javascript",
+          "sizeLines": 10,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/App.jsx": [
+          "frontend/src/AssetsPage.jsx",
+          "frontend/src/AuthScreen.jsx",
+          "frontend/src/MarketsPage.jsx",
+          "frontend/src/ReportsPage.jsx",
+          "frontend/src/api/assets.js",
+          "frontend/src/api/auth.js",
+          "frontend/src/api/lookups.js",
+          "frontend/src/api/prices.js",
+          "frontend/src/data/symbolLabels.js",
+          "frontend/src/hooks/useMarketPrices.js"
+        ],
+        "frontend/src/AssetsPage.jsx": [],
+        "frontend/src/AuthScreen.jsx": [
+          "frontend/src/api/auth.js"
+        ],
+        "frontend/src/MarketsPage.jsx": [
+          "frontend/src/data/symbolLabels.js"
+        ],
+        "frontend/src/api/auth.js": [
+          "frontend/src/api/client.js"
+        ],
+        "frontend/src/api/prices.js": [],
+        "frontend/src/data/symbolLabels.js": [],
+        "frontend/src/hooks/useMarketPrices.js": [
+          "frontend/src/api/prices.js"
+        ],
+        "frontend/src/main.jsx": [
+          "frontend/src/App.jsx",
+          "frontend/src/styles.css"
+        ]
+      },
+      "neighborMap": {
+        "frontend/src/App.jsx": [
+          {
+            "path": "frontend/src/ReportsPage.jsx",
+            "batchIndex": 3,
+            "symbols": [
+              "ReportsPage"
+            ]
+          },
+          {
+            "path": "frontend/src/api/assets.js",
+            "batchIndex": 3,
+            "symbols": [
+              "fetchAssets",
+              "createAssetRecord",
+              "updateAssetRecord",
+              "deleteAssetRecord"
+            ]
+          },
+          {
+            "path": "frontend/src/api/lookups.js",
+            "batchIndex": 3,
+            "symbols": [
+              "fetchLookups"
+            ]
+          }
+        ],
+        "frontend/src/api/auth.js": [
+          {
+            "path": "frontend/src/api/client.js",
+            "batchIndex": 3,
+            "symbols": [
+              "ApiError",
+              "request"
+            ]
+          }
+        ],
+        "frontend/src/main.jsx": [
+          {
+            "path": "frontend/src/styles.css",
+            "batchIndex": 8,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "path": "frontend/src/ReportsPage.jsx",
+          "language": "javascript",
+          "sizeLines": 231,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/api/assets.js",
+          "language": "javascript",
+          "sizeLines": 23,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/api/client.js",
+          "language": "javascript",
+          "sizeLines": 34,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/api/lookups.js",
+          "language": "javascript",
+          "sizeLines": 5,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/api/movements.js",
+          "language": "javascript",
+          "sizeLines": 11,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/exportCsv.js",
+          "language": "javascript",
+          "sizeLines": 27,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/ReportsPage.jsx": [
+          "frontend/src/api/movements.js",
+          "frontend/src/exportCsv.js"
+        ],
+        "frontend/src/api/assets.js": [
+          "frontend/src/api/client.js"
+        ],
+        "frontend/src/api/client.js": [],
+        "frontend/src/api/lookups.js": [
+          "frontend/src/api/client.js"
+        ],
+        "frontend/src/api/movements.js": [
+          "frontend/src/api/client.js"
+        ],
+        "frontend/src/exportCsv.js": []
+      },
+      "neighborMap": {
+        "frontend/src/ReportsPage.jsx": [
+          {
+            "path": "frontend/src/App.jsx",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/api/assets.js": [
+          {
+            "path": "frontend/src/App.jsx",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/api/client.js": [
+          {
+            "path": "frontend/src/api/auth.js",
+            "batchIndex": 2,
+            "symbols": [
+              "registerAccount",
+              "loginAccount",
+              "logoutAccount",
+              "fetchMe"
+            ]
+          }
+        ],
+        "frontend/src/api/lookups.js": [
+          {
+            "path": "frontend/src/App.jsx",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": "backend/.dockerignore",
+          "language": "unknown",
+          "sizeLines": 5,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "backend/Dockerfile",
+          "language": "dockerfile",
+          "sizeLines": 21,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        "backend/.dockerignore": [],
+        "backend/Dockerfile": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 5,
+      "files": [
+        {
+          "path": "frontend/.dockerignore",
+          "language": "unknown",
+          "sizeLines": 5,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "frontend/Dockerfile",
+          "language": "dockerfile",
+          "sizeLines": 16,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        "frontend/.dockerignore": [],
+        "frontend/Dockerfile": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": ".env.example",
+          "language": "config",
+          "sizeLines": 2,
+          "fileCategory": "config"
+        },
+        {
+          "path": "AGENTS.md",
+          "language": "markdown",
+          "sizeLines": 173,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "README.md",
+          "language": "markdown",
+          "sizeLines": 53,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docker-compose.yml",
+          "language": "yaml",
+          "sizeLines": 23,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "skills.md",
+          "language": "markdown",
+          "sizeLines": 275,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        ".env.example": [],
+        "AGENTS.md": [],
+        "README.md": [],
+        "docker-compose.yml": [],
+        "skills.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 7,
+      "files": [
+        {
+          "path": "frontend/.env.example",
+          "language": "config",
+          "sizeLines": 1,
+          "fileCategory": "config"
+        },
+        {
+          "path": "frontend/index.html",
+          "language": "html",
+          "sizeLines": 18,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "frontend/package.json",
+          "language": "json",
+          "sizeLines": 19,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "frontend/.env.example": [],
+        "frontend/index.html": [],
+        "frontend/package.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 8,
+      "files": [
+        {
+          "path": "backend/.env.example",
+          "language": "config",
+          "sizeLines": 2,
+          "fileCategory": "config"
+        },
+        {
+          "path": "backend/package.json",
+          "language": "json",
+          "sizeLines": 18,
+          "fileCategory": "config"
+        },
+        {
+          "path": "backend/src/schema.sql",
+          "language": "sql",
+          "sizeLines": 56,
+          "fileCategory": "data"
+        },
+        {
+          "path": "frontend/.openai/hosting.json",
+          "language": "json",
+          "sizeLines": 6,
+          "fileCategory": "config"
+        },
+        {
+          "path": "frontend/nginx.conf",
+          "language": "conf",
+          "sizeLines": 20,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/styles.css",
+          "language": "css",
+          "sizeLines": 1984,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "frontend/vite.config.js",
+          "language": "javascript",
+          "sizeLines": 44,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "backend/.env.example": [],
+        "backend/package.json": [],
+        "backend/src/schema.sql": [],
+        "frontend/.openai/hosting.json": [],
+        "frontend/nginx.conf": [],
+        "frontend/src/styles.css": [],
+        "frontend/vite.config.js": []
+      },
+      "neighborMap": {
+        "frontend/src/styles.css": [
+          {
+            "path": "frontend/src/main.jsx",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ]
+      }
+    }
+  ]
+}

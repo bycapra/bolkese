@@ -1,0 +1,2652 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 9,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 9,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 9,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "frontend/src/App.jsx",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 1211,
+      "nonEmptyLines": 1123,
+      "functions": [
+        {
+          "name": "formatTRY",
+          "startLine": 119,
+          "endLine": 126,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "formatNumber",
+          "startLine": 128,
+          "endLine": 130,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "timeNow",
+          "startLine": 132,
+          "endLine": 137,
+          "params": []
+        },
+        {
+          "name": "migrateAssets",
+          "startLine": 139,
+          "endLine": 150,
+          "params": [
+            "assets"
+          ]
+        },
+        {
+          "name": "loadStoredAssets",
+          "startLine": 152,
+          "endLine": 158,
+          "params": []
+        },
+        {
+          "name": "initials",
+          "startLine": 160,
+          "endLine": 165,
+          "params": [
+            "name"
+          ]
+        },
+        {
+          "name": "migrateLocalAssets",
+          "startLine": 167,
+          "endLine": 188,
+          "params": []
+        },
+        {
+          "name": "isManualCode",
+          "startLine": 190,
+          "endLine": 192,
+          "params": [
+            "code"
+          ]
+        },
+        {
+          "name": "amountStep",
+          "startLine": 194,
+          "endLine": 198,
+          "params": [
+            "unit"
+          ]
+        },
+        {
+          "name": "groupSymbols",
+          "startLine": 200,
+          "endLine": 213,
+          "params": [
+            "symbols"
+          ]
+        },
+        {
+          "name": "assetDraftFromQuote",
+          "startLine": 218,
+          "endLine": 234,
+          "params": [
+            "quote"
+          ]
+        },
+        {
+          "name": "IconBadge",
+          "startLine": 236,
+          "endLine": 247,
+          "params": []
+        },
+        {
+          "name": "Modal",
+          "startLine": 249,
+          "endLine": 275,
+          "params": []
+        },
+        {
+          "name": "PricePair",
+          "startLine": 277,
+          "endLine": 293,
+          "params": []
+        },
+        {
+          "name": "AddAssetModal",
+          "startLine": 295,
+          "endLine": 535,
+          "params": []
+        },
+        {
+          "name": "UpdateAssetModal",
+          "startLine": 537,
+          "endLine": 674,
+          "params": []
+        },
+        {
+          "name": "EmptyState",
+          "startLine": 676,
+          "endLine": 693,
+          "params": []
+        },
+        {
+          "name": "AssetCard",
+          "startLine": 695,
+          "endLine": 717,
+          "params": []
+        },
+        {
+          "name": "App",
+          "startLine": 719,
+          "endLine": 744,
+          "params": []
+        },
+        {
+          "name": "Portfolio",
+          "startLine": 746,
+          "endLine": 1209,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "formatTRY",
+          "callee": "new Intl.NumberFormat('tr-TR', {\r\n    style: 'currency',\r\n    currency: 'TRY',\r\n    maximumFractionDigits: 2,\r\n  }).format",
+          "lineNumber": 121
+        },
+        {
+          "caller": "formatNumber",
+          "callee": "new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 4 }).format",
+          "lineNumber": 129
+        },
+        {
+          "caller": "timeNow",
+          "callee": "new Intl.DateTimeFormat('tr-TR', {\r\n    hour: '2-digit',\r\n    minute: '2-digit',\r\n  }).format",
+          "lineNumber": 133
+        },
+        {
+          "caller": "migrateAssets",
+          "callee": "assets.map",
+          "lineNumber": 140
+        },
+        {
+          "caller": "migrateAssets",
+          "callee": "Number",
+          "lineNumber": 142
+        },
+        {
+          "caller": "migrateAssets",
+          "callee": "Number",
+          "lineNumber": 147
+        },
+        {
+          "caller": "loadStoredAssets",
+          "callee": "migrateAssets",
+          "lineNumber": 154
+        },
+        {
+          "caller": "loadStoredAssets",
+          "callee": "JSON.parse",
+          "lineNumber": 154
+        },
+        {
+          "caller": "loadStoredAssets",
+          "callee": "localStorage.getItem",
+          "lineNumber": 154
+        },
+        {
+          "caller": "initials",
+          "callee": "String(name || '').trim().split(/\\s+/).filter",
+          "lineNumber": 161
+        },
+        {
+          "caller": "initials",
+          "callee": "String(name || '').trim().split",
+          "lineNumber": 161
+        },
+        {
+          "caller": "initials",
+          "callee": "String(name || '').trim",
+          "lineNumber": 161
+        },
+        {
+          "caller": "initials",
+          "callee": "String",
+          "lineNumber": 161
+        },
+        {
+          "caller": "initials",
+          "callee": "parts[0].slice(0, 2).toUpperCase",
+          "lineNumber": 163
+        },
+        {
+          "caller": "initials",
+          "callee": "parts[0].slice",
+          "lineNumber": 163
+        },
+        {
+          "caller": "initials",
+          "callee": "`${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase",
+          "lineNumber": 164
+        },
+        {
+          "caller": "migrateLocalAssets",
+          "callee": "loadStoredAssets",
+          "lineNumber": 168
+        },
+        {
+          "caller": "migrateLocalAssets",
+          "callee": "createAssetRecord",
+          "lineNumber": 173
+        },
+        {
+          "caller": "migrateLocalAssets",
+          "callee": "created.push",
+          "lineNumber": 184
+        },
+        {
+          "caller": "migrateLocalAssets",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 186
+        },
+        {
+          "caller": "isManualCode",
+          "callee": "MANUAL_CODES.has",
+          "lineNumber": 191
+        },
+        {
+          "caller": "amountStep",
+          "callee": "String(unit || '').toLocaleLowerCase",
+          "lineNumber": 195
+        },
+        {
+          "caller": "amountStep",
+          "callee": "String",
+          "lineNumber": 195
+        },
+        {
+          "caller": "groupSymbols",
+          "callee": "index.has",
+          "lineNumber": 205
+        },
+        {
+          "caller": "groupSymbols",
+          "callee": "index.set",
+          "lineNumber": 207
+        },
+        {
+          "caller": "groupSymbols",
+          "callee": "groups.push",
+          "lineNumber": 208
+        },
+        {
+          "caller": "groupSymbols",
+          "callee": "index.get(category).push",
+          "lineNumber": 210
+        },
+        {
+          "caller": "groupSymbols",
+          "callee": "index.get",
+          "lineNumber": 210
+        },
+        {
+          "caller": "assetDraftFromQuote",
+          "callee": "String(quote?.symbol || '').trim().toUpperCase",
+          "lineNumber": 219
+        },
+        {
+          "caller": "assetDraftFromQuote",
+          "callee": "String(quote?.symbol || '').trim",
+          "lineNumber": 219
+        },
+        {
+          "caller": "assetDraftFromQuote",
+          "callee": "String",
+          "lineNumber": 219
+        },
+        {
+          "caller": "assetDraftFromQuote",
+          "callee": "PRESETS.find",
+          "lineNumber": 220
+        },
+        {
+          "caller": "assetDraftFromQuote",
+          "callee": "PRESETS.find",
+          "lineNumber": 221
+        },
+        {
+          "caller": "assetDraftFromQuote",
+          "callee": "PRESETS.find",
+          "lineNumber": 222
+        },
+        {
+          "caller": "assetDraftFromQuote",
+          "callee": "GOLD_CATEGORIES.has",
+          "lineNumber": 223
+        },
+        {
+          "caller": "assetDraftFromQuote",
+          "callee": "labelFor",
+          "lineNumber": 226
+        },
+        {
+          "caller": "assetDraftFromQuote",
+          "callee": "GRAM_CATEGORIES.has",
+          "lineNumber": 228
+        },
+        {
+          "caller": "assetDraftFromQuote",
+          "callee": "Number",
+          "lineNumber": 229
+        },
+        {
+          "caller": "assetDraftFromQuote",
+          "callee": "Number",
+          "lineNumber": 230
+        },
+        {
+          "caller": "assetDraftFromQuote",
+          "callee": "Number",
+          "lineNumber": 230
+        },
+        {
+          "caller": "Modal",
+          "callee": "useEffect",
+          "lineNumber": 250
+        },
+        {
+          "caller": "closeOnEscape",
+          "callee": "onClose",
+          "lineNumber": 252
+        },
+        {
+          "caller": "Modal",
+          "callee": "document.addEventListener",
+          "lineNumber": 254
+        },
+        {
+          "caller": "Modal",
+          "callee": "document.body.classList.add",
+          "lineNumber": 255
+        },
+        {
+          "caller": "Modal",
+          "callee": "document.removeEventListener",
+          "lineNumber": 257
+        },
+        {
+          "caller": "Modal",
+          "callee": "document.body.classList.remove",
+          "lineNumber": 258
+        },
+        {
+          "caller": "Modal",
+          "callee": "event.stopPropagation",
+          "lineNumber": 269
+        },
+        {
+          "caller": "PricePair",
+          "callee": "formatTRY",
+          "lineNumber": 283
+        },
+        {
+          "caller": "PricePair",
+          "callee": "formatTRY",
+          "lineNumber": 284
+        },
+        {
+          "caller": "PricePair",
+          "callee": "Math.abs(change).toFixed",
+          "lineNumber": 288
+        },
+        {
+          "caller": "PricePair",
+          "callee": "Math.abs",
+          "lineNumber": 288
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "useState",
+          "lineNumber": 296
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "PRESETS.find",
+          "lineNumber": 297
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "useState",
+          "lineNumber": 298
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "useState",
+          "lineNumber": 299
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "useState",
+          "lineNumber": 300
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "useState",
+          "lineNumber": 301
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "useState",
+          "lineNumber": 302
+        },
+        {
+          "caller": "choosePreset",
+          "callee": "setSelectedKey",
+          "lineNumber": 305
+        },
+        {
+          "caller": "choosePreset",
+          "callee": "setForm",
+          "lineNumber": 306
+        },
+        {
+          "caller": "choosePreset",
+          "callee": "setLive",
+          "lineNumber": 307
+        },
+        {
+          "caller": "choosePreset",
+          "callee": "setLookup",
+          "lineNumber": 308
+        },
+        {
+          "caller": "updateField",
+          "callee": "setForm",
+          "lineNumber": 312
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "useEffect",
+          "lineNumber": 315
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "fetchLookups()\r\n      .then((data) => {\r\n        if (cancelled) return\r\n        setLookups({\r\n          units: data.units || [],\r\n          symbols: data.symbols || [],\r\n        })\r\n      })\r\n      .catch(() => {\r\n        if (!cancelled) setLookups({ units: [], symbols: [] })\r\n      })\r\n      .finally",
+          "lineNumber": 317
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "fetchLookups()\r\n      .then((data) => {\r\n        if (cancelled) return\r\n        setLookups({\r\n          units: data.units || [],\r\n          symbols: data.symbols || [],\r\n        })\r\n      })\r\n      .catch",
+          "lineNumber": 317
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "fetchLookups()\r\n      .then",
+          "lineNumber": 317
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "fetchLookups",
+          "lineNumber": 317
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "setLookups",
+          "lineNumber": 320
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "setLookups",
+          "lineNumber": 326
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "setLookupsReady",
+          "lineNumber": 329
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "useMemo",
+          "lineNumber": 336
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "groupSymbols",
+          "lineNumber": 336
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "useEffect",
+          "lineNumber": 338
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "form.code.trim",
+          "lineNumber": 339
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "isManualCode",
+          "lineNumber": 340
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "code.toUpperCase",
+          "lineNumber": 340
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "setLive",
+          "lineNumber": 341
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "setLookup",
+          "lineNumber": 342
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "window.setTimeout",
+          "lineNumber": 347
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "setLookup",
+          "lineNumber": 348
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "fetchPrice",
+          "lineNumber": 350
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "setLive",
+          "lineNumber": 353
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "setLookup",
+          "lineNumber": 354
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "setForm",
+          "lineNumber": 357
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "setLive",
+          "lineNumber": 362
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "setLookup",
+          "lineNumber": 363
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "setLive",
+          "lineNumber": 366
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "setLookup",
+          "lineNumber": 367
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "window.clearTimeout",
+          "lineNumber": 373
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "event.preventDefault",
+          "lineNumber": 378
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "form.name.trim",
+          "lineNumber": 379
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "form.code.trim",
+          "lineNumber": 379
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "form.unit.trim",
+          "lineNumber": 379
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "form.code.trim().toUpperCase",
+          "lineNumber": 380
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "form.code.trim",
+          "lineNumber": 380
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "onCreate",
+          "lineNumber": 381
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "crypto.randomUUID",
+          "lineNumber": 383
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "form.name.trim",
+          "lineNumber": 384
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "Number",
+          "lineNumber": 387
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "Number",
+          "lineNumber": 388
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "Number",
+          "lineNumber": 388
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "isManualCode",
+          "lineNumber": 393
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "form.code.trim().toUpperCase",
+          "lineNumber": 393
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "form.code.trim",
+          "lineNumber": 393
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "(() => {\r\n    if (isManualCode(form.code.trim().toUpperCase())) {\r\n      return 'Türk lirası için fiyat her zaman 1 ₺ olarak kalır.'\r\n    }\r\n    if (lookup === 'loading') return 'Bu kod için fiyat sorgulanıyor…'\r\n    if (lookup === 'live') return 'Bu kod için fiyat altinapi’den geliyor.'\r\n    if (lookup === 'missing') return 'Bu kod API’de yok. Alış fiyatını elle girebilirsiniz.'\r\n    if (lookup === 'error') return 'Fiyat alınamadı. Alış fiyatını elle girebilirsiniz.'\r\n    return 'Kod seçildiğinde alış ve satış fiyatı otomatik doldurulur.'\r\n  })",
+          "lineNumber": 394
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "isManualCode",
+          "lineNumber": 395
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "form.code.trim().toUpperCase",
+          "lineNumber": 395
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "form.code.trim",
+          "lineNumber": 395
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "PRESETS.map",
+          "lineNumber": 419
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "choosePreset",
+          "lineNumber": 424
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "preset.name.replace",
+          "lineNumber": 429
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "updateField",
+          "lineNumber": 440
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "updateField",
+          "lineNumber": 450
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "symbolGroups.map",
+          "lineNumber": 456
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "group.items.map",
+          "lineNumber": 458
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "updateField",
+          "lineNumber": 471
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "lookups.units.map",
+          "lineNumber": 477
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "updateField",
+          "lineNumber": 495
+        },
+        {
+          "caller": "AddAssetModal",
+          "callee": "updateField",
+          "lineNumber": 510
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "useState",
+          "lineNumber": 538
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "useState",
+          "lineNumber": 539
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "useState",
+          "lineNumber": 540
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "useEffect",
+          "lineNumber": 542
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "setPrice",
+          "lineNumber": 544
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "setAsk",
+          "lineNumber": 545
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "amountStep",
+          "lineNumber": 548
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "Number",
+          "lineNumber": 549
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "Math.max",
+          "lineNumber": 550
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "Number",
+          "lineNumber": 550
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "setAmount",
+          "lineNumber": 573
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "Math.max",
+          "lineNumber": 573
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "Number",
+          "lineNumber": 573
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "setAmount",
+          "lineNumber": 583
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "setAmount",
+          "lineNumber": 591
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "Number",
+          "lineNumber": 591
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "[step, step * 5, step * 10].map",
+          "lineNumber": 598
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "setAmount",
+          "lineNumber": 599
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "Number",
+          "lineNumber": 599
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "setPrice",
+          "lineNumber": 616
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "setAsk",
+          "lineNumber": 630
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "isManualCode",
+          "lineNumber": 642
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "formatTRY",
+          "lineNumber": 651
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "onDelete",
+          "lineNumber": 655
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "onSave",
+          "lineNumber": 662
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "Number",
+          "lineNumber": 664
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "Number",
+          "lineNumber": 665
+        },
+        {
+          "caller": "UpdateAssetModal",
+          "callee": "Number",
+          "lineNumber": 666
+        },
+        {
+          "caller": "AssetCard",
+          "callee": "onOpen",
+          "lineNumber": 700
+        },
+        {
+          "caller": "AssetCard",
+          "callee": "formatNumber",
+          "lineNumber": 709
+        },
+        {
+          "caller": "AssetCard",
+          "callee": "formatTRY",
+          "lineNumber": 711
+        },
+        {
+          "caller": "App",
+          "callee": "useState",
+          "lineNumber": 720
+        },
+        {
+          "caller": "App",
+          "callee": "useState",
+          "lineNumber": 721
+        },
+        {
+          "caller": "App",
+          "callee": "useEffect",
+          "lineNumber": 723
+        },
+        {
+          "caller": "App",
+          "callee": "fetchMe()\r\n      .then((result) => setUser(result.user))\r\n      .catch(() => setUser(null))\r\n      .finally",
+          "lineNumber": 724
+        },
+        {
+          "caller": "App",
+          "callee": "fetchMe()\r\n      .then((result) => setUser(result.user))\r\n      .catch",
+          "lineNumber": 724
+        },
+        {
+          "caller": "App",
+          "callee": "fetchMe()\r\n      .then",
+          "lineNumber": 724
+        },
+        {
+          "caller": "App",
+          "callee": "fetchMe",
+          "lineNumber": 724
+        },
+        {
+          "caller": "App",
+          "callee": "setUser",
+          "lineNumber": 725
+        },
+        {
+          "caller": "App",
+          "callee": "setUser",
+          "lineNumber": 726
+        },
+        {
+          "caller": "App",
+          "callee": "setAuthReady",
+          "lineNumber": 727
+        },
+        {
+          "caller": "App",
+          "callee": "setUser",
+          "lineNumber": 741
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "useState",
+          "lineNumber": 747
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "useState",
+          "lineNumber": 748
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "useState",
+          "lineNumber": 749
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "useState",
+          "lineNumber": 750
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "useState",
+          "lineNumber": 751
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "useState",
+          "lineNumber": 752
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "useMarketPrices",
+          "lineNumber": 753
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "useEffect",
+          "lineNumber": 755
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setAssetsReady",
+          "lineNumber": 756
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "useEffect",
+          "lineNumber": 759
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "fetchAssets()\r\n      .then(async ({ assets: rows }) => {\r\n        if (cancelled) return\r\n        if (!rows.length) {\r\n          try {\r\n            const migrated = await migrateLocalAssets()\r\n            if (!cancelled && migrated.length) {\r\n              setAssets(migrated)\r\n              setToast('Bu cihazdaki kategoriler hesabınıza taşındı.')\r\n              return\r\n            }\r\n          } catch {\r\n            // keep empty list if migration fails\r\n          }\r\n        }\r\n        if (!cancelled) setAssets(migrateAssets(rows))\r\n      })\r\n      .catch((err) => {\r\n        if (!cancelled) setToast(err.message || 'Kategoriler alınamadı.')\r\n      })\r\n      .finally",
+          "lineNumber": 764
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "fetchAssets()\r\n      .then(async ({ assets: rows }) => {\r\n        if (cancelled) return\r\n        if (!rows.length) {\r\n          try {\r\n            const migrated = await migrateLocalAssets()\r\n            if (!cancelled && migrated.length) {\r\n              setAssets(migrated)\r\n              setToast('Bu cihazdaki kategoriler hesabınıza taşındı.')\r\n              return\r\n            }\r\n          } catch {\r\n            // keep empty list if migration fails\r\n          }\r\n        }\r\n        if (!cancelled) setAssets(migrateAssets(rows))\r\n      })\r\n      .catch",
+          "lineNumber": 764
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "fetchAssets()\r\n      .then",
+          "lineNumber": 764
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "fetchAssets",
+          "lineNumber": 764
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "migrateLocalAssets",
+          "lineNumber": 769
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setAssets",
+          "lineNumber": 771
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setToast",
+          "lineNumber": 772
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setAssets",
+          "lineNumber": 779
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "migrateAssets",
+          "lineNumber": 779
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setToast",
+          "lineNumber": 782
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setAssetsReady",
+          "lineNumber": 785
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "useEffect",
+          "lineNumber": 793
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setAssets",
+          "lineNumber": 795
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "current.map",
+          "lineNumber": 795
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "isManualCode",
+          "lineNumber": 796
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "quotes.get",
+          "lineNumber": 799
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "Number",
+          "lineNumber": 805
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "quote.change.toFixed",
+          "lineNumber": 805
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "useEffect",
+          "lineNumber": 810
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setTimeout",
+          "lineNumber": 812
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setToast",
+          "lineNumber": 812
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "clearTimeout",
+          "lineNumber": 813
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "useMemo",
+          "lineNumber": 816
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "assets.reduce",
+          "lineNumber": 817
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "useMemo",
+          "lineNumber": 821
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "assets.reduce",
+          "lineNumber": 822
+        },
+        {
+          "caller": "createAsset",
+          "callee": "createAssetRecord",
+          "lineNumber": 828
+        },
+        {
+          "caller": "createAsset",
+          "callee": "setAssets",
+          "lineNumber": 839
+        },
+        {
+          "caller": "createAsset",
+          "callee": "setModal",
+          "lineNumber": 840
+        },
+        {
+          "caller": "createAsset",
+          "callee": "setToast",
+          "lineNumber": 841
+        },
+        {
+          "caller": "createAsset",
+          "callee": "setToast",
+          "lineNumber": 843
+        },
+        {
+          "caller": "saveAsset",
+          "callee": "assets.find",
+          "lineNumber": 849
+        },
+        {
+          "caller": "saveAsset",
+          "callee": "isManualCode",
+          "lineNumber": 851
+        },
+        {
+          "caller": "saveAsset",
+          "callee": "quotes.has",
+          "lineNumber": 851
+        },
+        {
+          "caller": "saveAsset",
+          "callee": "updateAssetRecord",
+          "lineNumber": 855
+        },
+        {
+          "caller": "saveAsset",
+          "callee": "setAssets",
+          "lineNumber": 856
+        },
+        {
+          "caller": "saveAsset",
+          "callee": "list.map",
+          "lineNumber": 856
+        },
+        {
+          "caller": "saveAsset",
+          "callee": "quotes.has",
+          "lineNumber": 860
+        },
+        {
+          "caller": "saveAsset",
+          "callee": "quotes.has",
+          "lineNumber": 861
+        },
+        {
+          "caller": "saveAsset",
+          "callee": "setModal",
+          "lineNumber": 865
+        },
+        {
+          "caller": "saveAsset",
+          "callee": "setToast",
+          "lineNumber": 866
+        },
+        {
+          "caller": "saveAsset",
+          "callee": "setToast",
+          "lineNumber": 868
+        },
+        {
+          "caller": "deleteAsset",
+          "callee": "deleteAssetRecord",
+          "lineNumber": 874
+        },
+        {
+          "caller": "deleteAsset",
+          "callee": "setAssets",
+          "lineNumber": 875
+        },
+        {
+          "caller": "deleteAsset",
+          "callee": "current.filter",
+          "lineNumber": 875
+        },
+        {
+          "caller": "deleteAsset",
+          "callee": "setModal",
+          "lineNumber": 876
+        },
+        {
+          "caller": "deleteAsset",
+          "callee": "setToast",
+          "lineNumber": 877
+        },
+        {
+          "caller": "deleteAsset",
+          "callee": "setToast",
+          "lineNumber": 879
+        },
+        {
+          "caller": "refreshPrices",
+          "callee": "refresh",
+          "lineNumber": 884
+        },
+        {
+          "caller": "refreshPrices",
+          "callee": "setToast",
+          "lineNumber": 886
+        },
+        {
+          "caller": "refreshPrices",
+          "callee": "setToast",
+          "lineNumber": 889
+        },
+        {
+          "caller": "handleLogout",
+          "callee": "logoutAccount",
+          "lineNumber": 894
+        },
+        {
+          "caller": "handleLogout",
+          "callee": "onLogout",
+          "lineNumber": 898
+        },
+        {
+          "caller": "handleNav",
+          "callee": "handleLogout",
+          "lineNumber": 903
+        },
+        {
+          "caller": "handleNav",
+          "callee": "setActiveNav",
+          "lineNumber": 906
+        },
+        {
+          "caller": "handleNav",
+          "callee": "refresh",
+          "lineNumber": 908
+        },
+        {
+          "caller": "handleNav",
+          "callee": "setToast",
+          "lineNumber": 912
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "timeNow",
+          "lineNumber": 915
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "assets.find",
+          "lineNumber": 925
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "handleNav",
+          "lineNumber": 937
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "handleNav",
+          "lineNumber": 941
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "handleNav",
+          "lineNumber": 946
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "handleNav",
+          "lineNumber": 950
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "initials",
+          "lineNumber": 969
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setToast",
+          "lineNumber": 988
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setModal",
+          "lineNumber": 992
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setModal",
+          "lineNumber": 1006
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "assetDraftFromQuote",
+          "lineNumber": 1006
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setHidden",
+          "lineNumber": 1015
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setModal",
+          "lineNumber": 1016
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setModal",
+          "lineNumber": 1017
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setModal",
+          "lineNumber": 1019
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setHidden",
+          "lineNumber": 1027
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "formatTRY",
+          "lineNumber": 1031
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "formatTRY",
+          "lineNumber": 1037
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "Math.abs",
+          "lineNumber": 1037
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "[36, 45, 40, 56, 52, 68, 62, 79, 74, 88, 82, 100].map",
+          "lineNumber": 1049
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setModal",
+          "lineNumber": 1074
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "assets.map",
+          "lineNumber": 1077
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setModal",
+          "lineNumber": 1082
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setModal",
+          "lineNumber": 1085
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "MARKET_WATCHLIST.map",
+          "lineNumber": 1104
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "quotes.get",
+          "lineNumber": 1105
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "PRESETS.find",
+          "lineNumber": 1106
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "formatTRY",
+          "lineNumber": 1119
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "formatTRY",
+          "lineNumber": 1120
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "change.toFixed",
+          "lineNumber": 1123
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "handleNav",
+          "lineNumber": 1136
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "handleNav",
+          "lineNumber": 1164
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "handleNav",
+          "lineNumber": 1167
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setModal",
+          "lineNumber": 1170
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "handleNav",
+          "lineNumber": 1173
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "handleNav",
+          "lineNumber": 1176
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setModal",
+          "lineNumber": 1186
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "quotes.has",
+          "lineNumber": 1194
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "isManualCode",
+          "lineNumber": 1194
+        },
+        {
+          "caller": "Portfolio",
+          "callee": "setModal",
+          "lineNumber": 1195
+        }
+      ],
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 0,
+        "functionCount": 20,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/AssetsPage.jsx",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 128,
+      "nonEmptyLines": 116,
+      "functions": [
+        {
+          "name": "formatTRY",
+          "startLine": 4,
+          "endLine": 11,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "formatNumber",
+          "startLine": 13,
+          "endLine": 15,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "matchesQuery",
+          "startLine": 17,
+          "endLine": 22,
+          "params": [
+            "asset",
+            "needle"
+          ]
+        },
+        {
+          "name": "AssetsPage",
+          "startLine": 24,
+          "endLine": 128,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AssetsPage",
+          "line": 24,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "formatTRY",
+          "callee": "new Intl.NumberFormat('tr-TR', {\r\n    style: 'currency',\r\n    currency: 'TRY',\r\n    maximumFractionDigits: 2,\r\n  }).format",
+          "lineNumber": 6
+        },
+        {
+          "caller": "formatNumber",
+          "callee": "new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 4 }).format",
+          "lineNumber": 14
+        },
+        {
+          "caller": "matchesQuery",
+          "callee": "String(asset.name || '').toLocaleLowerCase",
+          "lineNumber": 19
+        },
+        {
+          "caller": "matchesQuery",
+          "callee": "String",
+          "lineNumber": 19
+        },
+        {
+          "caller": "matchesQuery",
+          "callee": "String(asset.code || '').toLocaleLowerCase",
+          "lineNumber": 20
+        },
+        {
+          "caller": "matchesQuery",
+          "callee": "String",
+          "lineNumber": 20
+        },
+        {
+          "caller": "matchesQuery",
+          "callee": "name.includes",
+          "lineNumber": 21
+        },
+        {
+          "caller": "matchesQuery",
+          "callee": "code.includes",
+          "lineNumber": 21
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "useState",
+          "lineNumber": 34
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "query.trim().toLocaleLowerCase",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "query.trim",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "Boolean",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "useMemo",
+          "lineNumber": 38
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "assets.filter",
+          "lineNumber": 39
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "matchesQuery",
+          "lineNumber": 39
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "next.sort",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "String(a.name || '').localeCompare",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "String",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "setQuery",
+          "lineNumber": 79
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "rows.map",
+          "lineNumber": 102
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "onOpen",
+          "lineNumber": 107
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "formatNumber",
+          "lineNumber": 117
+        },
+        {
+          "caller": "AssetsPage",
+          "callee": "formatTRY",
+          "lineNumber": 118
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/AuthScreen.jsx",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 126,
+      "nonEmptyLines": 117,
+      "functions": [
+        {
+          "name": "AuthScreen",
+          "startLine": 5,
+          "endLine": 126,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AuthScreen",
+          "line": 5,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AuthScreen",
+          "callee": "useState",
+          "lineNumber": 6
+        },
+        {
+          "caller": "AuthScreen",
+          "callee": "useState",
+          "lineNumber": 7
+        },
+        {
+          "caller": "AuthScreen",
+          "callee": "useState",
+          "lineNumber": 8
+        },
+        {
+          "caller": "AuthScreen",
+          "callee": "useState",
+          "lineNumber": 9
+        },
+        {
+          "caller": "AuthScreen",
+          "callee": "useState",
+          "lineNumber": 10
+        },
+        {
+          "caller": "AuthScreen",
+          "callee": "useState",
+          "lineNumber": 11
+        },
+        {
+          "caller": "updateField",
+          "callee": "setForm",
+          "lineNumber": 15
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "event.preventDefault",
+          "lineNumber": 19
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setError",
+          "lineNumber": 20
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setPending",
+          "lineNumber": 21
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "form.name.trim",
+          "lineNumber": 24
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "form.email.trim",
+          "lineNumber": 24
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "form.email.trim",
+          "lineNumber": 25
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "registerAccount",
+          "lineNumber": 26
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "loginAccount",
+          "lineNumber": 26
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "onAuth",
+          "lineNumber": 27
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setError",
+          "lineNumber": 29
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setPending",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AuthScreen",
+          "callee": "updateField",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AuthScreen",
+          "callee": "updateField",
+          "lineNumber": 65
+        },
+        {
+          "caller": "AuthScreen",
+          "callee": "updateField",
+          "lineNumber": 76
+        },
+        {
+          "caller": "AuthScreen",
+          "callee": "setShowPassword",
+          "lineNumber": 84
+        },
+        {
+          "caller": "AuthScreen",
+          "callee": "setRemember",
+          "lineNumber": 98
+        },
+        {
+          "caller": "AuthScreen",
+          "callee": "setMode",
+          "lineNumber": 116
+        },
+        {
+          "caller": "AuthScreen",
+          "callee": "setError",
+          "lineNumber": 117
+        },
+        {
+          "caller": "AuthScreen",
+          "callee": "setShowPassword",
+          "lineNumber": 118
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/MarketsPage.jsx",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 120,
+      "nonEmptyLines": 110,
+      "functions": [
+        {
+          "name": "formatPrice",
+          "startLine": 5,
+          "endLine": 10,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "matchesQuery",
+          "startLine": 12,
+          "endLine": 17,
+          "params": [
+            "quote",
+            "needle"
+          ]
+        },
+        {
+          "name": "MarketsPage",
+          "startLine": 19,
+          "endLine": 120,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "MarketsPage",
+          "line": 19,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "formatPrice",
+          "callee": "new Intl.NumberFormat('tr-TR', {\r\n    minimumFractionDigits: 2,\r\n    maximumFractionDigits: 4,\r\n  }).format",
+          "lineNumber": 6
+        },
+        {
+          "caller": "matchesQuery",
+          "callee": "String(quote.symbol || '').toLocaleLowerCase",
+          "lineNumber": 14
+        },
+        {
+          "caller": "matchesQuery",
+          "callee": "String",
+          "lineNumber": 14
+        },
+        {
+          "caller": "matchesQuery",
+          "callee": "labelFor(quote).toLocaleLowerCase",
+          "lineNumber": 15
+        },
+        {
+          "caller": "matchesQuery",
+          "callee": "labelFor",
+          "lineNumber": 15
+        },
+        {
+          "caller": "matchesQuery",
+          "callee": "symbol.includes",
+          "lineNumber": 16
+        },
+        {
+          "caller": "matchesQuery",
+          "callee": "name.includes",
+          "lineNumber": 16
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "useState",
+          "lineNumber": 20
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "query.trim().toLocaleLowerCase",
+          "lineNumber": 21
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "query.trim",
+          "lineNumber": 21
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "useMemo",
+          "lineNumber": 22
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "matchesQuery",
+          "lineNumber": 26
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "next.set",
+          "lineNumber": 26
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "groupQuotes",
+          "lineNumber": 31
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "Boolean",
+          "lineNumber": 34
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "setQuery",
+          "lineNumber": 63
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "groups.map",
+          "lineNumber": 90
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "group.rows.map",
+          "lineNumber": 99
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "onAdd",
+          "lineNumber": 104
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "labelFor",
+          "lineNumber": 105
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "labelFor",
+          "lineNumber": 108
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "formatPrice",
+          "lineNumber": 111
+        },
+        {
+          "caller": "MarketsPage",
+          "callee": "formatPrice",
+          "lineNumber": 112
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/api/auth.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 19,
+      "functions": [
+        {
+          "name": "registerAccount",
+          "startLine": 3,
+          "endLine": 8,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "loginAccount",
+          "startLine": 10,
+          "endLine": 15,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "logoutAccount",
+          "startLine": 17,
+          "endLine": 19,
+          "params": []
+        },
+        {
+          "name": "fetchMe",
+          "startLine": 21,
+          "endLine": 23,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "registerAccount",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "loginAccount",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "logoutAccount",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "fetchMe",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "registerAccount",
+          "callee": "request",
+          "lineNumber": 4
+        },
+        {
+          "caller": "registerAccount",
+          "callee": "JSON.stringify",
+          "lineNumber": 6
+        },
+        {
+          "caller": "loginAccount",
+          "callee": "request",
+          "lineNumber": 11
+        },
+        {
+          "caller": "loginAccount",
+          "callee": "JSON.stringify",
+          "lineNumber": 13
+        },
+        {
+          "caller": "logoutAccount",
+          "callee": "request",
+          "lineNumber": 18
+        },
+        {
+          "caller": "fetchMe",
+          "callee": "request",
+          "lineNumber": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/api/prices.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 71,
+      "nonEmptyLines": 62,
+      "functions": [
+        {
+          "name": "messageForStatus",
+          "startLine": 11,
+          "endLine": 24,
+          "params": [
+            "status",
+            "fallback"
+          ]
+        },
+        {
+          "name": "parseError",
+          "startLine": 26,
+          "endLine": 35,
+          "params": [
+            "response"
+          ]
+        },
+        {
+          "name": "toQuote",
+          "startLine": 37,
+          "endLine": 47,
+          "params": [
+            "item"
+          ]
+        },
+        {
+          "name": "fetchPrices",
+          "startLine": 49,
+          "endLine": 59,
+          "params": []
+        },
+        {
+          "name": "fetchPrice",
+          "startLine": 61,
+          "endLine": 71,
+          "params": [
+            "symbol"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "PriceRequestError",
+          "startLine": 3,
+          "endLine": 9,
+          "methods": [
+            "constructor"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PriceRequestError",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "fetchPrices",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "fetchPrice",
+          "line": 61,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "constructor",
+          "callee": "super",
+          "lineNumber": 5
+        },
+        {
+          "caller": "parseError",
+          "callee": "response.json",
+          "lineNumber": 29
+        },
+        {
+          "caller": "parseError",
+          "callee": "messageForStatus",
+          "lineNumber": 34
+        },
+        {
+          "caller": "toQuote",
+          "callee": "Number",
+          "lineNumber": 42
+        },
+        {
+          "caller": "toQuote",
+          "callee": "Number",
+          "lineNumber": 43
+        },
+        {
+          "caller": "toQuote",
+          "callee": "Boolean",
+          "lineNumber": 45
+        },
+        {
+          "caller": "fetchPrices",
+          "callee": "fetch",
+          "lineNumber": 50
+        },
+        {
+          "caller": "fetchPrices",
+          "callee": "parseError",
+          "lineNumber": 51
+        },
+        {
+          "caller": "fetchPrices",
+          "callee": "response.json",
+          "lineNumber": 53
+        },
+        {
+          "caller": "fetchPrices",
+          "callee": "quotes.set",
+          "lineNumber": 56
+        },
+        {
+          "caller": "fetchPrices",
+          "callee": "toQuote",
+          "lineNumber": 56
+        },
+        {
+          "caller": "fetchPrices",
+          "callee": "Boolean",
+          "lineNumber": 58
+        },
+        {
+          "caller": "fetchPrice",
+          "callee": "symbol.trim",
+          "lineNumber": 62
+        },
+        {
+          "caller": "fetchPrice",
+          "callee": "fetch",
+          "lineNumber": 65
+        },
+        {
+          "caller": "fetchPrice",
+          "callee": "encodeURIComponent",
+          "lineNumber": 65
+        },
+        {
+          "caller": "fetchPrice",
+          "callee": "parseError",
+          "lineNumber": 67
+        },
+        {
+          "caller": "fetchPrice",
+          "callee": "response.json",
+          "lineNumber": 69
+        },
+        {
+          "caller": "fetchPrice",
+          "callee": "toQuote",
+          "lineNumber": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "frontend/src/data/symbolLabels.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 111,
+      "nonEmptyLines": 104,
+      "functions": [
+        {
+          "name": "labelFor",
+          "startLine": 80,
+          "endLine": 83,
+          "params": [
+            "quote"
+          ]
+        },
+        {
+          "name": "categoryTitle",
+          "startLine": 85,
+          "endLine": 87,
+          "params": [
+            "category"
+          ]
+        },
+        {
+          "name": "groupQuotes",
+          "startLine": 89,
+          "endLine": 111,
+          "params": [
+            "quotes"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CATEGORY_ORDER",
+          "line": 1,
+          "isDefault": false
+        },
+        {
+          "name": "CATEGORY_TITLES",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "labelFor",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "categoryTitle",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "groupQuotes",
+          "line": 89,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "groupQuotes",
+          "callee": "quotes.values",
+          "lineNumber": 91
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "groups.has",
+          "lineNumber": 93
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "groups.set",
+          "lineNumber": 93
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "groups.get(key).push",
+          "lineNumber": 94
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "groups.get",
+          "lineNumber": 94
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "groups.values",
+          "lineNumber": 97
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "rows.sort",
+          "lineNumber": 98
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "labelFor(a).localeCompare",
+          "lineNumber": 98
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "labelFor",
+          "lineNumber": 98
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "labelFor",
+          "lineNumber": 98
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "groups.has",
+          "lineNumber": 103
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "ordered.push",
+          "lineNumber": 103
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "categoryTitle",
+          "lineNumber": 103
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "groups.get",
+          "lineNumber": 103
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "CATEGORY_ORDER.includes",
+          "lineNumber": 106
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "ordered.push",
+          "lineNumber": 107
+        },
+        {
+          "caller": "groupQuotes",
+          "callee": "categoryTitle",
+          "lineNumber": 107
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/hooks/useMarketPrices.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 91,
+      "nonEmptyLines": 77,
+      "functions": [
+        {
+          "name": "readSnapshot",
+          "startLine": 7,
+          "endLine": 13,
+          "params": []
+        },
+        {
+          "name": "useMarketPrices",
+          "startLine": 15,
+          "endLine": 91,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "useMarketPrices",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "readSnapshot",
+          "callee": "JSON.parse",
+          "lineNumber": 9
+        },
+        {
+          "caller": "readSnapshot",
+          "callee": "localStorage.getItem",
+          "lineNumber": 9
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "useState",
+          "lineNumber": 16
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "useState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "useState",
+          "lineNumber": 19
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "useState",
+          "lineNumber": 20
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "useRef",
+          "lineNumber": 21
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "readSnapshot",
+          "lineNumber": 24
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "useCallback",
+          "lineNumber": 27
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "setLoading",
+          "lineNumber": 28
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "fetchPrices",
+          "lineNumber": 31
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "withChange.set",
+          "lineNumber": 41
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "Object.keys",
+          "lineNumber": 45
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "localStorage.setItem",
+          "lineNumber": 49
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "JSON.stringify",
+          "lineNumber": 49
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "setQuotes",
+          "lineNumber": 50
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "setStale",
+          "lineNumber": 51
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "setError",
+          "lineNumber": 52
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "setUpdatedAt",
+          "lineNumber": 53
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "setError",
+          "lineNumber": 57
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "setLoading",
+          "lineNumber": 60
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "useEffect",
+          "lineNumber": 64
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "refresh",
+          "lineNumber": 65
+        },
+        {
+          "caller": "start",
+          "callee": "window.setInterval",
+          "lineNumber": 69
+        },
+        {
+          "caller": "start",
+          "callee": "refresh",
+          "lineNumber": 70
+        },
+        {
+          "caller": "stop",
+          "callee": "window.clearInterval",
+          "lineNumber": 73
+        },
+        {
+          "caller": "onVisibility",
+          "callee": "stop",
+          "lineNumber": 76
+        },
+        {
+          "caller": "onVisibility",
+          "callee": "refresh",
+          "lineNumber": 78
+        },
+        {
+          "caller": "onVisibility",
+          "callee": "start",
+          "lineNumber": 79
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "start",
+          "lineNumber": 82
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "document.addEventListener",
+          "lineNumber": 83
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "stop",
+          "lineNumber": 85
+        },
+        {
+          "caller": "useMarketPrices",
+          "callee": "document.removeEventListener",
+          "lineNumber": 86
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/main.jsx",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 9,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

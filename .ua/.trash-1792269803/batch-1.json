@@ -1,0 +1,701 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/src/altinProxy.js",
+      "type": "file",
+      "name": "altinProxy.js",
+      "filePath": "backend/src/altinProxy.js",
+      "summary": "Express handler that proxies GET /api/altin to altinapi, attaching the server-side API key and forwarding the upstream body.",
+      "tags": ["api-handler", "proxy", "prices", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/altinProxy.js:altinProxy",
+      "type": "function",
+      "name": "altinProxy",
+      "filePath": "backend/src/altinProxy.js",
+      "lineRange": [3, 33],
+      "summary": "Forwards allowed GET requests to altinapi with X-API-Key, then relays status, content type, and body or returns Turkish error JSON.",
+      "tags": ["api-handler", "proxy", "http", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/auth.js",
+      "type": "file",
+      "name": "auth.js",
+      "filePath": "backend/src/auth.js",
+      "summary": "JWT helpers that sign and verify session tokens and set or clear the HttpOnly bolkese_token cookie.",
+      "tags": ["authentication", "security", "utility", "cookies"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/auth.js:signToken",
+      "type": "function",
+      "name": "signToken",
+      "filePath": "backend/src/auth.js",
+      "lineRange": [12, 14],
+      "summary": "Signs a seven-day JWT whose subject is the user id.",
+      "tags": ["authentication", "jwt", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/auth.js:readToken",
+      "type": "function",
+      "name": "readToken",
+      "filePath": "backend/src/auth.js",
+      "lineRange": [16, 18],
+      "summary": "Verifies a JWT and returns its payload using the server JWT secret.",
+      "tags": ["authentication", "jwt", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/auth.js:setAuthCookie",
+      "type": "function",
+      "name": "setAuthCookie",
+      "filePath": "backend/src/auth.js",
+      "lineRange": [20, 28],
+      "summary": "Writes the HttpOnly SameSite=Lax session cookie with a seven-day max age.",
+      "tags": ["authentication", "cookies", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/auth.js:clearAuthCookie",
+      "type": "function",
+      "name": "clearAuthCookie",
+      "filePath": "backend/src/auth.js",
+      "lineRange": [30, 32],
+      "summary": "Clears the session cookie on logout.",
+      "tags": ["authentication", "cookies", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/db.js",
+      "type": "file",
+      "name": "db.js",
+      "filePath": "backend/src/db.js",
+      "summary": "Opens the SQLite database under backend/data, enables WAL and foreign keys, applies schema.sql, then seeds lookup rows.",
+      "tags": ["database", "singleton", "entry-point", "sqlite"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/index.js",
+      "type": "file",
+      "name": "index.js",
+      "filePath": "backend/src/index.js",
+      "summary": "Express entry point that enables JSON and cookies, mounts health, altin proxy, and auth/asset/lookup/movement routers, then starts the server.",
+      "tags": ["entry-point", "api-handler", "express", "routing"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/logMovement.js",
+      "type": "file",
+      "name": "logMovement.js",
+      "filePath": "backend/src/logMovement.js",
+      "summary": "Inserts a movement row when an asset amount changes so buy and sell history can be listed later.",
+      "tags": ["data-model", "audit", "utility", "database"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/logMovement.js:logAmountChange",
+      "type": "function",
+      "name": "logAmountChange",
+      "filePath": "backend/src/logMovement.js",
+      "lineRange": [11, 36],
+      "summary": "Writes a movement with direction, quantity, and unit value when the new amount differs from the previous amount.",
+      "tags": ["data-model", "audit", "database", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/middleware/requireAuth.js",
+      "type": "file",
+      "name": "requireAuth.js",
+      "filePath": "backend/src/middleware/requireAuth.js",
+      "summary": "Auth middleware that reads the session cookie, verifies the JWT, loads the user from SQLite, and attaches req.user.",
+      "tags": ["middleware", "authentication", "security", "api-handler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/middleware/requireAuth.js:requireAuth",
+      "type": "function",
+      "name": "requireAuth",
+      "filePath": "backend/src/middleware/requireAuth.js",
+      "lineRange": [4, 27],
+      "summary": "Rejects missing or invalid tokens with 401, otherwise loads the user row and continues the request.",
+      "tags": ["middleware", "authentication", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/routes/assets.js",
+      "type": "file",
+      "name": "assets.js",
+      "filePath": "backend/src/routes/assets.js",
+      "summary": "Authenticated CRUD for the current user's assets, including symbol/unit checks, TRY price locking, and movement logging on amount changes.",
+      "tags": ["api-handler", "crud", "validation", "data-model"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/routes/assets.js:toAsset",
+      "type": "function",
+      "name": "toAsset",
+      "filePath": "backend/src/routes/assets.js",
+      "lineRange": [12, 26],
+      "summary": "Maps a database asset row to the public API shape, renaming preset_key to key and forcing change to 0.",
+      "tags": ["serialization", "data-model", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/src/routes/assets.js:GET-/api/assets",
+      "type": "endpoint",
+      "name": "GET /api/assets",
+      "filePath": "backend/src/routes/assets.js",
+      "summary": "Lists the authenticated user's assets in creation order.",
+      "tags": ["api-handler", "crud", "assets", "read"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/src/routes/assets.js:POST-/api/assets",
+      "type": "endpoint",
+      "name": "POST /api/assets",
+      "filePath": "backend/src/routes/assets.js",
+      "summary": "Creates an asset owned by the current user after validating name, code, and unit against lookup tables.",
+      "tags": ["api-handler", "crud", "assets", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "endpoint:backend/src/routes/assets.js:PATCH-/api/assets/:id",
+      "type": "endpoint",
+      "name": "PATCH /api/assets/:id",
+      "filePath": "backend/src/routes/assets.js",
+      "summary": "Updates amount, bid, and ask for an owned asset and logs a movement when quantity changes.",
+      "tags": ["api-handler", "crud", "assets", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "endpoint:backend/src/routes/assets.js:DELETE-/api/assets/:id",
+      "type": "endpoint",
+      "name": "DELETE /api/assets/:id",
+      "filePath": "backend/src/routes/assets.js",
+      "summary": "Deletes an owned asset or returns 404/403 when the row is missing or belongs to another user.",
+      "tags": ["api-handler", "crud", "assets", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/routes/auth.js",
+      "type": "file",
+      "name": "auth.js",
+      "filePath": "backend/src/routes/auth.js",
+      "summary": "Register, login, logout, and current-user routes that hash passwords, issue cookies, and return public user objects.",
+      "tags": ["api-handler", "authentication", "validation", "security"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "endpoint:backend/src/routes/auth.js:POST-/api/auth/register",
+      "type": "endpoint",
+      "name": "POST /api/auth/register",
+      "filePath": "backend/src/routes/auth.js",
+      "summary": "Creates a user after email, name, and password checks, then sets the session cookie.",
+      "tags": ["api-handler", "authentication", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "endpoint:backend/src/routes/auth.js:POST-/api/auth/login",
+      "type": "endpoint",
+      "name": "POST /api/auth/login",
+      "filePath": "backend/src/routes/auth.js",
+      "summary": "Authenticates email and password with bcrypt and sets the session cookie.",
+      "tags": ["api-handler", "authentication", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/src/routes/auth.js:POST-/api/auth/logout",
+      "type": "endpoint",
+      "name": "POST /api/auth/logout",
+      "filePath": "backend/src/routes/auth.js",
+      "summary": "Clears the session cookie and returns a success payload.",
+      "tags": ["api-handler", "authentication", "cookies"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/src/routes/auth.js:GET-/api/auth/me",
+      "type": "endpoint",
+      "name": "GET /api/auth/me",
+      "filePath": "backend/src/routes/auth.js",
+      "summary": "Returns the public user object for the authenticated session.",
+      "tags": ["api-handler", "authentication", "read"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/routes/lookups.js",
+      "type": "file",
+      "name": "lookups.js",
+      "filePath": "backend/src/routes/lookups.js",
+      "summary": "Authenticated lookup route that returns unit and symbol catalogs used when creating assets.",
+      "tags": ["api-handler", "lookups", "read", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/src/routes/lookups.js:GET-/api/lookups",
+      "type": "endpoint",
+      "name": "GET /api/lookups",
+      "filePath": "backend/src/routes/lookups.js",
+      "summary": "Returns units and symbols from the seeded lookup tables.",
+      "tags": ["api-handler", "lookups", "read"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/routes/movements.js",
+      "type": "file",
+      "name": "movements.js",
+      "filePath": "backend/src/routes/movements.js",
+      "summary": "Authenticated listing of the current user's asset movements with optional date, asset, and direction filters.",
+      "tags": ["api-handler", "audit", "read", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/routes/movements.js:toMovement",
+      "type": "function",
+      "name": "toMovement",
+      "filePath": "backend/src/routes/movements.js",
+      "lineRange": [8, 20],
+      "summary": "Maps a joined movement row to the public movement payload used by reports.",
+      "tags": ["serialization", "data-model", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/src/routes/movements.js:GET-/api/movements",
+      "type": "endpoint",
+      "name": "GET /api/movements",
+      "filePath": "backend/src/routes/movements.js",
+      "summary": "Lists owned movements newest first, filtered by optional from, to, assetId, and direction query params.",
+      "tags": ["api-handler", "audit", "read"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/seedLookups.js",
+      "type": "file",
+      "name": "seedLookups.js",
+      "filePath": "backend/src/seedLookups.js",
+      "summary": "Startup seeder that INSERT OR REPLACE units, sixty-six altinapi symbols, and TRY into lookup tables.",
+      "tags": ["database", "seed", "lookups", "data-model"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/seedLookups.js:seedLookups",
+      "type": "function",
+      "name": "seedLookups",
+      "filePath": "backend/src/seedLookups.js",
+      "lineRange": [77, 90],
+      "summary": "Runs a transaction that upserts the static unit and symbol catalogs into SQLite.",
+      "tags": ["database", "seed", "lookups"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/src/db.js",
+      "target": "file:backend/src/seedLookups.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "file:backend/src/altinProxy.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "file:backend/src/routes/assets.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "file:backend/src/routes/auth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "file:backend/src/routes/lookups.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "file:backend/src/routes/movements.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/middleware/requireAuth.js",
+      "target": "file:backend/src/auth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/middleware/requireAuth.js",
+      "target": "file:backend/src/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "file:backend/src/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "file:backend/src/logMovement.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "file:backend/src/middleware/requireAuth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/auth.js",
+      "target": "file:backend/src/auth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/auth.js",
+      "target": "file:backend/src/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/auth.js",
+      "target": "file:backend/src/middleware/requireAuth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/lookups.js",
+      "target": "file:backend/src/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/lookups.js",
+      "target": "file:backend/src/middleware/requireAuth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/movements.js",
+      "target": "file:backend/src/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/movements.js",
+      "target": "file:backend/src/middleware/requireAuth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/altinProxy.js",
+      "target": "function:backend/src/altinProxy.js:altinProxy",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/altinProxy.js",
+      "target": "function:backend/src/altinProxy.js:altinProxy",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:signToken",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:signToken",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:readToken",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:readToken",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:setAuthCookie",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:setAuthCookie",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:clearAuthCookie",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "function:backend/src/auth.js:clearAuthCookie",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/logMovement.js",
+      "target": "function:backend/src/logMovement.js:logAmountChange",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/logMovement.js",
+      "target": "function:backend/src/logMovement.js:logAmountChange",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/middleware/requireAuth.js",
+      "target": "function:backend/src/middleware/requireAuth.js:requireAuth",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/middleware/requireAuth.js",
+      "target": "function:backend/src/middleware/requireAuth.js:requireAuth",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "function:backend/src/routes/assets.js:toAsset",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/routes/movements.js",
+      "target": "function:backend/src/routes/movements.js:toMovement",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/seedLookups.js",
+      "target": "function:backend/src/seedLookups.js:seedLookups",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/seedLookups.js",
+      "target": "function:backend/src/seedLookups.js:seedLookups",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "endpoint:backend/src/routes/assets.js:GET-/api/assets",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "endpoint:backend/src/routes/assets.js:POST-/api/assets",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "endpoint:backend/src/routes/assets.js:PATCH-/api/assets/:id",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/routes/assets.js",
+      "target": "endpoint:backend/src/routes/assets.js:DELETE-/api/assets/:id",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/routes/auth.js",
+      "target": "endpoint:backend/src/routes/auth.js:POST-/api/auth/register",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/routes/auth.js",
+      "target": "endpoint:backend/src/routes/auth.js:POST-/api/auth/login",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/routes/auth.js",
+      "target": "endpoint:backend/src/routes/auth.js:POST-/api/auth/logout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/routes/auth.js",
+      "target": "endpoint:backend/src/routes/auth.js:GET-/api/auth/me",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/routes/lookups.js",
+      "target": "endpoint:backend/src/routes/lookups.js:GET-/api/lookups",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/routes/movements.js",
+      "target": "endpoint:backend/src/routes/movements.js:GET-/api/movements",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/assets.js:GET-/api/assets",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/assets.js:POST-/api/assets",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/assets.js:PATCH-/api/assets/:id",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/assets.js:DELETE-/api/assets/:id",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/auth.js:POST-/api/auth/register",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/auth.js:POST-/api/auth/login",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/auth.js:POST-/api/auth/logout",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/auth.js:GET-/api/auth/me",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/lookups.js:GET-/api/lookups",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/index.js",
+      "target": "endpoint:backend/src/routes/movements.js:GET-/api/movements",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "function:backend/src/middleware/requireAuth.js:requireAuth",
+      "target": "function:backend/src/auth.js:readToken",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/db.js",
+      "target": "function:backend/src/seedLookups.js:seedLookups",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

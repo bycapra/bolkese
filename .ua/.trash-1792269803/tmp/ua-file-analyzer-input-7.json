@@ -1,0 +1,28 @@
+{
+  "projectRoot": "c:\\Users\\i_yas\\OneDrive\\Masaüstü\\Projects\\bolkese",
+  "batchFiles": [
+    {
+      "path": "frontend/.env.example",
+      "language": "config",
+      "sizeLines": 1,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/index.html",
+      "language": "html",
+      "sizeLines": 18,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/package.json",
+      "language": "json",
+      "sizeLines": 19,
+      "fileCategory": "config"
+    }
+  ],
+  "batchImportData": {
+    "frontend/.env.example": [],
+    "frontend/index.html": [],
+    "frontend/package.json": []
+  }
+}

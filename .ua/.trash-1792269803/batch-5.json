@@ -1,0 +1,85 @@
+{
+  "nodes": [
+    {
+      "id": "config:frontend/.dockerignore",
+      "type": "config",
+      "name": ".dockerignore",
+      "filePath": "frontend/.dockerignore",
+      "summary": "Excludes node_modules, dist, and environment files from the frontend Docker build context while keeping .env.example.",
+      "tags": ["dockerignore", "containerization", "infrastructure", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:frontend/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "frontend/Dockerfile",
+      "summary": "Multi-stage frontend image that builds the Vite React app with Node 22 and serves the static dist plus nginx.conf on port 80.",
+      "tags": ["containerization", "infrastructure", "deployment", "nginx", "frontend"],
+      "complexity": "simple",
+      "languageNotes": "Two-stage Dockerfile: Node bookworm-slim compiles assets, then nginx:1.27-alpine serves them."
+    },
+    {
+      "id": "service:frontend/Dockerfile:build",
+      "type": "service",
+      "name": "build",
+      "filePath": "frontend/Dockerfile",
+      "summary": "Build stage that installs npm dependencies and runs npm run build to produce the frontend dist output.",
+      "tags": ["containerization", "build-stage", "frontend", "npm"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:frontend/Dockerfile:nginx",
+      "type": "service",
+      "name": "nginx",
+      "filePath": "frontend/Dockerfile",
+      "summary": "Runtime stage that copies nginx routing config and static dist files, then exposes HTTP port 80.",
+      "tags": ["containerization", "nginx", "static-site", "deployment"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:frontend/.dockerignore",
+      "target": "service:frontend/Dockerfile",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:frontend/.dockerignore",
+      "target": "service:frontend/Dockerfile",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "service:frontend/Dockerfile:build",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "service:frontend/Dockerfile:nginx",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "file:frontend/src/main.jsx",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "file:frontend/nginx.conf",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

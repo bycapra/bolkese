@@ -1,0 +1,21 @@
+{
+  "projectRoot": "c:\\Users\\i_yas\\OneDrive\\Masaüstü\\Projects\\bolkese",
+  "batchFiles": [
+    {
+      "path": "backend/.dockerignore",
+      "language": "unknown",
+      "sizeLines": 5,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "backend/Dockerfile",
+      "language": "dockerfile",
+      "sizeLines": 21,
+      "fileCategory": "infra"
+    }
+  ],
+  "batchImportData": {
+    "backend/.dockerignore": [],
+    "backend/Dockerfile": []
+  }
+}

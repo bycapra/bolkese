@@ -1,0 +1,56 @@
+[
+  {
+    "order": 1,
+    "title": "Project overview",
+    "description": "Start with the README to see how BolKese tracks gold, FX, and cash, and how Docker versus local Vite/Express development works.",
+    "nodeIds": ["document:README.md"]
+  },
+  {
+    "order": 2,
+    "title": "Frontend boot",
+    "description": "main.jsx mounts App under StrictMode. App restores the session cookie then shows AuthScreen or the Portfolio workspace.",
+    "nodeIds": ["file:frontend/src/main.jsx", "file:frontend/src/App.jsx", "file:frontend/src/AuthScreen.jsx"]
+  },
+  {
+    "order": 3,
+    "title": "Session and API client",
+    "description": "The shared request helper sends credentials: include. Auth helpers login and restore the user; requireAuth on the server verifies the HttpOnly JWT cookie.",
+    "nodeIds": ["file:frontend/src/api/client.js", "file:frontend/src/api/auth.js", "file:backend/src/auth.js", "file:backend/src/middleware/requireAuth.js"]
+  },
+  {
+    "order": 4,
+    "title": "Express entry and routes",
+    "description": "backend/src/index.js mounts health, the altinapi proxy, and authenticated asset, lookup, and movement routers.",
+    "nodeIds": ["file:backend/src/index.js", "file:backend/src/routes/auth.js", "file:backend/src/routes/assets.js", "file:backend/src/altinProxy.js"]
+  },
+  {
+    "order": 5,
+    "title": "SQLite schema and seeds",
+    "description": "schema.sql defines users, assets, movements, units, and symbols. db.js applies it and seedLookups fills units plus 66 altinapi symbols and TRY.",
+    "nodeIds": ["file:backend/src/schema.sql", "file:backend/src/db.js", "file:backend/src/seedLookups.js", "table:backend/src/schema.sql:assets"]
+  },
+  {
+    "order": 6,
+    "title": "Holdings UI",
+    "description": "AssetsPage lists the current user's holdings. Amount changes go through PATCH /api/assets/:id and logMovement writes a movement row.",
+    "nodeIds": ["file:frontend/src/AssetsPage.jsx", "file:frontend/src/api/assets.js", "file:backend/src/logMovement.js"]
+  },
+  {
+    "order": 7,
+    "title": "Live prices",
+    "description": "useMarketPrices polls /api/altin/prices every 45 seconds. MarketsPage groups quotes; bid is alış and ask is satış. TRY stays locked at 1.",
+    "nodeIds": ["file:frontend/src/hooks/useMarketPrices.js", "file:frontend/src/api/prices.js", "file:frontend/src/MarketsPage.jsx", "file:frontend/src/data/symbolLabels.js"]
+  },
+  {
+    "order": 8,
+    "title": "Reports and movements",
+    "description": "ReportsPage loads movement history and can export CSV. The backend lists owned movements with optional filters.",
+    "nodeIds": ["file:frontend/src/ReportsPage.jsx", "file:frontend/src/api/movements.js", "file:frontend/src/exportCsv.js", "file:backend/src/routes/movements.js"]
+  },
+  {
+    "order": 9,
+    "title": "Packaging",
+    "description": "docker-compose runs nginx on 8080 and Express. nginx routes /api/ to the backend; local Vite still proxies /api/altin first.",
+    "nodeIds": ["service:docker-compose.yml", "service:frontend/Dockerfile", "service:backend/Dockerfile", "file:frontend/nginx.conf", "file:frontend/vite.config.js"]
+  }
+]

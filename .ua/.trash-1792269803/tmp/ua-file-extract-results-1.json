@@ -1,0 +1,606 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 11,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 11,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 11,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "backend/src/altinProxy.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 33,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "altinProxy",
+          "startLine": 3,
+          "endLine": 33,
+          "params": [
+            "req",
+            "res"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "altinProxy",
+          "line": 3,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "altinProxy",
+          "callee": "res.status(405).json",
+          "lineNumber": 5
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "res.status",
+          "lineNumber": 5
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "String(process.env.ALTINAPI_KEY || '').trim",
+          "lineNumber": 9
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "String",
+          "lineNumber": 9
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "res.status(401).json",
+          "lineNumber": 11
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "res.status",
+          "lineNumber": 11
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "fetch",
+          "lineNumber": 19
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "upstream.text",
+          "lineNumber": 25
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "upstream.headers.get",
+          "lineNumber": 26
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "res.status",
+          "lineNumber": 27
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "res.setHeader",
+          "lineNumber": 28
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "res.send",
+          "lineNumber": 29
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "res.status(503).json",
+          "lineNumber": 31
+        },
+        {
+          "caller": "altinProxy",
+          "callee": "res.status",
+          "lineNumber": 31
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/auth.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 27,
+      "functions": [
+        {
+          "name": "secret",
+          "startLine": 6,
+          "endLine": 10,
+          "params": []
+        },
+        {
+          "name": "signToken",
+          "startLine": 12,
+          "endLine": 14,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "readToken",
+          "startLine": 16,
+          "endLine": 18,
+          "params": [
+            "token"
+          ]
+        },
+        {
+          "name": "setAuthCookie",
+          "startLine": 20,
+          "endLine": 28,
+          "params": [
+            "res",
+            "token"
+          ]
+        },
+        {
+          "name": "clearAuthCookie",
+          "startLine": 30,
+          "endLine": 32,
+          "params": [
+            "res"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "signToken",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "readToken",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "setAuthCookie",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "clearAuthCookie",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "COOKIE_NAME",
+          "line": 34,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "signToken",
+          "callee": "jwt.sign",
+          "lineNumber": 13
+        },
+        {
+          "caller": "signToken",
+          "callee": "secret",
+          "lineNumber": 13
+        },
+        {
+          "caller": "readToken",
+          "callee": "jwt.verify",
+          "lineNumber": 17
+        },
+        {
+          "caller": "readToken",
+          "callee": "secret",
+          "lineNumber": 17
+        },
+        {
+          "caller": "setAuthCookie",
+          "callee": "res.cookie",
+          "lineNumber": 27
+        },
+        {
+          "caller": "clearAuthCookie",
+          "callee": "res.clearCookie",
+          "lineNumber": 31
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/db.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 15,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/index.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 31,
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/logMovement.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 36,
+      "nonEmptyLines": 33,
+      "functions": [
+        {
+          "name": "logAmountChange",
+          "startLine": 11,
+          "endLine": 36,
+          "params": [
+            "db"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "logAmountChange",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "logAmountChange",
+          "callee": "db.prepare(insertSql).run",
+          "lineNumber": 24
+        },
+        {
+          "caller": "logAmountChange",
+          "callee": "db.prepare",
+          "lineNumber": 24
+        },
+        {
+          "caller": "logAmountChange",
+          "callee": "randomUUID",
+          "lineNumber": 25
+        },
+        {
+          "caller": "logAmountChange",
+          "callee": "Math.abs",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/middleware/requireAuth.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 23,
+      "functions": [
+        {
+          "name": "requireAuth",
+          "startLine": 4,
+          "endLine": 27,
+          "params": [
+            "req",
+            "res",
+            "next"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "requireAuth",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "requireAuth",
+          "callee": "res.status(401).json",
+          "lineNumber": 7
+        },
+        {
+          "caller": "requireAuth",
+          "callee": "res.status",
+          "lineNumber": 7
+        },
+        {
+          "caller": "requireAuth",
+          "callee": "readToken",
+          "lineNumber": 12
+        },
+        {
+          "caller": "requireAuth",
+          "callee": "db.prepare(\r\n      'SELECT id, email, name, created_at FROM users WHERE id = ?',\r\n    ).get",
+          "lineNumber": 13
+        },
+        {
+          "caller": "requireAuth",
+          "callee": "db.prepare",
+          "lineNumber": 13
+        },
+        {
+          "caller": "requireAuth",
+          "callee": "res.status(401).json",
+          "lineNumber": 18
+        },
+        {
+          "caller": "requireAuth",
+          "callee": "res.status",
+          "lineNumber": 18
+        },
+        {
+          "caller": "requireAuth",
+          "callee": "next",
+          "lineNumber": 23
+        },
+        {
+          "caller": "requireAuth",
+          "callee": "res.status(401).json",
+          "lineNumber": 25
+        },
+        {
+          "caller": "requireAuth",
+          "callee": "res.status",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/routes/assets.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 178,
+      "nonEmptyLines": 158,
+      "functions": [
+        {
+          "name": "toAsset",
+          "startLine": 12,
+          "endLine": 26,
+          "params": [
+            "row"
+          ]
+        },
+        {
+          "name": "normalizeCode",
+          "startLine": 28,
+          "endLine": 30,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "pricesFor",
+          "startLine": 32,
+          "endLine": 36,
+          "params": [
+            "code",
+            "price",
+            "ask"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "normalizeCode",
+          "callee": "String(value || '').trim().toUpperCase",
+          "lineNumber": 29
+        },
+        {
+          "caller": "normalizeCode",
+          "callee": "String(value || '').trim",
+          "lineNumber": 29
+        },
+        {
+          "caller": "normalizeCode",
+          "callee": "String",
+          "lineNumber": 29
+        },
+        {
+          "caller": "pricesFor",
+          "callee": "MANUAL_CODES.has",
+          "lineNumber": 33
+        },
+        {
+          "caller": "pricesFor",
+          "callee": "Number",
+          "lineNumber": 34
+        },
+        {
+          "caller": "pricesFor",
+          "callee": "Number",
+          "lineNumber": 35
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/routes/auth.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 83,
+      "nonEmptyLines": 68,
+      "functions": [
+        {
+          "name": "publicUser",
+          "startLine": 10,
+          "endLine": 12,
+          "params": [
+            "user"
+          ]
+        },
+        {
+          "name": "isEmail",
+          "startLine": 14,
+          "endLine": 16,
+          "params": [
+            "value"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isEmail",
+          "callee": "/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test",
+          "lineNumber": 15
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/routes/lookups.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 29,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/routes/movements.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 49,
+      "functions": [
+        {
+          "name": "toMovement",
+          "startLine": 8,
+          "endLine": 20,
+          "params": [
+            "row"
+          ]
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/seedLookups.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 90,
+      "nonEmptyLines": 87,
+      "functions": [
+        {
+          "name": "seedLookups",
+          "startLine": 77,
+          "endLine": 90,
+          "params": [
+            "db"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "seedLookups",
+          "line": 77,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "seedLookups",
+          "callee": "db.prepare",
+          "lineNumber": 78
+        },
+        {
+          "caller": "seedLookups",
+          "callee": "db.prepare",
+          "lineNumber": 79
+        },
+        {
+          "caller": "seedLookups",
+          "callee": "db.transaction",
+          "lineNumber": 83
+        },
+        {
+          "caller": "seedLookups",
+          "callee": "insertUnit.run",
+          "lineNumber": 84
+        },
+        {
+          "caller": "seedLookups",
+          "callee": "insertSymbol.run",
+          "lineNumber": 86
+        },
+        {
+          "caller": "seedLookups",
+          "callee": "run",
+          "lineNumber": 89
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

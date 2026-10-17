@@ -1,0 +1,107 @@
+[
+  {
+    "id": "layer:docs",
+    "name": "Documentation",
+    "description": "Project overview, agent working rules, and legacy design notes.",
+    "nodeIds": [
+      "document:README.md",
+      "document:AGENTS.md",
+      "document:skills.md"
+    ]
+  },
+  {
+    "id": "layer:frontend-ui",
+    "name": "Frontend UI",
+    "description": "React shell, pages, HTML entry, and global styles.",
+    "nodeIds": [
+      "file:frontend/src/main.jsx",
+      "file:frontend/src/App.jsx",
+      "file:frontend/src/AuthScreen.jsx",
+      "file:frontend/src/AssetsPage.jsx",
+      "file:frontend/src/MarketsPage.jsx",
+      "file:frontend/src/ReportsPage.jsx",
+      "file:frontend/index.html",
+      "file:frontend/src/styles.css"
+    ]
+  },
+  {
+    "id": "layer:frontend-client",
+    "name": "Frontend API client",
+    "description": "JSON client, auth/asset/lookup/movement/price calls, CSV export, and live quote hook.",
+    "nodeIds": [
+      "file:frontend/src/api/client.js",
+      "file:frontend/src/api/auth.js",
+      "file:frontend/src/api/assets.js",
+      "file:frontend/src/api/lookups.js",
+      "file:frontend/src/api/movements.js",
+      "file:frontend/src/api/prices.js",
+      "file:frontend/src/exportCsv.js",
+      "file:frontend/src/data/symbolLabels.js",
+      "file:frontend/src/hooks/useMarketPrices.js"
+    ]
+  },
+  {
+    "id": "layer:backend-http",
+    "name": "Backend HTTP API",
+    "description": "Express entry, JWT cookie auth, asset/lookup/movement routes, and altinapi proxy.",
+    "nodeIds": [
+      "file:backend/src/index.js",
+      "file:backend/src/altinProxy.js",
+      "file:backend/src/auth.js",
+      "file:backend/src/middleware/requireAuth.js",
+      "file:backend/src/logMovement.js",
+      "file:backend/src/routes/auth.js",
+      "file:backend/src/routes/assets.js",
+      "file:backend/src/routes/lookups.js",
+      "file:backend/src/routes/movements.js",
+      "endpoint:backend/src/routes/auth.js:POST-/api/auth/register",
+      "endpoint:backend/src/routes/auth.js:POST-/api/auth/login",
+      "endpoint:backend/src/routes/auth.js:POST-/api/auth/logout",
+      "endpoint:backend/src/routes/auth.js:GET-/api/auth/me",
+      "endpoint:backend/src/routes/assets.js:GET-/api/assets",
+      "endpoint:backend/src/routes/assets.js:POST-/api/assets",
+      "endpoint:backend/src/routes/assets.js:PATCH-/api/assets/:id",
+      "endpoint:backend/src/routes/assets.js:DELETE-/api/assets/:id",
+      "endpoint:backend/src/routes/lookups.js:GET-/api/lookups",
+      "endpoint:backend/src/routes/movements.js:GET-/api/movements"
+    ]
+  },
+  {
+    "id": "layer:data",
+    "name": "Data and lookups",
+    "description": "SQLite connection, schema tables, and seeded unit/symbol catalogs.",
+    "nodeIds": [
+      "file:backend/src/db.js",
+      "file:backend/src/seedLookups.js",
+      "file:backend/src/schema.sql",
+      "table:backend/src/schema.sql:users",
+      "table:backend/src/schema.sql:assets",
+      "table:backend/src/schema.sql:movements",
+      "table:backend/src/schema.sql:units",
+      "table:backend/src/schema.sql:symbols"
+    ]
+  },
+  {
+    "id": "layer:infra",
+    "name": "Packaging and infrastructure",
+    "description": "Docker images, compose, nginx routing, Vite proxy, env examples, and package manifests.",
+    "nodeIds": [
+      "service:docker-compose.yml",
+      "service:backend/Dockerfile",
+      "service:backend/Dockerfile:node",
+      "file:backend/.dockerignore",
+      "service:frontend/Dockerfile",
+      "service:frontend/Dockerfile:build",
+      "service:frontend/Dockerfile:nginx",
+      "config:frontend/.dockerignore",
+      "file:frontend/nginx.conf",
+      "file:frontend/vite.config.js",
+      "config:.env.example",
+      "config:backend/.env.example",
+      "config:frontend/.env.example",
+      "config:backend/package.json",
+      "config:frontend/package.json",
+      "config:frontend/.openai/hosting.json"
+    ]
+  }
+]

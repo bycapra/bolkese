@@ -1,0 +1,58 @@
+{
+  "projectRoot": "c:\\Users\\i_yas\\OneDrive\\Masaüstü\\Projects\\bolkese",
+  "batchFiles": [
+    {
+      "path": "frontend/src/ReportsPage.jsx",
+      "language": "javascript",
+      "sizeLines": 231,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/api/assets.js",
+      "language": "javascript",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/api/client.js",
+      "language": "javascript",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/api/lookups.js",
+      "language": "javascript",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/api/movements.js",
+      "language": "javascript",
+      "sizeLines": 11,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/exportCsv.js",
+      "language": "javascript",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "frontend/src/ReportsPage.jsx": [
+      "frontend/src/api/movements.js",
+      "frontend/src/exportCsv.js"
+    ],
+    "frontend/src/api/assets.js": [
+      "frontend/src/api/client.js"
+    ],
+    "frontend/src/api/client.js": [],
+    "frontend/src/api/lookups.js": [
+      "frontend/src/api/client.js"
+    ],
+    "frontend/src/api/movements.js": [
+      "frontend/src/api/client.js"
+    ],
+    "frontend/src/exportCsv.js": []
+  }
+}

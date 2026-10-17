@@ -1,0 +1,109 @@
+{
+  "projectRoot": "c:\\Users\\i_yas\\OneDrive\\Masaüstü\\Projects\\bolkese",
+  "batchFiles": [
+    {
+      "path": "backend/src/altinProxy.js",
+      "language": "javascript",
+      "sizeLines": 33,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/auth.js",
+      "language": "javascript",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/db.js",
+      "language": "javascript",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/index.js",
+      "language": "javascript",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/logMovement.js",
+      "language": "javascript",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/middleware/requireAuth.js",
+      "language": "javascript",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/routes/assets.js",
+      "language": "javascript",
+      "sizeLines": 178,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/routes/auth.js",
+      "language": "javascript",
+      "sizeLines": 83,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/routes/lookups.js",
+      "language": "javascript",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/routes/movements.js",
+      "language": "javascript",
+      "sizeLines": 57,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/seedLookups.js",
+      "language": "javascript",
+      "sizeLines": 90,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "backend/src/altinProxy.js": [],
+    "backend/src/auth.js": [],
+    "backend/src/db.js": [
+      "backend/src/seedLookups.js"
+    ],
+    "backend/src/index.js": [
+      "backend/src/altinProxy.js",
+      "backend/src/routes/assets.js",
+      "backend/src/routes/auth.js",
+      "backend/src/routes/lookups.js",
+      "backend/src/routes/movements.js"
+    ],
+    "backend/src/logMovement.js": [],
+    "backend/src/middleware/requireAuth.js": [
+      "backend/src/auth.js",
+      "backend/src/db.js"
+    ],
+    "backend/src/routes/assets.js": [
+      "backend/src/db.js",
+      "backend/src/logMovement.js",
+      "backend/src/middleware/requireAuth.js"
+    ],
+    "backend/src/routes/auth.js": [
+      "backend/src/auth.js",
+      "backend/src/db.js",
+      "backend/src/middleware/requireAuth.js"
+    ],
+    "backend/src/routes/lookups.js": [
+      "backend/src/db.js",
+      "backend/src/middleware/requireAuth.js"
+    ],
+    "backend/src/routes/movements.js": [
+      "backend/src/db.js",
+      "backend/src/middleware/requireAuth.js"
+    ],
+    "backend/src/seedLookups.js": []
+  }
+}

@@ -1,0 +1,237 @@
+{
+  "nodes": [
+    {
+      "id": "config:backend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "backend/.env.example",
+      "summary": "Documents backend PORT (default 4000) and required JWT_SECRET so local Express can bind and sign session cookies without committing secrets.",
+      "tags": ["configuration", "environment", "security", "backend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:backend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "backend/package.json",
+      "summary": "Backend npm package that starts Express via src/index.js and lists SQLite, auth, and cookie dependencies.",
+      "tags": ["configuration", "backend", "npm", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/schema.sql",
+      "type": "table",
+      "name": "schema.sql",
+      "filePath": "backend/src/schema.sql",
+      "summary": "SQLite bootstrap schema for users, portfolio assets, quantity movements, and lookup units/symbols, applied when the database opens.",
+      "tags": ["database", "schema-definition", "sqlite", "migration"],
+      "complexity": "moderate",
+      "languageNotes": "CREATE TABLE IF NOT EXISTS with foreign keys; CASCADE on user delete and SET NULL on movement asset delete. Does not migrate existing tables."
+    },
+    {
+      "id": "table:backend/src/schema.sql:users",
+      "type": "table",
+      "name": "users",
+      "filePath": "backend/src/schema.sql",
+      "lineRange": [3, 9],
+      "summary": "Account table storing UUID id, unique email, bcrypt password hash, display name, and created_at.",
+      "tags": ["database", "users", "authentication", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:backend/src/schema.sql:assets",
+      "type": "table",
+      "name": "assets",
+      "filePath": "backend/src/schema.sql",
+      "lineRange": [11, 26],
+      "summary": "Per-user portfolio holdings with code, unit, amount, bid/ask prices, icon/color, and optional preset_key.",
+      "tags": ["database", "portfolio", "data-model", "assets"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:backend/src/schema.sql:movements",
+      "type": "table",
+      "name": "movements",
+      "filePath": "backend/src/schema.sql",
+      "lineRange": [30, 43],
+      "summary": "Quantity movement log per user with direction, quantity, running balance, and optional asset_id.",
+      "tags": ["database", "movements", "data-model", "audit"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:backend/src/schema.sql:units",
+      "type": "table",
+      "name": "units",
+      "filePath": "backend/src/schema.sql",
+      "lineRange": [47, 50],
+      "summary": "Lookup of allowed amount units (value primary key and Turkish label).",
+      "tags": ["database", "lookup", "units", "schema-definition"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:backend/src/schema.sql:symbols",
+      "type": "table",
+      "name": "symbols",
+      "filePath": "backend/src/schema.sql",
+      "lineRange": [52, 56],
+      "summary": "Lookup of market symbol codes with description and category, including altinapi symbols and TRY.",
+      "tags": ["database", "lookup", "symbols", "schema-definition"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:frontend/.openai/hosting.json",
+      "type": "config",
+      "name": "hosting.json",
+      "filePath": "frontend/.openai/hosting.json",
+      "summary": "OpenAI Apps hosting metadata that publishes the frontend static build from the Vite dist directory.",
+      "tags": ["configuration", "deployment", "static-hosting", "frontend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/nginx.conf",
+      "type": "file",
+      "name": "nginx.conf",
+      "filePath": "frontend/nginx.conf",
+      "summary": "nginx server that serves the built SPA from /usr/share/nginx/html and reverse-proxies /api/ to the Express backend, forwarding cookies.",
+      "tags": ["nginx", "reverse-proxy", "deployment", "routing"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/styles.css",
+      "type": "file",
+      "name": "styles.css",
+      "filePath": "frontend/src/styles.css",
+      "summary": "Global BolKese stylesheet with design tokens, auth and portfolio components, focus styles, reduced-motion rules, and responsive breakpoints.",
+      "tags": ["markup", "styling", "design-tokens", "responsive", "frontend"],
+      "complexity": "complex",
+      "languageNotes": "CSS custom properties on :root plus media queries at 1060, 820, and 640 px."
+    },
+    {
+      "id": "file:frontend/vite.config.js",
+      "type": "file",
+      "name": "vite.config.js",
+      "filePath": "frontend/vite.config.js",
+      "summary": "Vite React config that proxies /api/altin to altinapi with X-API-Key and other /api traffic to local Express on port 4000 for both dev and preview.",
+      "tags": ["configuration", "build-system", "proxy", "frontend"],
+      "complexity": "simple",
+      "languageNotes": "loadEnv reads ALTINAPI_KEY without a VITE_ prefix so the key is not exposed to the client bundle."
+    },
+    {
+      "id": "function:frontend/vite.config.js:altinProxy",
+      "type": "function",
+      "name": "altinProxy",
+      "filePath": "frontend/vite.config.js",
+      "lineRange": [4, 17],
+      "summary": "Builds the Vite proxy map that rewrites /api/altin to altinapi /api/v1 and injects the X-API-Key header.",
+      "tags": ["proxy", "configuration", "security", "utility"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:backend/.env.example",
+      "target": "file:backend/src/index.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:backend/.env.example",
+      "target": "file:backend/src/auth.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:backend/package.json",
+      "target": "file:backend/src/index.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/schema.sql",
+      "target": "file:backend/src/db.js",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/schema.sql",
+      "target": "table:backend/src/schema.sql:users",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/schema.sql",
+      "target": "table:backend/src/schema.sql:assets",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/schema.sql",
+      "target": "table:backend/src/schema.sql:movements",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/schema.sql",
+      "target": "table:backend/src/schema.sql:units",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/schema.sql",
+      "target": "table:backend/src/schema.sql:symbols",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "config:frontend/.openai/hosting.json",
+      "target": "file:frontend/vite.config.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/nginx.conf",
+      "target": "file:backend/src/index.js",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/nginx.conf",
+      "target": "file:backend/src/index.js",
+      "type": "serves",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/nginx.conf",
+      "target": "file:frontend/index.html",
+      "type": "serves",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/vite.config.js",
+      "target": "file:frontend/src/main.jsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/vite.config.js",
+      "target": "function:frontend/vite.config.js:altinProxy",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    }
+  ]
+}

@@ -1,0 +1,1613 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "a7a1ed31e1e48cdf425e48b41514c62fde4421e1",
+  "generatedAt": "2026-10-17T20:43:22.875Z",
+  "files": {
+    ".env.example": {
+      "filePath": ".env.example",
+      "contentHash": "d8d58fe439c44552ee7ebf17ed8cf40cefaa0cbade27d97d8de86c0594a9a88a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": false
+    },
+    "AGENTS.md": {
+      "filePath": "AGENTS.md",
+      "contentHash": "812c9c8576a8ecdb12e7c1ee6d3afb7ddd4ed49ec20f3c9d66e9a4d069d41f4d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 174,
+      "hasStructuralAnalysis": false
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "53a452f000c4f61be53125274e8fa916b245b3e4453f63dffd6d2b3b4de767a5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 54,
+      "hasStructuralAnalysis": false
+    },
+    "backend/.dockerignore": {
+      "filePath": "backend/.dockerignore",
+      "contentHash": "f05c3227e47665d871bfde47dc9f0cc7e69db361a8f144eac9b3dd94ad6f36f6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": false
+    },
+    "backend/.env.example": {
+      "filePath": "backend/.env.example",
+      "contentHash": "ffbbe007868c32a44c1e51d182c726c006dc2f69e449a7ccdf5bd87f820a1bc8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": false
+    },
+    "backend/Dockerfile": {
+      "filePath": "backend/Dockerfile",
+      "contentHash": "4a4b6f9780d7d4ddc66e2a69aef527ace858f1615b381538d255ff4a2571b8d6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 22,
+      "hasStructuralAnalysis": false
+    },
+    "backend/package.json": {
+      "filePath": "backend/package.json",
+      "contentHash": "f965ba3a89ba029dad084c4167cb433d3dd075eb1cb5a122331b2d5d60cc7137",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": false
+    },
+    "backend/src/altinProxy.js": {
+      "filePath": "backend/src/altinProxy.js",
+      "contentHash": "f12ae2796a817bb20c174b8df4a32dea2a00a5326386d3a101e3a97605ecfbc4",
+      "functions": [
+        {
+          "name": "altinProxy",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": true,
+          "lineCount": 31
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "altinProxy"
+      ],
+      "totalLines": 34,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/auth.js": {
+      "filePath": "backend/src/auth.js",
+      "contentHash": "5cadc1cf24840f9f13090bde9db594c19f6a7bdfe0264fddf7f6ff3fe1e6a0f3",
+      "functions": [
+        {
+          "name": "secret",
+          "params": [],
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "signToken",
+          "params": [
+            "userId"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "readToken",
+          "params": [
+            "token"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "setAuthCookie",
+          "params": [
+            "res",
+            "token"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "clearAuthCookie",
+          "params": [
+            "res"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "jsonwebtoken",
+          "specifiers": [
+            "jwt"
+          ]
+        }
+      ],
+      "exports": [
+        "signToken",
+        "readToken",
+        "setAuthCookie",
+        "clearAuthCookie",
+        "COOKIE_NAME"
+      ],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/db.js": {
+      "filePath": "backend/src/db.js",
+      "contentHash": "f219ffab4a32e2ec1c3c94cbbee96cc437b74ff50437fd493d99a69d75e38354",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "fs"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        },
+        {
+          "source": "node:url",
+          "specifiers": [
+            "fileURLToPath"
+          ]
+        },
+        {
+          "source": "better-sqlite3",
+          "specifiers": [
+            "Database"
+          ]
+        },
+        {
+          "source": "./seedLookups.js",
+          "specifiers": [
+            "seedLookups"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 20,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/index.js": {
+      "filePath": "backend/src/index.js",
+      "contentHash": "79c7a92b6cfff43ab4e9c9e001fb580579be8fbe91f89c9c09272ef1ad207c08",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "dotenv/config",
+          "specifiers": []
+        },
+        {
+          "source": "express",
+          "specifiers": [
+            "express"
+          ]
+        },
+        {
+          "source": "cookie-parser",
+          "specifiers": [
+            "cookieParser"
+          ]
+        },
+        {
+          "source": "./altinProxy.js",
+          "specifiers": [
+            "altinProxy"
+          ]
+        },
+        {
+          "source": "./routes/auth.js",
+          "specifiers": [
+            "authRoutes"
+          ]
+        },
+        {
+          "source": "./routes/assets.js",
+          "specifiers": [
+            "assetRoutes"
+          ]
+        },
+        {
+          "source": "./routes/lookups.js",
+          "specifiers": [
+            "lookupRoutes"
+          ]
+        },
+        {
+          "source": "./routes/movements.js",
+          "specifiers": [
+            "movementRoutes"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 38,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/logMovement.js": {
+      "filePath": "backend/src/logMovement.js",
+      "contentHash": "c9fdba5cd6ae986641a6b160e21c32736f70902ea61daa9c5711da0b89663665",
+      "functions": [
+        {
+          "name": "logAmountChange",
+          "params": [
+            "db"
+          ],
+          "exported": true,
+          "lineCount": 26
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:crypto",
+          "specifiers": [
+            "randomUUID"
+          ]
+        }
+      ],
+      "exports": [
+        "logAmountChange"
+      ],
+      "totalLines": 37,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/middleware/requireAuth.js": {
+      "filePath": "backend/src/middleware/requireAuth.js",
+      "contentHash": "347e951381145224adb5c781a429a543db8fa43375032a958a612cda2c40c56a",
+      "functions": [
+        {
+          "name": "requireAuth",
+          "params": [
+            "req",
+            "res",
+            "next"
+          ],
+          "exported": true,
+          "lineCount": 24
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../db.js",
+          "specifiers": [
+            "db"
+          ]
+        },
+        {
+          "source": "../auth.js",
+          "specifiers": [
+            "COOKIE_NAME",
+            "readToken"
+          ]
+        }
+      ],
+      "exports": [
+        "requireAuth"
+      ],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/routes/assets.js": {
+      "filePath": "backend/src/routes/assets.js",
+      "contentHash": "642081768ed5b50988d559300a75004b84933559fb5932cbb83cabfeb087ce84",
+      "functions": [
+        {
+          "name": "toAsset",
+          "params": [
+            "row"
+          ],
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "normalizeCode",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "pricesFor",
+          "params": [
+            "code",
+            "price",
+            "ask"
+          ],
+          "exported": false,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:crypto",
+          "specifiers": [
+            "randomUUID"
+          ]
+        },
+        {
+          "source": "express",
+          "specifiers": [
+            "Router"
+          ]
+        },
+        {
+          "source": "../db.js",
+          "specifiers": [
+            "db"
+          ]
+        },
+        {
+          "source": "../logMovement.js",
+          "specifiers": [
+            "logAmountChange"
+          ]
+        },
+        {
+          "source": "../middleware/requireAuth.js",
+          "specifiers": [
+            "requireAuth"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 179,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/routes/auth.js": {
+      "filePath": "backend/src/routes/auth.js",
+      "contentHash": "a5b5f30969ef1cb46d2cd62fa763abdcebbe7ad13d8512ac155d81aee0d98cc2",
+      "functions": [
+        {
+          "name": "publicUser",
+          "params": [
+            "user"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "isEmail",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:crypto",
+          "specifiers": [
+            "randomUUID"
+          ]
+        },
+        {
+          "source": "express",
+          "specifiers": [
+            "Router"
+          ]
+        },
+        {
+          "source": "bcryptjs",
+          "specifiers": [
+            "bcrypt"
+          ]
+        },
+        {
+          "source": "../db.js",
+          "specifiers": [
+            "db"
+          ]
+        },
+        {
+          "source": "../auth.js",
+          "specifiers": [
+            "clearAuthCookie",
+            "setAuthCookie",
+            "signToken"
+          ]
+        },
+        {
+          "source": "../middleware/requireAuth.js",
+          "specifiers": [
+            "requireAuth"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 84,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/routes/lookups.js": {
+      "filePath": "backend/src/routes/lookups.js",
+      "contentHash": "b71dc867230a9d56bf55158a1418c326644a6031c5293efcbfb7dc4da216e22f",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "express",
+          "specifiers": [
+            "Router"
+          ]
+        },
+        {
+          "source": "../db.js",
+          "specifiers": [
+            "db"
+          ]
+        },
+        {
+          "source": "../middleware/requireAuth.js",
+          "specifiers": [
+            "requireAuth"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 36,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/routes/movements.js": {
+      "filePath": "backend/src/routes/movements.js",
+      "contentHash": "30e54fb46ef525edc4639ad0ca9344d8b66a68d5ca08cc4701cfada30e477be0",
+      "functions": [
+        {
+          "name": "toMovement",
+          "params": [
+            "row"
+          ],
+          "exported": false,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "express",
+          "specifiers": [
+            "Router"
+          ]
+        },
+        {
+          "source": "../db.js",
+          "specifiers": [
+            "db"
+          ]
+        },
+        {
+          "source": "../middleware/requireAuth.js",
+          "specifiers": [
+            "requireAuth"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 58,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/schema.sql": {
+      "filePath": "backend/src/schema.sql",
+      "contentHash": "717c9b17915b5994f179358cf15a54050f77a6a248bc48d517d4fe28d244a1b0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 57,
+      "hasStructuralAnalysis": false
+    },
+    "backend/src/seedLookups.js": {
+      "filePath": "backend/src/seedLookups.js",
+      "contentHash": "ad6bc9f7dd86482c845cdec33dc6966932a34a04a2472946b890c9191548c677",
+      "functions": [
+        {
+          "name": "seedLookups",
+          "params": [
+            "db"
+          ],
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "seedLookups"
+      ],
+      "totalLines": 91,
+      "hasStructuralAnalysis": true
+    },
+    "docker-compose.yml": {
+      "filePath": "docker-compose.yml",
+      "contentHash": "810d6b59b31b2bf731741b6de5e22045703a9ba84234c1dd14729144206dba91",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 24,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/.dockerignore": {
+      "filePath": "frontend/.dockerignore",
+      "contentHash": "f497baa04edb347977631c14d1a3d404ca80768fb46873bc8a44ca8a259dd3fb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/.env.example": {
+      "filePath": "frontend/.env.example",
+      "contentHash": "7e385137f9681feca73134be33b15689d1388f2344ec97ee2e1d5b3404dbf8bb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/.openai/hosting.json": {
+      "filePath": "frontend/.openai/hosting.json",
+      "contentHash": "97aada95f4af2e038ca6a8d07c3480874ad4c6ca37c579da4f51cec68356e8d8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/Dockerfile": {
+      "filePath": "frontend/Dockerfile",
+      "contentHash": "0bffef94fec1940af3e0d04e9c8f19266f4a689d3f157833700d9c7ad2c6e2f1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/index.html": {
+      "filePath": "frontend/index.html",
+      "contentHash": "f6d62868800c10dac26abda2052afa353a7104f3a8839fc91c60ff5bb94a33bb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/nginx.conf": {
+      "filePath": "frontend/nginx.conf",
+      "contentHash": "a986fbb41c887db9439feea78e4e8437e8142c2a4892d42b30b8a51f89b0c141",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/package.json": {
+      "filePath": "frontend/package.json",
+      "contentHash": "d6d3955f8b5267304b81d7f1a9acdb347223650110aa38295b6f1bb254502d55",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 20,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/App.jsx": {
+      "filePath": "frontend/src/App.jsx",
+      "contentHash": "66ab205013967c86e0ac9ecdc38717199650fc272aaa2cf215fa3e8086209fe5",
+      "functions": [
+        {
+          "name": "formatTRY",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "formatNumber",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "timeNow",
+          "params": [],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "migrateAssets",
+          "params": [
+            "assets"
+          ],
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "loadStoredAssets",
+          "params": [],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "initials",
+          "params": [
+            "name"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "migrateLocalAssets",
+          "params": [],
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "isManualCode",
+          "params": [
+            "code"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "amountStep",
+          "params": [
+            "unit"
+          ],
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "groupSymbols",
+          "params": [
+            "symbols"
+          ],
+          "exported": false,
+          "lineCount": 14
+        },
+        {
+          "name": "assetDraftFromQuote",
+          "params": [
+            "quote"
+          ],
+          "exported": false,
+          "lineCount": 17
+        },
+        {
+          "name": "IconBadge",
+          "params": [],
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "Modal",
+          "params": [],
+          "exported": false,
+          "lineCount": 27
+        },
+        {
+          "name": "PricePair",
+          "params": [],
+          "exported": false,
+          "lineCount": 17
+        },
+        {
+          "name": "AddAssetModal",
+          "params": [],
+          "exported": false,
+          "lineCount": 241
+        },
+        {
+          "name": "UpdateAssetModal",
+          "params": [],
+          "exported": false,
+          "lineCount": 138
+        },
+        {
+          "name": "EmptyState",
+          "params": [],
+          "exported": false,
+          "lineCount": 18
+        },
+        {
+          "name": "AssetCard",
+          "params": [],
+          "exported": false,
+          "lineCount": 23
+        },
+        {
+          "name": "App",
+          "params": [],
+          "exported": false,
+          "lineCount": 26
+        },
+        {
+          "name": "Portfolio",
+          "params": [],
+          "exported": false,
+          "lineCount": 464
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useMemo",
+            "useState"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "ArrowDownRight",
+            "ArrowRight",
+            "ArrowUpRight",
+            "Banknote",
+            "Bell",
+            "ChartNoAxesCombined",
+            "Check",
+            "ChevronRight",
+            "CircleDollarSign",
+            "ClipboardList",
+            "Coins",
+            "Euro",
+            "Eye",
+            "EyeOff",
+            "Gem",
+            "HandCoins",
+            "Home",
+            "Landmark",
+            "LayoutGrid",
+            "LogOut",
+            "Minus",
+            "MoreHorizontal",
+            "Plus",
+            "RefreshCw",
+            "ShieldCheck",
+            "Trash2",
+            "WalletCards",
+            "X"
+          ]
+        },
+        {
+          "source": "./api/auth",
+          "specifiers": [
+            "fetchMe",
+            "logoutAccount"
+          ]
+        },
+        {
+          "source": "./api/assets",
+          "specifiers": [
+            "createAssetRecord",
+            "deleteAssetRecord",
+            "fetchAssets",
+            "updateAssetRecord"
+          ]
+        },
+        {
+          "source": "./api/lookups",
+          "specifiers": [
+            "fetchLookups"
+          ]
+        },
+        {
+          "source": "./api/prices",
+          "specifiers": [
+            "fetchPrice"
+          ]
+        },
+        {
+          "source": "./AuthScreen",
+          "specifiers": [
+            "AuthScreen"
+          ]
+        },
+        {
+          "source": "./hooks/useMarketPrices",
+          "specifiers": [
+            "useMarketPrices"
+          ]
+        },
+        {
+          "source": "./MarketsPage",
+          "specifiers": [
+            "MarketsPage"
+          ]
+        },
+        {
+          "source": "./ReportsPage",
+          "specifiers": [
+            "ReportsPage"
+          ]
+        },
+        {
+          "source": "./AssetsPage",
+          "specifiers": [
+            "AssetsPage"
+          ]
+        },
+        {
+          "source": "./data/symbolLabels",
+          "specifiers": [
+            "labelFor"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 1212,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/AssetsPage.jsx": {
+      "filePath": "frontend/src/AssetsPage.jsx",
+      "contentHash": "7c819598c1bcf903140e5d83470539de4d532f36f733180e90f97ba40e05e2f2",
+      "functions": [
+        {
+          "name": "formatTRY",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "formatNumber",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "matchesQuery",
+          "params": [
+            "asset",
+            "needle"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "AssetsPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 105
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useMemo",
+            "useState"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Eye",
+            "EyeOff",
+            "Search"
+          ]
+        }
+      ],
+      "exports": [
+        "AssetsPage"
+      ],
+      "totalLines": 129,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/AuthScreen.jsx": {
+      "filePath": "frontend/src/AuthScreen.jsx",
+      "contentHash": "cc00c07132926f5fbde6eb140668619fdaad1cfcff651b52c8d77c7345e5fc09",
+      "functions": [
+        {
+          "name": "AuthScreen",
+          "params": [],
+          "exported": true,
+          "lineCount": 122
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "ArrowRight",
+            "Eye",
+            "EyeOff",
+            "WalletCards"
+          ]
+        },
+        {
+          "source": "./api/auth",
+          "specifiers": [
+            "loginAccount",
+            "registerAccount"
+          ]
+        }
+      ],
+      "exports": [
+        "AuthScreen"
+      ],
+      "totalLines": 127,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/MarketsPage.jsx": {
+      "filePath": "frontend/src/MarketsPage.jsx",
+      "contentHash": "a3d7bcf3de2306f81d9d9bb0fcf8b273ef4cd5ea70664bcb02f0c959784e5d6e",
+      "functions": [
+        {
+          "name": "formatPrice",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "matchesQuery",
+          "params": [
+            "quote",
+            "needle"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "MarketsPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 102
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useMemo",
+            "useState"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Landmark",
+            "RefreshCw",
+            "Search"
+          ]
+        },
+        {
+          "source": "./data/symbolLabels",
+          "specifiers": [
+            "groupQuotes",
+            "labelFor"
+          ]
+        }
+      ],
+      "exports": [
+        "MarketsPage"
+      ],
+      "totalLines": 121,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/ReportsPage.jsx": {
+      "filePath": "frontend/src/ReportsPage.jsx",
+      "contentHash": "cb00522f50c29c67193919b09af56dcae624f6e79fcb40fb42bb72bfb967cefd",
+      "functions": [
+        {
+          "name": "formatQuantity",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "formatDateTime",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "startOfDay",
+          "params": [
+            "date"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "endOfDay",
+          "params": [
+            "date"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "orphanKey",
+          "params": [
+            "movement"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "exportFileName",
+          "params": [],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "exportMovements",
+          "params": [
+            "rows"
+          ],
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "ReportsPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 180
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useMemo",
+            "useState"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Download"
+          ]
+        },
+        {
+          "source": "./api/movements",
+          "specifiers": [
+            "fetchMovements"
+          ]
+        },
+        {
+          "source": "./exportCsv",
+          "specifiers": [
+            "downloadCsv",
+            "toCsv"
+          ]
+        }
+      ],
+      "exports": [
+        "ReportsPage"
+      ],
+      "totalLines": 232,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/api/assets.js": {
+      "filePath": "frontend/src/api/assets.js",
+      "contentHash": "11fab8716d1506623ef1001252035476a7ab226d37e1a45768181d00206d403d",
+      "functions": [
+        {
+          "name": "fetchAssets",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "createAssetRecord",
+          "params": [
+            "payload"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "updateAssetRecord",
+          "params": [
+            "id",
+            "payload"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "deleteAssetRecord",
+          "params": [
+            "id"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./client",
+          "specifiers": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        "fetchAssets",
+        "createAssetRecord",
+        "updateAssetRecord",
+        "deleteAssetRecord"
+      ],
+      "totalLines": 24,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/api/auth.js": {
+      "filePath": "frontend/src/api/auth.js",
+      "contentHash": "2fdd46107256508aead4f1e3c04bbbb1f79f38b4d64eeaebe0019af56fd25788",
+      "functions": [
+        {
+          "name": "registerAccount",
+          "params": [
+            "payload"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "loginAccount",
+          "params": [
+            "payload"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "logoutAccount",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "fetchMe",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./client",
+          "specifiers": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        "registerAccount",
+        "loginAccount",
+        "logoutAccount",
+        "fetchMe"
+      ],
+      "totalLines": 24,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/api/client.js": {
+      "filePath": "frontend/src/api/client.js",
+      "contentHash": "de2f3ebb6b926cad9cf849f47ac31e1b2bcf9cc100450640a3f1e0051c067315",
+      "functions": [
+        {
+          "name": "request",
+          "params": [
+            "path"
+          ],
+          "exported": true,
+          "lineCount": 26
+        }
+      ],
+      "classes": [
+        {
+          "name": "ApiError",
+          "methods": [
+            "constructor"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "imports": [],
+      "exports": [
+        "ApiError",
+        "request"
+      ],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/api/lookups.js": {
+      "filePath": "frontend/src/api/lookups.js",
+      "contentHash": "ce48a315fa842223f5a49a4383837254ba2baf13c2e74466ba7ff3d6ebae8e40",
+      "functions": [
+        {
+          "name": "fetchLookups",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./client",
+          "specifiers": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        "fetchLookups"
+      ],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/api/movements.js": {
+      "filePath": "frontend/src/api/movements.js",
+      "contentHash": "ae05c11352def5bf1a06574e474b60bae9d842108e26eccf18047745615356fb",
+      "functions": [
+        {
+          "name": "fetchMovements",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./client",
+          "specifiers": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        "fetchMovements"
+      ],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/api/prices.js": {
+      "filePath": "frontend/src/api/prices.js",
+      "contentHash": "2cbd4010747a27570c275707fbade7147a16eb9f9f953dca0b66dc85ea4d4533",
+      "functions": [
+        {
+          "name": "messageForStatus",
+          "params": [
+            "status",
+            "fallback"
+          ],
+          "exported": false,
+          "lineCount": 14
+        },
+        {
+          "name": "parseError",
+          "params": [
+            "response"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "toQuote",
+          "params": [
+            "item"
+          ],
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "fetchPrices",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "fetchPrice",
+          "params": [
+            "symbol"
+          ],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [
+        {
+          "name": "PriceRequestError",
+          "methods": [
+            "constructor"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "imports": [],
+      "exports": [
+        "PriceRequestError",
+        "fetchPrices",
+        "fetchPrice"
+      ],
+      "totalLines": 72,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/data/symbolLabels.js": {
+      "filePath": "frontend/src/data/symbolLabels.js",
+      "contentHash": "a636f18c0e494dc037cd626003f5dd45e9b25dc4fc24f633db4b935d4efb5687",
+      "functions": [
+        {
+          "name": "labelFor",
+          "params": [
+            "quote"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "categoryTitle",
+          "params": [
+            "category"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "groupQuotes",
+          "params": [
+            "quotes"
+          ],
+          "exported": true,
+          "lineCount": 23
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "CATEGORY_ORDER",
+        "CATEGORY_TITLES",
+        "labelFor",
+        "categoryTitle",
+        "groupQuotes"
+      ],
+      "totalLines": 112,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/exportCsv.js": {
+      "filePath": "frontend/src/exportCsv.js",
+      "contentHash": "8bb6956e9e8da2a4e6af3b1799dd81c6d5a9e205c735a11f5eeed6a133b37830",
+      "functions": [
+        {
+          "name": "escapeCsvField",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "toCsv",
+          "params": [
+            "headers",
+            "records"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "downloadCsv",
+          "params": [
+            "filename",
+            "csv"
+          ],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "toCsv",
+        "downloadCsv"
+      ],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/hooks/useMarketPrices.js": {
+      "filePath": "frontend/src/hooks/useMarketPrices.js",
+      "contentHash": "34a2a2b6d6e080205e5c35352656a77d9308f44edc773e1104e6c254f4899f77",
+      "functions": [
+        {
+          "name": "readSnapshot",
+          "params": [],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "useMarketPrices",
+          "params": [],
+          "exported": true,
+          "lineCount": 77
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useCallback",
+            "useEffect",
+            "useRef",
+            "useState"
+          ]
+        },
+        {
+          "source": "../api/prices",
+          "specifiers": [
+            "fetchPrices"
+          ]
+        }
+      ],
+      "exports": [
+        "useMarketPrices"
+      ],
+      "totalLines": 92,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/main.jsx": {
+      "filePath": "frontend/src/main.jsx",
+      "contentHash": "3b836e9efe0884d032fb90fb1848fff2573ea8aae4e58a2a9c1a88de2b8df6f6",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "StrictMode"
+          ]
+        },
+        {
+          "source": "react-dom/client",
+          "specifiers": [
+            "createRoot"
+          ]
+        },
+        {
+          "source": "./App.jsx",
+          "specifiers": [
+            "App"
+          ]
+        },
+        {
+          "source": "./styles.css",
+          "specifiers": []
+        }
+      ],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/styles.css": {
+      "filePath": "frontend/src/styles.css",
+      "contentHash": "a2a31b44876877ca399925a903951db8ac6567fe0c4414e50bc07d28377c5c43",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1985,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/vite.config.js": {
+      "filePath": "frontend/vite.config.js",
+      "contentHash": "27869f0e75f938d753ed2ee84cfb580f8ec067d4ddbcbae22338c81c50fe474b",
+      "functions": [
+        {
+          "name": "altinProxy",
+          "params": [
+            "apiKey"
+          ],
+          "exported": false,
+          "lineCount": 14
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vite",
+          "specifiers": [
+            "defineConfig",
+            "loadEnv"
+          ]
+        },
+        {
+          "source": "@vitejs/plugin-react",
+          "specifiers": [
+            "react"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 45,
+      "hasStructuralAnalysis": true
+    },
+    "skills.md": {
+      "filePath": "skills.md",
+      "contentHash": "b11cca0f7705eddbb135d7c3d0cede1d328edc75b1c84de328f3613edfcda3f5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 276,
+      "hasStructuralAnalysis": false
+    }
+  }
+}

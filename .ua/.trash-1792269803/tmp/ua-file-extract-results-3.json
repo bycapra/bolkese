@@ -1,0 +1,816 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 6,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 6,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "frontend/src/ReportsPage.jsx",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 231,
+      "nonEmptyLines": 214,
+      "functions": [
+        {
+          "name": "formatQuantity",
+          "startLine": 6,
+          "endLine": 8,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "formatDateTime",
+          "startLine": 10,
+          "endLine": 15,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "startOfDay",
+          "startLine": 17,
+          "endLine": 19,
+          "params": [
+            "date"
+          ]
+        },
+        {
+          "name": "endOfDay",
+          "startLine": 21,
+          "endLine": 23,
+          "params": [
+            "date"
+          ]
+        },
+        {
+          "name": "orphanKey",
+          "startLine": 25,
+          "endLine": 27,
+          "params": [
+            "movement"
+          ]
+        },
+        {
+          "name": "exportFileName",
+          "startLine": 29,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "exportMovements",
+          "startLine": 36,
+          "endLine": 50,
+          "params": [
+            "rows"
+          ]
+        },
+        {
+          "name": "ReportsPage",
+          "startLine": 52,
+          "endLine": 231,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ReportsPage",
+          "line": 52,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "formatQuantity",
+          "callee": "new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 4 }).format",
+          "lineNumber": 7
+        },
+        {
+          "caller": "formatDateTime",
+          "callee": "new Intl.DateTimeFormat('tr-TR', {\r\n    dateStyle: 'short',\r\n    timeStyle: 'short',\r\n  }).format",
+          "lineNumber": 11
+        },
+        {
+          "caller": "startOfDay",
+          "callee": "new Date(`${date}T00:00:00`).toISOString",
+          "lineNumber": 18
+        },
+        {
+          "caller": "endOfDay",
+          "callee": "new Date(`${date}T23:59:59.999`).toISOString",
+          "lineNumber": 22
+        },
+        {
+          "caller": "exportFileName",
+          "callee": "date.getFullYear",
+          "lineNumber": 30
+        },
+        {
+          "caller": "exportFileName",
+          "callee": "String(date.getMonth() + 1).padStart",
+          "lineNumber": 31
+        },
+        {
+          "caller": "exportFileName",
+          "callee": "String",
+          "lineNumber": 31
+        },
+        {
+          "caller": "exportFileName",
+          "callee": "date.getMonth",
+          "lineNumber": 31
+        },
+        {
+          "caller": "exportFileName",
+          "callee": "String(date.getDate()).padStart",
+          "lineNumber": 32
+        },
+        {
+          "caller": "exportFileName",
+          "callee": "String",
+          "lineNumber": 32
+        },
+        {
+          "caller": "exportFileName",
+          "callee": "date.getDate",
+          "lineNumber": 32
+        },
+        {
+          "caller": "exportMovements",
+          "callee": "toCsv",
+          "lineNumber": 37
+        },
+        {
+          "caller": "exportMovements",
+          "callee": "rows.map",
+          "lineNumber": 39
+        },
+        {
+          "caller": "exportMovements",
+          "callee": "formatDateTime",
+          "lineNumber": 40
+        },
+        {
+          "caller": "exportMovements",
+          "callee": "formatQuantity",
+          "lineNumber": 45
+        },
+        {
+          "caller": "exportMovements",
+          "callee": "formatQuantity",
+          "lineNumber": 46
+        },
+        {
+          "caller": "exportMovements",
+          "callee": "downloadCsv",
+          "lineNumber": 49
+        },
+        {
+          "caller": "exportMovements",
+          "callee": "exportFileName",
+          "lineNumber": 49
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "useState",
+          "lineNumber": 53
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "useState",
+          "lineNumber": 54
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "useState",
+          "lineNumber": 55
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "useState",
+          "lineNumber": 56
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "useState",
+          "lineNumber": 57
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "useState",
+          "lineNumber": 58
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "useState",
+          "lineNumber": 59
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "useMemo",
+          "lineNumber": 61
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "assets.map",
+          "lineNumber": 61
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "assets.some",
+          "lineNumber": 62
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "useEffect",
+          "lineNumber": 65
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "setLoading",
+          "lineNumber": 67
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "fetchMovements({\r\n      from: from ? startOfDay(from) : undefined,\r\n      to: to ? endOfDay(to) : undefined,\r\n      assetId: selectedAsset || undefined,\r\n      direction: direction || undefined,\r\n    })\r\n      .then(({ movements: rows }) => {\r\n        if (cancelled) return\r\n        setMovements(rows)\r\n        setError('')\r\n      })\r\n      .catch((err) => {\r\n        if (cancelled) return\r\n        setMovements([])\r\n        setError(err.message || 'Hareketler alınamadı.')\r\n      })\r\n      .finally",
+          "lineNumber": 68
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "fetchMovements({\r\n      from: from ? startOfDay(from) : undefined,\r\n      to: to ? endOfDay(to) : undefined,\r\n      assetId: selectedAsset || undefined,\r\n      direction: direction || undefined,\r\n    })\r\n      .then(({ movements: rows }) => {\r\n        if (cancelled) return\r\n        setMovements(rows)\r\n        setError('')\r\n      })\r\n      .catch",
+          "lineNumber": 68
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "fetchMovements({\r\n      from: from ? startOfDay(from) : undefined,\r\n      to: to ? endOfDay(to) : undefined,\r\n      assetId: selectedAsset || undefined,\r\n      direction: direction || undefined,\r\n    })\r\n      .then",
+          "lineNumber": 68
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "fetchMovements",
+          "lineNumber": 68
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "startOfDay",
+          "lineNumber": 69
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "endOfDay",
+          "lineNumber": 70
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "setMovements",
+          "lineNumber": 76
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "setError",
+          "lineNumber": 77
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "setMovements",
+          "lineNumber": 81
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "setError",
+          "lineNumber": 82
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "setLoading",
+          "lineNumber": 85
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "useMemo",
+          "lineNumber": 93
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "assetIds.has",
+          "lineNumber": 96
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "orphanKey",
+          "lineNumber": 97
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "seen.has",
+          "lineNumber": 98
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "seen.set",
+          "lineNumber": 98
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "seen.values",
+          "lineNumber": 100
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "useMemo",
+          "lineNumber": 103
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "movements.filter",
+          "lineNumber": 105
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "orphanKey",
+          "lineNumber": 105
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "Boolean",
+          "lineNumber": 108
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "exportMovements",
+          "lineNumber": 133
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "setFrom",
+          "lineNumber": 148
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "setTo",
+          "lineNumber": 157
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "setCategory",
+          "lineNumber": 165
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "assets.map",
+          "lineNumber": 169
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "orphans.map",
+          "lineNumber": 174
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "orphanKey",
+          "lineNumber": 175
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "orphanKey",
+          "lineNumber": 175
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "setDirection",
+          "lineNumber": 185
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "rows.map",
+          "lineNumber": 207
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "formatDateTime",
+          "lineNumber": 211
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "formatQuantity",
+          "lineNumber": 221
+        },
+        {
+          "caller": "ReportsPage",
+          "callee": "formatQuantity",
+          "lineNumber": 223
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/api/assets.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 19,
+      "functions": [
+        {
+          "name": "fetchAssets",
+          "startLine": 3,
+          "endLine": 5,
+          "params": []
+        },
+        {
+          "name": "createAssetRecord",
+          "startLine": 7,
+          "endLine": 12,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "updateAssetRecord",
+          "startLine": 14,
+          "endLine": 19,
+          "params": [
+            "id",
+            "payload"
+          ]
+        },
+        {
+          "name": "deleteAssetRecord",
+          "startLine": 21,
+          "endLine": 23,
+          "params": [
+            "id"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "fetchAssets",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "createAssetRecord",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "updateAssetRecord",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "deleteAssetRecord",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fetchAssets",
+          "callee": "request",
+          "lineNumber": 4
+        },
+        {
+          "caller": "createAssetRecord",
+          "callee": "request",
+          "lineNumber": 8
+        },
+        {
+          "caller": "createAssetRecord",
+          "callee": "JSON.stringify",
+          "lineNumber": 10
+        },
+        {
+          "caller": "updateAssetRecord",
+          "callee": "request",
+          "lineNumber": 15
+        },
+        {
+          "caller": "updateAssetRecord",
+          "callee": "JSON.stringify",
+          "lineNumber": 17
+        },
+        {
+          "caller": "deleteAssetRecord",
+          "callee": "request",
+          "lineNumber": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/api/client.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "request",
+          "startLine": 9,
+          "endLine": 34,
+          "params": [
+            "path"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ApiError",
+          "startLine": 1,
+          "endLine": 7,
+          "methods": [
+            "constructor"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ApiError",
+          "line": 1,
+          "isDefault": false
+        },
+        {
+          "name": "request",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "constructor",
+          "callee": "super",
+          "lineNumber": 3
+        },
+        {
+          "caller": "request",
+          "callee": "fetch",
+          "lineNumber": 10
+        },
+        {
+          "caller": "request",
+          "callee": "response.text",
+          "lineNumber": 20
+        },
+        {
+          "caller": "request",
+          "callee": "JSON.parse",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "frontend/src/api/lookups.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 4,
+      "functions": [
+        {
+          "name": "fetchLookups",
+          "startLine": 3,
+          "endLine": 5,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "fetchLookups",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fetchLookups",
+          "callee": "request",
+          "lineNumber": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/api/movements.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 10,
+      "functions": [
+        {
+          "name": "fetchMovements",
+          "startLine": 3,
+          "endLine": 11,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "fetchMovements",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fetchMovements",
+          "callee": "params.set",
+          "lineNumber": 5
+        },
+        {
+          "caller": "fetchMovements",
+          "callee": "params.set",
+          "lineNumber": 6
+        },
+        {
+          "caller": "fetchMovements",
+          "callee": "params.set",
+          "lineNumber": 7
+        },
+        {
+          "caller": "fetchMovements",
+          "callee": "params.set",
+          "lineNumber": 8
+        },
+        {
+          "caller": "fetchMovements",
+          "callee": "params.toString",
+          "lineNumber": 9
+        },
+        {
+          "caller": "fetchMovements",
+          "callee": "request",
+          "lineNumber": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/exportCsv.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 25,
+      "functions": [
+        {
+          "name": "escapeCsvField",
+          "startLine": 1,
+          "endLine": 7,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "toCsv",
+          "startLine": 9,
+          "endLine": 15,
+          "params": [
+            "headers",
+            "records"
+          ]
+        },
+        {
+          "name": "downloadCsv",
+          "startLine": 17,
+          "endLine": 27,
+          "params": [
+            "filename",
+            "csv"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "toCsv",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "downloadCsv",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "escapeCsvField",
+          "callee": "String",
+          "lineNumber": 2
+        },
+        {
+          "caller": "escapeCsvField",
+          "callee": "/[;\"\\r\\n]/.test",
+          "lineNumber": 3
+        },
+        {
+          "caller": "escapeCsvField",
+          "callee": "text.replaceAll",
+          "lineNumber": 4
+        },
+        {
+          "caller": "toCsv",
+          "callee": "headers.map(escapeCsvField).join",
+          "lineNumber": 11
+        },
+        {
+          "caller": "toCsv",
+          "callee": "headers.map",
+          "lineNumber": 11
+        },
+        {
+          "caller": "toCsv",
+          "callee": "records.map",
+          "lineNumber": 12
+        },
+        {
+          "caller": "toCsv",
+          "callee": "record.map(escapeCsvField).join",
+          "lineNumber": 12
+        },
+        {
+          "caller": "toCsv",
+          "callee": "record.map",
+          "lineNumber": 12
+        },
+        {
+          "caller": "toCsv",
+          "callee": "lines.join",
+          "lineNumber": 14
+        },
+        {
+          "caller": "downloadCsv",
+          "callee": "URL.createObjectURL",
+          "lineNumber": 19
+        },
+        {
+          "caller": "downloadCsv",
+          "callee": "document.createElement",
+          "lineNumber": 20
+        },
+        {
+          "caller": "downloadCsv",
+          "callee": "document.body.append",
+          "lineNumber": 23
+        },
+        {
+          "caller": "downloadCsv",
+          "callee": "link.click",
+          "lineNumber": 24
+        },
+        {
+          "caller": "downloadCsv",
+          "callee": "link.remove",
+          "lineNumber": 25
+        },
+        {
+          "caller": "downloadCsv",
+          "callee": "URL.revokeObjectURL",
+          "lineNumber": 26
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    }
+  ]
+}

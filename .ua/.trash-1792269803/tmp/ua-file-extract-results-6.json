@@ -1,0 +1,293 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 5,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 5
+    }
+  },
+  "results": [
+    {
+      "path": ".env.example",
+      "language": "config",
+      "fileCategory": "config",
+      "totalLines": 2,
+      "nonEmptyLines": 2,
+      "definitions": [
+        {
+          "name": "JWT_SECRET",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 1,
+          "endLine": 1
+        },
+        {
+          "name": "ALTINAPI_KEY",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 2,
+          "endLine": 2
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 2
+      }
+    },
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 173,
+      "nonEmptyLines": 134,
+      "sections": [
+        {
+          "heading": "BolKese — Kodlama ajanları için çalışma rehberi",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. Kapsam ve kaynaklar",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "2. Teknoloji ve dosya haritası",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "3. Entity'ler ve veri sözleşmeleri",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "User / `users`",
+          "level": 3,
+          "line": 43
+        },
+        {
+          "heading": "Asset / `assets`",
+          "level": 3,
+          "line": 53
+        },
+        {
+          "heading": "Unit / `units`",
+          "level": 3,
+          "line": 70
+        },
+        {
+          "heading": "Symbol / `symbols`",
+          "level": 3,
+          "line": 77
+        },
+        {
+          "heading": "Kalıcı olmayan nesneler",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "4. Korunacak iş kuralları",
+          "level": 2,
+          "line": 91
+        },
+        {
+          "heading": "5. API ve güvenlik",
+          "level": 2,
+          "line": 103
+        },
+        {
+          "heading": "6. Piyasa entegrasyonu ve veri kalıcılığı",
+          "level": 2,
+          "line": 126
+        },
+        {
+          "heading": "7. Kod ve arayüz geliştirme kuralları",
+          "level": 2,
+          "line": 138
+        },
+        {
+          "heading": "8. Çalıştırma ve doğrulama",
+          "level": 2,
+          "line": 147
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 14
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 53,
+      "nonEmptyLines": 37,
+      "sections": [
+        {
+          "heading": "BolKese",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Docker",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Çalıştırma (geliştirme)",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "Ortam değişkenleri",
+          "level": 2,
+          "line": 38
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "fileCategory": "infra",
+      "totalLines": 23,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "services",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "volumes",
+          "level": 1,
+          "line": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "skills.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 275,
+      "nonEmptyLines": 215,
+      "sections": [
+        {
+          "heading": "BolKese frontend ve tasarım rehberi",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. Projenin kapsamı ve dosya haritası",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "2. Bileşenler ve veri akışı",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "Mevcut davranışın sınırları",
+          "level": 3,
+          "line": 45
+        },
+        {
+          "heading": "3. Tasarımın genel karakteri",
+          "level": 2,
+          "line": 54
+        },
+        {
+          "heading": "4. CSS mimarisi",
+          "level": 2,
+          "line": 60
+        },
+        {
+          "heading": "5. Ana renk değişkenleri",
+          "level": 2,
+          "line": 71
+        },
+        {
+          "heading": "Bileşenlere özel önemli renkler",
+          "level": 3,
+          "line": 91
+        },
+        {
+          "heading": "Varlık renkleri ve ikonları",
+          "level": 3,
+          "line": 121
+        },
+        {
+          "heading": "6. Tipografi ve ikonografi",
+          "level": 2,
+          "line": 135
+        },
+        {
+          "heading": "7. Yerleşim, ölçüler ve yüzeyler",
+          "level": 2,
+          "line": 160
+        },
+        {
+          "heading": "8. Responsive davranış",
+          "level": 2,
+          "line": 196
+        },
+        {
+          "heading": "9. Etkileşim, hareket ve erişilebilirlik",
+          "level": 2,
+          "line": 218
+        },
+        {
+          "heading": "10. Türkçe içerik ve sayı biçimleri",
+          "level": 2,
+          "line": 230
+        },
+        {
+          "heading": "11. Sonraki geliştirmelerde izlenecek ilkeler",
+          "level": 2,
+          "line": 241
+        },
+        {
+          "heading": "12. Çalıştırma ve değişiklik doğrulama",
+          "level": 2,
+          "line": 254
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 16
+      }
+    }
+  ]
+}
