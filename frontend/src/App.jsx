@@ -41,6 +41,8 @@ import AssetsPage from './AssetsPage'
 import { labelFor } from './data/symbolLabels'
 import { buildAllocation } from './allocation'
 import AllocationPanel from './AllocationPanel'
+import ThemeButton from './ThemeButton'
+import { applyTheme, readTheme } from './theme'
 
 const STORAGE_KEY = 'bolkese-assets-v2'
 const MANUAL_CODES = new Set(['TRY'])
@@ -721,6 +723,11 @@ function AssetCard({ asset, hidden, onOpen }) {
 function App() {
   const [user, setUser] = useState(null)
   const [authReady, setAuthReady] = useState(false)
+  const [theme, setTheme] = useState(() => readTheme())
+
+  useEffect(() => {
+    applyTheme(theme)
+  }, [theme])
 
   useEffect(() => {
     fetchMe()
@@ -729,23 +736,29 @@ function App() {
       .finally(() => setAuthReady(true))
   }, [])
 
+  const toggleTheme = () => {
+    setTheme((current) => (current === 'dark' ? 'light' : 'dark'))
+  }
+
   if (!authReady) {
     return <div className="boot-screen">BolKese yükleniyor…</div>
   }
 
   if (!user) {
-    return <AuthScreen onAuth={setUser} />
+    return <AuthScreen onAuth={setUser} theme={theme} onToggleTheme={toggleTheme} />
   }
 
   return (
     <Portfolio
       user={user}
       onLogout={() => setUser(null)}
+      theme={theme}
+      onToggleTheme={toggleTheme}
     />
   )
 }
 
-function Portfolio({ user, onLogout }) {
+function Portfolio({ user, onLogout, theme, onToggleTheme }) {
   const [assets, setAssets] = useState([])
   const [assetsReady, setAssetsReady] = useState(false)
   const [modal, setModal] = useState(null)
@@ -1007,6 +1020,7 @@ function Portfolio({ user, onLogout }) {
             <h1>{activeNav === 'market' ? 'Piyasalar' : activeNav === 'reports' ? 'Raporlar' : activeNav === 'assets' ? 'Varlıklarım' : 'Genel Bakış'}</h1>
           </div>
           <div className="topbar-actions">
+            <ThemeButton theme={theme} onToggle={onToggleTheme} />
             <button className="icon-button notification-button" aria-label="Bildirimler" onClick={() => setToast('Yeni bildiriminiz bulunmuyor.')}>
               <Bell size={20} />
               <span />

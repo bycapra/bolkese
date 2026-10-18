@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { ArrowRight, Eye, EyeOff, WalletCards } from 'lucide-react'
 import { loginAccount, registerAccount } from './api/auth'
+import ThemeButton from './ThemeButton'
 
-export default function AuthScreen({ onAuth }) {
+export default function AuthScreen({ onAuth, theme, onToggleTheme }) {
   const [mode, setMode] = useState('login')
   const [form, setForm] = useState({ name: '', email: '', password: '' })
   const [remember, setRemember] = useState(false)
@@ -34,6 +35,7 @@ export default function AuthScreen({ onAuth }) {
 
   return (
     <div className="auth-screen">
+      <ThemeButton className="auth-theme" theme={theme} onToggle={onToggleTheme} />
       <div className="auth-card">
         <div className="brand auth-brand">
           <span className="brand-mark"><WalletCards size={22} /></span>
