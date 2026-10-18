@@ -187,17 +187,17 @@ export default function NotesPage({ assets }) {
       </div>
 
       <form className="notes-form" onSubmit={handleSubmit}>
+        <label className="notes-title-field">
+          <span>Başlık</span>
+          <input
+            value={form.title}
+            onChange={(event) => updateField('title', event.target.value)}
+            aria-label="Not başlığı"
+            required
+            minLength={2}
+          />
+        </label>
         <div className="reports-filters notes-form-grid">
-          <label>
-            <span>Başlık</span>
-            <input
-              value={form.title}
-              onChange={(event) => updateField('title', event.target.value)}
-              aria-label="Not başlığı"
-              required
-              minLength={2}
-            />
-          </label>
           <label>
             <span>Tarih</span>
             <input
