@@ -1,0 +1,21 @@
+- generic [ref=e3]:
+  - button "Karanlık moda geç" [ref=e4] [cursor=pointer]
+  - generic [ref=e7]:
+    - generic [ref=e8]: BolKese
+    - text: Hoş geldiniz
+    - heading "Hesabınıza giriş yapın" [level=1] [ref=e14]
+    - paragraph [ref=e15]: Kategorileriniz ve miktarlarınız hesabınıza kaydedilir. Canlı fiyatlar altinapi üzerinden gelir.
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - generic [ref=e18]: E-posta
+        - textbox "E-posta" [ref=e19]
+      - generic [ref=e20]:
+        - generic [ref=e21]: Şifre
+        - generic [ref=e22]:
+          - textbox "Şifre Şifreyi göster" [ref=e23]
+          - button "Şifreyi göster" [ref=e24]
+      - generic [ref=e30] [cursor=pointer]:
+        - checkbox "Beni hatırla" [ref=e31]
+        - generic [ref=e32]: Beni hatırla
+      - button "Giriş yap" [ref=e33] [cursor=pointer]
+    - button "Hesabınız yok mu? Kayıt olun" [ref=e36] [cursor=pointer]

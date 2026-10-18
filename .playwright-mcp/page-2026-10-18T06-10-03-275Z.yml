@@ -1,0 +1,201 @@
+- generic [ref=e37]:
+  - complementary [ref=e38]:
+    - generic [ref=e39]: BolKese
+    - navigation "Ana menü" [ref=e45]:
+      - button "Genel Bakış" [ref=e46] [cursor=pointer]
+      - button "Varlıklarım" [ref=e51] [cursor=pointer]
+      - button "Piyasalar" [ref=e58] [cursor=pointer]
+      - button "Raporlar" [ref=e62] [cursor=pointer]
+    - generic [ref=e67]:
+      - generic [ref=e72]:
+        - strong [ref=e73]: Verileriniz güvende
+        - generic [ref=e74]: Hesabınızda saklanır
+      - button "Çıkış yap" [ref=e75] [cursor=pointer]
+      - generic [ref=e79]:
+        - generic [ref=e80]: PT
+        - generic [ref=e81]:
+          - strong [ref=e82]: Playwright Test
+          - generic [ref=e83]: playwright@example.test
+        - button "Çıkış yap" [ref=e84] [cursor=pointer]
+  - main [ref=e88]:
+    - generic [ref=e89]:
+      - generic [ref=e90]:
+        - paragraph [ref=e91]: PORTFÖYÜM
+        - heading "Genel Bakış" [level=1] [ref=e92]
+      - generic [ref=e93]:
+        - button "Karanlık moda geç" [ref=e94] [cursor=pointer]
+        - button "Bildirimler" [ref=e97] [cursor=pointer]
+        - button "Kategori ekle" [ref=e102] [cursor=pointer]
+    - region "Portföy özeti" [ref=e104]:
+      - generic [ref=e105]:
+        - generic [ref=e106]:
+          - text: Toplam varlık değeri
+          - button "Bakiyeyi gizle" [ref=e107] [cursor=pointer]
+        - generic [ref=e111]: ₺0,00
+        - generic [ref=e112]: İlk kategorinizi eklediğinizde portföyünüz burada görünecek.
+      - generic [ref=e114]: Son güncelleme 09:10
+    - region "Portföy dağılımı" [ref=e130]:
+      - generic [ref=e132]:
+        - heading "Portföy dağılımı" [level=2] [ref=e133]
+        - text: Kategori ve varlık payları
+      - paragraph [ref=e134]: Miktar girdiğinizde altın, döviz ve nakit dağılımı burada görünür.
+    - generic [ref=e135]:
+      - generic [ref=e136]:
+        - generic [ref=e137]:
+          - generic [ref=e138]:
+            - heading "Varlıklarım" [level=2] [ref=e139]
+            - text: Henüz kategori bulunmuyor
+          - button "Fiyatları yenile" [ref=e140] [cursor=pointer]
+        - generic [ref=e146]:
+          - generic [aria-hidden] [ref=e147]:
+            - generic [ref=e148]: ₺
+            - generic [ref=e149]: €
+          - heading "İlk varlığınızı ekleyin" [level=3] [ref=e154]
+          - paragraph [ref=e155]: Altın, döviz veya nakit için bir kategori oluşturarak portföyünüzü takip etmeye başlayın.
+          - button "Kategori ekle" [ref=e156] [cursor=pointer]
+          - generic [ref=e158]: Kategoriler tamamen sizin kontrolünüzde.
+      - complementary [ref=e159]:
+        - generic [ref=e161]:
+          - heading "Piyasa özeti" [level=2] [ref=e162]
+          - text: Canlı alış / satış
+        - generic [ref=e169]:
+          - generic [ref=e170]:
+            - generic [ref=e177]:
+              - strong [ref=e178]: Gram Altın
+              - generic [ref=e179]: ALTIN
+            - generic [ref=e180]:
+              - strong [ref=e181]: ₺6.601,95
+              - generic [ref=e209]: Satış ₺6.624,01
+              - generic [ref=e210]: +0.00%
+          - generic [ref=e182]:
+            - generic [ref=e187]:
+              - strong [ref=e188]: Dolar
+              - generic [ref=e189]: USDTRY
+            - generic [ref=e190]:
+              - strong [ref=e191]: ₺49,44
+              - generic [ref=e211]: Satış ₺49,50
+              - generic [ref=e212]: +0.00%
+          - generic [ref=e192]:
+            - generic [ref=e196]:
+              - strong [ref=e197]: Euro
+              - generic [ref=e198]: EURTRY
+            - generic [ref=e199]:
+              - strong [ref=e200]: ₺55,44
+              - generic [ref=e213]: Satış ₺55,59
+              - generic [ref=e214]: +0.00%
+        - button "Tüm piyasayı görüntüle" [ref=e201] [cursor=pointer]
+        - paragraph [ref=e207]:
+          - strong [ref=e208]: Canlı veri bağlantısı
+          - text: Alış ve satış fiyatları altinapi üzerinden güncellenir.
+  - dialog [ref=e215]:
+    - generic [ref=e216]:
+      - generic [ref=e217]:
+        - text: Yeni kategori
+        - heading "Takip etmek istediğiniz varlık" [level=2] [ref=e218]
+      - button "Pencereyi kapat" [ref=e219] [cursor=pointer]
+    - generic [ref=e223]:
+      - radiogroup "Varlık türü" [ref=e224]:
+        - radio "Altın" [checked] [ref=e225] [cursor=pointer]
+        - radio "Doları" [ref=e235] [cursor=pointer]
+        - radio "Euro" [ref=e241] [cursor=pointer]
+        - radio "Türk Lirası" [ref=e246] [cursor=pointer]
+        - radio "Diğer Varlık" [ref=e252] [cursor=pointer]
+      - generic [ref=e258]:
+        - generic [ref=e259]:
+          - generic [ref=e260]: Kategori adı
+          - textbox "Kategori adı" [active] [ref=e261]:
+            - /placeholder: Örn. Gram Altın
+            - text: Gram Altın
+        - generic [ref=e262]:
+          - generic [ref=e263]: Kod
+          - combobox "Kod" [ref=e264]:
+            - option "Kod seçin"
+            - option "ALTIN — Altın (TL/gram)" [selected]
+            - option "FARK — Altın fark değeri"
+            - option "GUMTRY — Gümüş (TL/gram)"
+            - option "GUMUSD — Gümüş (USD/ons)"
+            - option "KXAGUSD — Gümüş (USD/kg)"
+            - option "PALADYUM — Paladyum (TL)"
+            - option "PARCHF — Altın parite (CHF)"
+            - option "PAREUR — Altın parite (EUR)"
+            - option "PARGBP — Altın parite (GBP)"
+            - option "PARUSD — Altın parite (USD)"
+            - option "PLATIN — Platin (TL)"
+            - option "VADE FARK — Vadeli altın fark değeri"
+            - option "XAGUSD — Gümüş (USD/ons)"
+            - option "XAUEUR — Altın (EUR/ons)"
+            - option "XAUUSD — Altın (USD/ons)"
+            - option "XAUUSDS — Altın (USD/ons, spot)"
+            - option "XAUXAG — Altın / Gümüş Oranı"
+            - option "XPDUSD — Paladyum (USD/ons)"
+            - option "XPTUSD — Platin (USD/ons)"
+            - option "10 GR GRAM ALTIN — 10 gram altın"
+            - option "100 GR GRAM ALTIN — 100 gram altın"
+            - option "20 GR GRAM ALTIN — 20 gram altın"
+            - option "5 GR GRAM ALTIN — 5 gram altın"
+            - option "50 GR GRAM ALTIN — 50 gram altın"
+            - option "ATA_ESKI — Ata Altın (Eski)"
+            - option "ATA_YENI — Ata Altın (Yeni)"
+            - option "ATA5_ESKI — 5'li Ata Altın (Eski)"
+            - option "ATA5_YENI — 5'li Ata Altın (Yeni)"
+            - option "AYAR14 — 14 Ayar Altın"
+            - option "AYAR22 — 22 Ayar Bilezik Altın"
+            - option "CEYREK_ESKI — Çeyrek Altın (Eski Cumhuriyet)"
+            - option "CEYREK_YENI — Çeyrek Altın (Yeni Cumhuriyet)"
+            - option "GREMESE_ESKI — Gremese Altın (Eski)"
+            - option "GREMESE_YENI — Gremese Altın (Yeni)"
+            - option "KULCEALTIN — Külçe Altın"
+            - option "TEK_ESKI — Tam Altın (Eski Cumhuriyet)"
+            - option "TEK_YENI — Tam Altın (Yeni Cumhuriyet)"
+            - option "YARIM_ESKI — Yarım Altın (Eski Cumhuriyet)"
+            - option "YARIM_YENI — Yarım Altın (Yeni Cumhuriyet)"
+            - option "AUDTRY — Avustralya Doları / Türk Lirası"
+            - option "CADTRY — Kanada Doları / Türk Lirası"
+            - option "CHFTRY — İsviçre Frangı / Türk Lirası"
+            - option "DKKTRY — Danimarka Kronu / Türk Lirası"
+            - option "EURCHF — Euro / İsviçre Frangı"
+            - option "EURGBP — Euro / İngiliz Sterlini"
+            - option "EURTRY — Euro / Türk Lirası"
+            - option "EURUSDS — Euro / ABD Doları (spot)"
+            - option "FARKEUR — EUR bazlı fark değeri"
+            - option "GBPTRY — İngiliz Sterlini / Türk Lirası"
+            - option "JPYTRY — Japon Yeni / Türk Lirası"
+            - option "NOKTRY — Norveç Kronu / Türk Lirası"
+            - option "SARTRY — Suudi Riyali / Türk Lirası"
+            - option "SEKTRY — İsveç Kronu / Türk Lirası"
+            - option "USDTRY — Amerikan Doları / Türk Lirası"
+            - option "XUSDTRY — USD/TRY (çapraz kur)"
+            - option "AUDUSD — Avustralya Doları / ABD Doları"
+            - option "EURUSD — Euro / ABD Doları"
+            - option "GBPUSD — İngiliz Sterlini / ABD Doları"
+            - option "USDCAD — ABD Doları / Kanada Doları"
+            - option "USDCHF — ABD Doları / İsviçre Frangı"
+            - option "USDDKK — ABD Doları / Danimarka Kronu"
+            - option "USDJPY — ABD Doları / Japon Yeni"
+            - option "USDNOK — ABD Doları / Norveç Kronu"
+            - option "USDRUB — ABD Doları / Rus Rublesi"
+            - option "USDSAR — ABD Doları / Suudi Riyali"
+            - option "USDSEK — ABD Doları / İsveç Kronu"
+            - option "TRY — Türk Lirası"
+        - generic [ref=e265]:
+          - generic [ref=e266]: Birim
+          - combobox "Birim" [ref=e267]:
+            - option "Birim seçin"
+            - option "Adet"
+            - option "Gram" [selected]
+            - option "Kilo"
+      - generic [ref=e268]:
+        - generic [ref=e269]:
+          - generic [ref=e270]: Güncel alış fiyatı
+          - generic [ref=e271]:
+            - spinbutton "Güncel alış fiyatı Türk lirası" [ref=e272]: "6601.95"
+            - generic [ref=e273]: ₺
+        - generic [ref=e274]:
+          - generic [ref=e275]: Güncel satış fiyatı
+          - generic [ref=e276]:
+            - spinbutton "Güncel satış fiyatı Türk lirası" [ref=e277]: "6624.01"
+            - generic [ref=e278]: ₺
+      - generic [ref=e279]: Bu kod için fiyat altinapi’den geliyor.
+      - generic [ref=e286]:
+        - button "Vazgeç" [ref=e287] [cursor=pointer]
+        - button "Kategoriyi oluştur" [ref=e288] [cursor=pointer]
