@@ -25,6 +25,7 @@ import {
   Plus,
   RefreshCw,
   ShieldCheck,
+  StickyNote,
   Trash2,
   WalletCards,
   X,
@@ -37,6 +38,7 @@ import AuthScreen from './AuthScreen'
 import { useMarketPrices } from './hooks/useMarketPrices'
 import MarketsPage from './MarketsPage'
 import ReportsPage from './ReportsPage'
+import NotesPage from './NotesPage'
 import AssetsPage from './AssetsPage'
 import { labelFor } from './data/symbolLabels'
 import { buildAllocation } from './allocation'
@@ -943,7 +945,7 @@ function Portfolio({ user, onLogout, theme, onToggleTheme }) {
       refresh({ silent: true })
       return
     }
-    if (item === 'reports' || item === 'assets') return
+    if (item === 'reports' || item === 'assets' || item === 'notes') return
     if (item !== 'home') setToast('Bu bölüm tasarımın sonraki ekranı için hazır.')
   }
 
@@ -986,6 +988,10 @@ function Portfolio({ user, onLogout, theme, onToggleTheme }) {
             <ClipboardList size={19} />
             <span>Raporlar</span>
           </button>
+          <button className={activeNav === 'notes' ? 'active' : ''} onClick={() => handleNav('notes')}>
+            <StickyNote size={19} />
+            <span>Notlar</span>
+          </button>
         </nav>
 
         <div className="sidebar-foot">
@@ -1016,8 +1022,8 @@ function Portfolio({ user, onLogout, theme, onToggleTheme }) {
       <main className="main-area">
         <header className="topbar">
           <div>
-            <p className="date-label">{activeNav === 'market' ? 'PİYASA' : activeNav === 'reports' ? 'RAPOR' : activeNav === 'assets' ? 'VARLIKLAR' : 'PORTFÖYÜM'}</p>
-            <h1>{activeNav === 'market' ? 'Piyasalar' : activeNav === 'reports' ? 'Raporlar' : activeNav === 'assets' ? 'Varlıklarım' : 'Genel Bakış'}</h1>
+            <p className="date-label">{activeNav === 'market' ? 'PİYASA' : activeNav === 'reports' ? 'RAPOR' : activeNav === 'notes' ? 'NOTLAR' : activeNav === 'assets' ? 'VARLIKLAR' : 'PORTFÖYÜM'}</p>
+            <h1>{activeNav === 'market' ? 'Piyasalar' : activeNav === 'reports' ? 'Raporlar' : activeNav === 'notes' ? 'Notlar' : activeNav === 'assets' ? 'Varlıklarım' : 'Genel Bakış'}</h1>
           </div>
           <div className="topbar-actions">
             <ThemeButton theme={theme} onToggle={onToggleTheme} />
@@ -1043,6 +1049,8 @@ function Portfolio({ user, onLogout, theme, onToggleTheme }) {
           />
         ) : activeNav === 'reports' ? (
           <ReportsPage assets={assets} />
+        ) : activeNav === 'notes' ? (
+          <NotesPage assets={assets} />
         ) : activeNav === 'assets' ? (
           <AssetsPage
             assets={assets}
@@ -1213,6 +1221,9 @@ function Portfolio({ user, onLogout, theme, onToggleTheme }) {
         </button>
         <button className={activeNav === 'reports' ? 'active' : ''} onClick={() => handleNav('reports')}>
           <ClipboardList size={21} /><span>Rapor</span>
+        </button>
+        <button className={activeNav === 'notes' ? 'active' : ''} onClick={() => handleNav('notes')}>
+          <StickyNote size={21} /><span>Notlar</span>
         </button>
         <button onClick={handleLogout}>
           <LogOut size={21} /><span>Çıkış</span>

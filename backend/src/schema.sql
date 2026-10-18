@@ -44,6 +44,22 @@ CREATE TABLE IF NOT EXISTS movements (
 
 CREATE INDEX IF NOT EXISTS idx_movements_user_created ON movements(user_id, created_at);
 
+CREATE TABLE IF NOT EXISTS notes (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  title TEXT NOT NULL,
+  body TEXT NOT NULL DEFAULT '',
+  note_date TEXT NOT NULL,
+  kind TEXT NOT NULL,
+  asset_id TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (asset_id) REFERENCES assets(id) ON DELETE SET NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_notes_user_date ON notes(user_id, note_date DESC);
+
 CREATE TABLE IF NOT EXISTS units (
   value TEXT PRIMARY KEY,
   label TEXT NOT NULL

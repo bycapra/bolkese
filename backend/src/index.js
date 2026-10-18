@@ -6,6 +6,7 @@ import authRoutes from './routes/auth.js'
 import assetRoutes from './routes/assets.js'
 import lookupRoutes from './routes/lookups.js'
 import movementRoutes from './routes/movements.js'
+import noteRoutes from './routes/notes.js'
 
 const app = express()
 const port = Number(process.env.PORT) || 4000
@@ -22,6 +23,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/assets', assetRoutes)
 app.use('/api/lookups', lookupRoutes)
 app.use('/api/movements', movementRoutes)
+app.use('/api/notes', noteRoutes)
 
 app.use((error, _req, res, _next) => {
   if (error instanceof SyntaxError && error.status === 400) {
